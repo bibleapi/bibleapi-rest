@@ -1,0 +1,10 @@
+{
+    "name": "bible-api",
+    "description": "Bible API",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "express": "4.10.x",
+        "mongodb": "1.4.x"
+    }
+}
