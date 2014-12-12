@@ -10,21 +10,25 @@ mongoClient.open(function(err, mongoClient) {
     db = mongoClient.db("bible-api");
     db.collection('bible', {strict:true}, function(err, collection) {
         if (err) {
-            console.log("The 'employees' collection doesn't exist. Creating it with sample data...");
+            console.log("Error!");
         }
     });
 });
 
 exports.findAll = function(req, res) {
   var parsedObj = bcv.parse(req.params.passage);
-  //var book = parsedObj.entities[0].passages[0].start.b;
+  var book = parsedObj.entities[0].passages[0].start.b;
   var chapter = parsedObj.entities[0].passages[0].start.c;
   var verse_s = parsedObj.entities[0].passages[0].start.v;
   var verse_e = parsedObj.entities[0].passages[0].end.v;
 
+  if (book === 'Gen') { book = 1; }
+  if (book === 'Lev') { book = 2; }
+
   db.collection('bible', function(err, collection) {
-    collection.find({'book':1, 'chapter':chapter,
-         'verse':{$gte:verse_s, $lte:verse_e}}).toArray(function(err, items) {
+    collection.find({'book':book, 'chapter':chapter,
+         'verse':{$gte:verse_s, $lte:verse_e}})
+         .sort({verse:1}).toArray(function(err, items) {
       res.jsonp(items);
     });
   });
