@@ -194,6 +194,8 @@ exports.parsePassage = function(req, res) {
   db.collection('bible', function(err, collection) {
     collection.find({
       $or: mongoQuery
+    }, {
+      _id: 0
     }).toArray(function(err, items) {
       res.jsonp(items);
     });
