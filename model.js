@@ -1,9 +1,9 @@
 var bcv_parser = require("./en_bcv_parser.js").bcv_parser;
 var bcv = new bcv_parser;
 
-var MongoClient = require('mongodb').MongoClient,
-    Server = require('mongodb').Server,
-    db;
+var MongoClient = require('mongodb').MongoClient;
+var Server = require('mongodb').Server;
+var db;
 
 var mongoClient = new MongoClient(new Server('localhost', 27017));
 mongoClient.open(function(err, mongoClient) {
@@ -15,24 +15,24 @@ mongoClient.open(function(err, mongoClient) {
     });
 });
 
+var mongoQuery = [];
+
 var fetchBcv = function(passage, res) {
   var pTranslation = 'RST';
   if (passage.translations != null) {
     pTranslation = passage.translations[0].osis;
   }
-  db.collection('bible', function(err, collection) {
-    collection.find({
-      'tran':pTranslation,
-      'bookRef':passage.start.b,
-      'chapter':passage.start.c,
-      'verse':passage.start.v
-    }).toArray(function(err, items) {
-      res.jsonp(items);
-    });
+  mongoQuery.push({
+    'tran':pTranslation,
+    'bookRef':passage.start.b,
+    'chapter':passage.start.c,
+    'verse':passage.start.v
   });
 };
 
-var fetchRange = function(passage, res) {
+var fetchRange = function(passage) {
+  var translationInfo = bcv.translation_info("");
+
   var pTranslation = 'RST';
   if (passage.translations != null) {
     pTranslation = passage.translations[0].osis;
@@ -42,15 +42,11 @@ var fetchRange = function(passage, res) {
   if (passage.start.b === passage.end.b) {
     // passage of one chapter
     if (passage.start.c === passage.end.c) {
-      db.collection('bible', function(err, collection) {
-        collection.find({
-          'tran':pTranslation,
-          'bookRef':passage.start.b,
-          'chapter':passage.start.c,
-          'verse':{$gte:passage.start.v, $lte:passage.end.v}
-        }).toArray(function(err, items) {
-          res.jsonp(items);
-        });
+      mongoQuery.push({
+        'tran':pTranslation,
+        'bookRef':passage.start.b,
+        'chapter':passage.start.c,
+        'verse':{$gte:passage.start.v, $lte:passage.end.v}
       });
     }
     else { // passage of many chapters
@@ -74,12 +70,8 @@ var fetchRange = function(passage, res) {
         });
       }
 
-      db.collection('bible', function(err, collection) {
-        collection.find({
-          $or: chapters
-        }).toArray(function(err, items) {
-          res.jsonp(items);
-        });
+      mongoQuery.push({
+        $or: chapters
       });
     }
   } // passage of many books
@@ -143,18 +135,14 @@ var fetchRange = function(passage, res) {
       }
     }
 
-    db.collection('bible', function(err, collection) {
-      collection.find({
-        $or: chapters
-      }).toArray(function(err, items) {
-        res.jsonp(items);
-      });
+    mongoQuery.push({
+      $or: chapters
     });
   }
 };
 
 exports.findAll = function(req, res) {
-  var translationInfo = bcv.translation_info("");
+  mongoQuery = [];
   var entities = bcv.parse(req.params.passage).entities;
 
   for (var i=0; i<entities.length; i++) {
@@ -163,25 +151,33 @@ exports.findAll = function(req, res) {
     // only one verse
     if (entity.type === 'bcv') {
       // bcv has only one passage
-      fetchBcv(entity.passages[0], res);
+      fetchBcv(entity.passages[0]);
     } // range of verses
     else if (entity.type === 'range') {
       // range has only one passage
-      fetchRange(entity.passages[0], res);
+      fetchRange(entity.passages[0]);
     }
     else if(entity.type === 'sequence') {
       for (var j=0; j<entity.passages.length; j++) {
         var passage = entity.passages[j];
         // passage sequence includes bcv
         if (passage.type === 'bcv' || passage.type === 'integer') {
-          fetchBcv(passage, res);
+          fetchBcv(passage);
         } // passage sequence includes range
         else if(passage.type === 'range') {
-          fetchRange(passage, res);
+          fetchRange(passage);
         }
       }
     }
   }
+
+  db.collection('bible', function(err, collection) {
+    collection.find({
+      $or: mongoQuery
+    }).toArray(function(err, items) {
+      res.jsonp(items);
+    });
+  });
 };
 
 exports.findById = function(req, res) {
