@@ -191,13 +191,21 @@ exports.parsePassage = function(req, res) {
     }
   }
 
-  db.collection('bible', function(err, collection) {
-    collection.find({
-      $or: mongoQuery
-    }, {
-      _id: 0
-    }).toArray(function(err, items) {
-      res.jsonp(items);
+  if (mongoQuery.length > 0) {
+    db.collection('bible', function(err, collection) {
+      collection.find({
+        $or: mongoQuery
+      }, {
+        _id: 0
+      }).toArray(function(err, items) {
+        res.jsonp(items);
+      });
     });
-  });
+  }
+  else {
+    var error = {
+      message: 'Bible passage is not found.'
+    };
+    res.jsonp(error);
+  }
 };
