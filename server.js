@@ -1,12 +1,10 @@
 var express = require('express');
-var wines = require('./model');
+var model = require('./model');
 
 var app = express();
 
-app.get('/:passage', wines.findAll);
+app.get('/:passage', model.parsePassage);
 
 app.listen(3005);
 
 console.log('Listening on port 3005...');
-
-//wines.findAll("Gen 1:1");

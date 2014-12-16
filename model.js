@@ -17,40 +17,37 @@ mongoClient.open(function(err, mongoClient) {
 
 var mongoQuery = [];
 
-var fetchBc = function(passage) {
+var fetchBcv = function(passage, type) {
   var pTranslation = 'RST';
 
-  if (passage.translations != null) {
-    pTranslation = passage.translations[0].osis;
+  var query = {
+    'tran':pTranslation,
+    'bookRef':passage.start.b
   }
 
-  mongoQuery.push({
-    'tran':pTranslation,
-    'bookRef':passage.start.b,
-    'chapter':passage.start.c
-  });
-}
+  if (type === 'bc') {
+    query.chapter = passage.start.c;
+  }
+  else if (type === 'bcv') {
+    query.chapter = passage.start.c;
+    query.verse = passage.start.v;
+  }
 
-var fetchBcv = function(passage) {
-  var pTranslation = 'RST';
   // display passage for each translation
   if (passage.translations != null) {
-    for (var i=0; i<passage.translations.length; i++) {
-      mongoQuery.push({
-        'tran':passage.translations[i].osis,
-        'bookRef':passage.start.b,
-        'chapter':passage.start.c,
-        'verse':passage.start.v
-      });
+    if (type === 'bcv') {
+      for (var i=0; i<passage.translations.length; i++) {
+        query.tran = passage.translations[i].osis;
+        mongoQuery.push(query);
+      }
+    }
+    else {
+      query.tran = passage.translations[0].osis;
+      mongoQuery.push(query);
     }
   } // one translation only
   else {
-    mongoQuery.push({
-      'tran':pTranslation,
-      'bookRef':passage.start.b,
-      'chapter':passage.start.c,
-      'verse':passage.start.v
-    });
+    mongoQuery.push(query);
   }
 };
 
@@ -165,31 +162,27 @@ var fetchRange = function(passage) {
   }
 };
 
-exports.findAll = function(req, res) {
+exports.parsePassage = function(req, res) {
   mongoQuery = [];
   var entities = bcv.parse(req.params.passage).entities;
 
   for (var i=0; i<entities.length; i++) {
     var entity = entities[i];
-    // only one chapter
-    if (entity.type === 'bc') {
-      // bc has only one passage
-      fetchBc(entity.passages[0]);
-    } // only one verse
-    if (entity.type === 'bcv') {
+    // passage contains whole book, whole chapter or verse also
+    if (entity.type === 'b' || entity.type === 'bc' || entity.type === 'bcv') {
       // bcv has only one passage
-      fetchBcv(entity.passages[0]);
+      fetchBcv(entity.passages[0], entity.type);
     } // range of verses
     else if (entity.type === 'range') {
       // range has only one passage
       fetchRange(entity.passages[0]);
-    }
+    } // sequence of passages
     else if(entity.type === 'sequence') {
       for (var j=0; j<entity.passages.length; j++) {
         var passage = entity.passages[j];
         // passage sequence includes bcv
         if (passage.type === 'bcv' || passage.type === 'integer') {
-          fetchBcv(passage);
+          fetchBcv(passage, 'bcv');
         } // passage sequence includes range
         else if(passage.type === 'range') {
           fetchRange(passage);
