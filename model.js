@@ -17,6 +17,20 @@ mongoClient.open(function(err, mongoClient) {
 
 var mongoQuery = [];
 
+var fetchBc = function(passage) {
+  var pTranslation = 'RST';
+
+  if (passage.translations != null) {
+    pTranslation = passage.translations[0].osis;
+  }
+
+  mongoQuery.push({
+    'tran':pTranslation,
+    'bookRef':passage.start.b,
+    'chapter':passage.start.c
+  });
+}
+
 var fetchBcv = function(passage) {
   var pTranslation = 'RST';
   // display passage for each translation
@@ -157,8 +171,11 @@ exports.findAll = function(req, res) {
 
   for (var i=0; i<entities.length; i++) {
     var entity = entities[i];
-
-    // only one verse
+    // only one chapter
+    if (entity.type === 'bc') {
+      // bc has only one passage
+      fetchBc(entity.passages[0]);
+    } // only one verse
     if (entity.type === 'bcv') {
       // bcv has only one passage
       fetchBcv(entity.passages[0]);
