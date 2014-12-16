@@ -1,9 +1,9 @@
 var bcv_parser = require("./en_bcv_parser.js").bcv_parser;
 var bcv = new bcv_parser;
 
-var MongoClient = require('mongodb').MongoClient;
-var Server = require('mongodb').Server;
 var db;
+var Server = require('mongodb').Server;
+var MongoClient = require('mongodb').MongoClient;
 
 var mongoClient = new MongoClient(new Server('localhost', 27017));
 mongoClient.open(function(err, mongoClient) {
@@ -17,17 +17,27 @@ mongoClient.open(function(err, mongoClient) {
 
 var mongoQuery = [];
 
-var fetchBcv = function(passage, res) {
+var fetchBcv = function(passage) {
   var pTranslation = 'RST';
+  // display passage for each translation
   if (passage.translations != null) {
-    pTranslation = passage.translations[0].osis;
+    for (var i=0; i<passage.translations.length; i++) {
+      mongoQuery.push({
+        'tran':passage.translations[i].osis,
+        'bookRef':passage.start.b,
+        'chapter':passage.start.c,
+        'verse':passage.start.v
+      });
+    }
+  } // one translation only
+  else {
+    mongoQuery.push({
+      'tran':pTranslation,
+      'bookRef':passage.start.b,
+      'chapter':passage.start.c,
+      'verse':passage.start.v
+    });
   }
-  mongoQuery.push({
-    'tran':pTranslation,
-    'bookRef':passage.start.b,
-    'chapter':passage.start.c,
-    'verse':passage.start.v
-  });
 };
 
 var fetchRange = function(passage) {
@@ -178,27 +188,4 @@ exports.findAll = function(req, res) {
       res.jsonp(items);
     });
   });
-};
-
-exports.findById = function(req, res) {
-    console.log(req.params);
-    var id = parseInt(req.params.id);
-    console.log('findById: ' + id);
-    db.collection('employees', function(err, collection) {
-        collection.findOne({'id': id}, function(err, item) {
-            console.log(item);
-            res.jsonp(item);
-        });
-    });
-};
-
-exports.findByManager = function(req, res) {
-    var id = parseInt(req.params.id);
-    console.log('findByManager: ' + id);
-    db.collection('employees', function(err, collection) {
-        collection.find({'managerId': id}).toArray(function(err, items) {
-            console.log(items);
-            res.jsonp(items);
-        });
-    });
 };
