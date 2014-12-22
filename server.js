@@ -88,7 +88,6 @@ var BibleApiApp = function() {
           model.parsePassage(req, res);
         };
 
-        /*
         // Routes for /health, /asciimo, /env and /
         self.routes['/health'] = function(req, res) {
             res.send('1');
@@ -112,7 +111,7 @@ var BibleApiApp = function() {
                      '  <body>\n<br/>\n' + content + '</body>\n</html>');
         };
 
-        self.routes['/'] = function(req, res) {
+        /*self.routes['/'] = function(req, res) {
             res.set('Content-Type', 'text/html');
             res.send(self.cache_get('index.html') );
         };*/
