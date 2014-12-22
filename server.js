@@ -1,6 +1,5 @@
 #!/bin/env node
 
-var fs = require('fs');
 var express = require('express');
 var model = require('./model');
 
@@ -89,7 +88,7 @@ var BibleApiApp = function() {
         };
 
         // Routes for /health, /asciimo, /env and /
-        self.routes['/health'] = function(req, res) {
+        /*self.routes['/health'] = function(req, res) {
             res.send('1');
         };
 
@@ -109,12 +108,14 @@ var BibleApiApp = function() {
             res.send('<html>\n' +
                      '  <head><title>Node.js Process Env</title></head>\n' +
                      '  <body>\n<br/>\n' + content + '</body>\n</html>');
-        };
-
-        /*self.routes['/'] = function(req, res) {
-            res.set('Content-Type', 'text/html');
-            res.send(self.cache_get('index.html') );
         };*/
+
+        self.routes['/'] = function(req, res) {
+            res.set('Content-Type', 'text/html');
+            res.send('<html>\n' +
+            '  <head><title>BibleAPI</title></head>\n' +
+            '  <body>Bible API web service v0.0.3</body>\n</html>');
+        };
     };
 
     /**

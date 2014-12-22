@@ -1,7 +1,7 @@
 {
-    "name": "bible-api",
+    "name": "bibleapi",
     "description": "Bible API",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "private": true,
     "dependencies": {
         "express": "4.10.x",
