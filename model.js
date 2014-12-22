@@ -7,7 +7,7 @@ var MongoClient = require('mongodb').MongoClient;
 
 var mongoClient = new MongoClient(new Server('localhost', 27017));
 mongoClient.open(function(err, mongoClient) {
-    db = mongoClient.db("bible-api");
+    db = mongoClient.db("bibleapi");
     db.collection('bible', {strict:true}, function(err, collection) {
         if (err) {
             console.log("Error!");
