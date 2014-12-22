@@ -1,18 +1,39 @@
 var bcv_parser = require("./en_bcv_parser.js").bcv_parser;
 var bcv = new bcv_parser;
 
-var db;
+//var db;
 var Server = require('mongodb').Server;
 var MongoClient = require('mongodb').MongoClient;
 
-var mongoClient = new MongoClient(new Server('localhost', 27017));
+/*var mongoClient = new MongoClient(new Server('localhost', 27017));
 mongoClient.open(function(err, mongoClient) {
-    db = mongoClient.db("bibleapi");
+    db = mongoClient.db("bible-api");
     db.collection('bible', {strict:true}, function(err, collection) {
         if (err) {
             console.log("Error!");
         }
     });
+});*/
+
+var collection;
+var connection_string = '127.0.0.1:27017/bibleapi';
+// if OPENSHIFT env variables are present, use the available connection info:
+if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
+  connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+  process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+  process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
+  process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
+  process.env.OPENSHIFT_APP_NAME;
+}
+
+MongoClient.connect('mongodb://' + connection_string, function(err, db) {
+  if(err) throw err;
+  db.collection('bible', {strict:true}, function(err, collect) {
+    collection = collect;
+    if (err) {
+      console.log("Error!");
+    }
+  });
 });
 
 var mongoQuery = [];
@@ -192,7 +213,7 @@ exports.parsePassage = function(req, res) {
   }
 
   if (mongoQuery.length > 0) {
-    db.collection('bible', function(err, collection) {
+    //db.collection('bible', function(err, collection) {
       collection.find({
         $or: mongoQuery
       }, {
@@ -200,7 +221,7 @@ exports.parsePassage = function(req, res) {
       }).toArray(function(err, items) {
         res.jsonp(items);
       });
-    });
+    //});
   }
   else {
     var error = {
