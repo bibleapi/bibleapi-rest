@@ -1,4 +1,4 @@
-var bcv_parser = require("./en_bcv_parser.js").bcv_parser;
+var bcv_parser = require("./full_bcv_parser.js").bcv_parser;
 var bcv = new bcv_parser;
 
 //var db;
@@ -39,36 +39,38 @@ MongoClient.connect('mongodb://' + connection_string, function(err, db) {
 var mongoQuery = [];
 
 var fetchBcv = function(passage, type) {
-  var pTranslation = 'RST';
-
-  var query = {
-    'tran':pTranslation,
-    'bookRef':passage.start.b
+  var translations = [];
+  if (passage.translations != null) {
+    for (var i=0; i<passage.translations.length; i++) {
+      translations.push(passage.translations[i].osis);
+    }
+  } // no translations set
+  else {
+    translations.push('RST'); // default
   }
 
-  if (type === 'bc') {
-    query.chapter = passage.start.c;
+  if (type === 'b') {
+    mongoQuery.push({
+      'tran':translations[0],
+      'bookRef':passage.start.b
+    });
+  }
+  else if (type === 'bc') {
+    mongoQuery.push({
+      'tran':translations[0],
+      'bookRef':passage.start.b,
+      'chapter':passage.start.c
+    });
   }
   else if (type === 'bcv') {
-    query.chapter = passage.start.c;
-    query.verse = passage.start.v;
-  }
-
-  // display passage for each translation
-  if (passage.translations != null) {
-    if (type === 'bcv') {
-      for (var i=0; i<passage.translations.length; i++) {
-        query.tran = passage.translations[i].osis;
-        mongoQuery.push(query);
-      }
+    for (var i=0; i<translations.length; i++) {
+      mongoQuery.push({
+        'tran':translations[i],
+        'bookRef':passage.start.b,
+        'chapter':passage.start.c,
+        'verse':passage.start.v
+      });
     }
-    else {
-      query.tran = passage.translations[0].osis;
-      mongoQuery.push(query);
-    }
-  } // one translation only
-  else {
-    mongoQuery.push(query);
   }
 };
 
@@ -216,9 +218,8 @@ exports.parsePassage = function(req, res) {
     //db.collection('bible', function(err, collection) {
       collection.find({
         $or: mongoQuery
-      }, {
-        _id: 0
-      }).toArray(function(err, items) {
+      }, { _id: 0 })
+      .toArray(function(err, items) {
         res.jsonp(items);
       });
     //});

@@ -2011,10 +2011,58 @@
     }
   };
 
-  bcv_parser.prototype.regexps.translations = /(?:(?:RST|SZ))\b/gi;
+  bcv_parser.prototype.regexps.translations = /(?:(?:A(?:MP|SV)|RSV|RST|N(?:RSV|LT|I(?:RV|V)|KJV|A(?:B(?:RE)?|SB?))|MSG|TNIV|CE[BV]|E[RS]V|HCSB|KJV))\b/gi;
 
   bcv_parser.prototype.translations = {
     aliases: {
+      ceb: {
+        osis: "CEB",
+        alias: "ceb"
+      },
+      kjv: {
+        osis: "KJV",
+        alias: "kjv"
+      },
+      nab: {
+        osis: "NAB",
+        alias: "nab"
+      },
+      nabre: {
+        osis: "NABRE",
+        alias: "nab"
+      },
+      nas: {
+        osis: "NASB",
+        alias: "default"
+      },
+      nirv: {
+        osis: "NIRV",
+        alias: "kjv"
+      },
+      niv: {
+        osis: "NIV",
+        alias: "kjv"
+      },
+      nkjv: {
+        osis: "NKJV",
+        alias: "nkjv"
+      },
+      nlt: {
+        osis: "NLT",
+        alias: "nlt"
+      },
+      nrsv: {
+        osis: "NRSV",
+        alias: "nrsv"
+      },
+      tniv: {
+        osis: "TNIV",
+        alias: "kjv"
+      },
+      rst: {
+        osis: "RST",
+        alias: "rst"
+      },
       "default": {
         osis: "",
         alias: "default"
@@ -2205,23 +2253,23 @@
 
   bcv_parser.prototype.regexps.space = "[\\s\\xa0]";
 
-  bcv_parser.prototype.regexps.escaped_passage = RegExp("(?:^|[^\\x1f\\x1e\\dA-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])((?:(?:ch(?:apters?|a?pts?\\.?|a?p?s?\\.?)?\\s*\\d+\\s*(?:[\\u2013\\u2014\\-]|through|thru|to)\\s*\\d+\\s*(?:from|of|in)(?:\\s+the\\s+book\\s+of)?\\s*)|(?:ch(?:apters?|a?pts?\\.?|a?p?s?\\.?)?\\s*\\d+\\s*(?:from|of|in)(?:\\s+the\\s+book\\s+of)?\\s*)|(?:\\d+(?:th|nd|st)\\s*ch(?:apter|a?pt\\.?|a?p?\\.?)?\\s*(?:from|of|in)(?:\\s+the\\s+book\\s+of)?\\s*))?\\x1f(\\d+)(?:/\\d+)?\\x1f(?:/\\d+\\x1f|[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014]|надписаниях(?![a-z])|и" + bcv_parser.prototype.regexps.space + "+далее|главы|стихи|глав|стих|гл|—|и|[аб](?!\\w)|$)+)", "gi");
+  bcv_parser.prototype.regexps.escaped_passage = RegExp("(?:^|[^\\x1f\\x1e\\dA-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:(?:ch(?:apters?|a?pts?\\.?|a?p?s?\\.?)?\\s*\\d+\\s*(?:[\\u2013\\u2014\\-]|through|thru|to)\\s*\\d+\\s*(?:from|of|in)(?:\\s+the\\s+book\\s+of)?\\s*)|(?:ch(?:apters?|a?pts?\\.?|a?p?s?\\.?)?\\s*\\d+\\s*(?:from|of|in)(?:\\s+the\\s+book\\s+of)?\\s*)|(?:\\d+(?:th|nd|st)\\s*ch(?:apter|a?pt\\.?|a?p?\\.?)?\\s*(?:from|of|in)(?:\\s+the\\s+book\\s+of)?\\s*))?\\x1f(\\d+)(?:/\\d+)?\\x1f(?:/\\d+\\x1f|[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014]|title(?![a-z])|see" + bcv_parser.prototype.regexps.space + "+also|ff(?![a-z0-9])|f(?![a-z0-9])|chapters|chapter|through|compare|chapts|verses|chpts|chapt|chaps|verse|chap|thru|also|chp|chs|cha|and|see|ver|vss|ch|to|cf|vs|vv|v|[a-e](?!\\w)|$)+)", "gi");
 
-  bcv_parser.prototype.regexps.match_end_split = RegExp("\\d+\\W*надписаниях|\\d+\\W*и" + bcv_parser.prototype.regexps.space + "+далее(?:[\\s\\xa0*]*\\.)?|\\d+[\\s\\xa0*]*[аб](?!\\w)|\\x1e(?:[\\s\\xa0*]*[)\\]\\uff09])?|[\\d\\x1f]+", "gi");
+  bcv_parser.prototype.regexps.match_end_split = /\d+\W*title|\d+\W*(?:ff(?![a-z0-9])|f(?![a-z0-9]))(?:[\s\xa0*]*\.)?|\d+[\s\xa0*]*[a-e](?!\w)|\x1e(?:[\s\xa0*]*[)\]\uff09])?|[\d\x1f]+/gi;
 
   bcv_parser.prototype.regexps.control = /[\x1e\x1f]/g;
 
-  bcv_parser.prototype.regexps.pre_book = "[^A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ]";
+  bcv_parser.prototype.regexps.pre_book = "[^A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ]";
 
-  bcv_parser.prototype.regexps.first = "(?:1-?я|1-?е|1)\\.?" + bcv_parser.prototype.regexps.space + "*";
+  bcv_parser.prototype.regexps.first = "(?:1st|1|I|First)\\.?" + bcv_parser.prototype.regexps.space + "*";
 
-  bcv_parser.prototype.regexps.second = "(?:2-?я|2-?е|2)\\.?" + bcv_parser.prototype.regexps.space + "*";
+  bcv_parser.prototype.regexps.second = "(?:2nd|2|II|Second)\\.?" + bcv_parser.prototype.regexps.space + "*";
 
-  bcv_parser.prototype.regexps.third = "(?:3-?я|3-?е|3)\\.?" + bcv_parser.prototype.regexps.space + "*";
+  bcv_parser.prototype.regexps.third = "(?:3rd|3|III|Third)\\.?" + bcv_parser.prototype.regexps.space + "*";
 
-  bcv_parser.prototype.regexps.range_and = "(?:[&\u2013\u2014-]|и|—)";
+  bcv_parser.prototype.regexps.range_and = "(?:[&\u2013\u2014-]|(?:and|compare|cf|see" + bcv_parser.prototype.regexps.space + "+also|also|see)|(?:through|thru|to))";
 
-  bcv_parser.prototype.regexps.range_only = "(?:[\u2013\u2014-]|—)";
+  bcv_parser.prototype.regexps.range_only = "(?:[\u2013\u2014-]|(?:through|thru|to))";
 
   bcv_parser.prototype.regexps.get_books = function(include_apocrypha, case_sensitive) {
     var book, books, out, _i, _len;
@@ -2233,274 +2281,337 @@
         regexp: /(\b)(Ps151)(?=\.1)/g
       }, {
         osis: ["Gen"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*Бытия|Нач(?:ало)?|Быт(?:ие)?|Gen))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*Бытия|G(?:n|e(?:n(?:i(?:[ei]s(?:[eiu]s)|s[eiu]s)|sis|n(?:e(?:is(?:[eiu]s)?|es[eiu]s|s[eiu]s)|i(?:[ei]s(?:[eiu]s)|s[eiu]s)|sis)|e(?:is(?:[eiu]s)?|es[eiu]s|s(?:[ei]s?|us)))?)?)|Нач(?:ало)?|Быт(?:ие)?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
       }, {
         osis: ["Exod"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Exod|Книга[\\s\\xa0]*Исход|Исх(?:од)?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*Исход|Ex(?:o(?:d(?:[iu]s|[es])?)?|d)?|Исх(?:од)?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
       }, {
         osis: ["Bel"],
         apocrypha: true,
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Бел(?:[\\s\\xa0]*и[\\s\\xa0]*Дракон|е)?|Bel|Виле[\\s\\xa0]*и[\\s\\xa0]*драконе))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Бел(?:[\\s\\xa0]*и[\\s\\xa0]*Дракон|е)?|Bel(?:[\\s\\xa0]*(?:and[\\s\\xa0]*(?:S(?:erpent|nake)|Dragon|the[\\s\\xa0]*(?:S(?:erpent|nake)|Dragon))|&[\\s\\xa0]*(?:S(?:erpent|nake)|Dragon|the[\\s\\xa0]*(?:S(?:erpent|nake)|Dragon))))?|Виле[\\s\\xa0]*и[\\s\\xa0]*драконе))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Phlm"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Послание[\\s\\xa0]*к[\\s\\xa0]*Филимону|Ph(?:ile(?:m(?:on)?)?|mn?|l(?:[ei]mon|mn?))|К[\\s\\xa0]*Филимону|Ф(?:лм|илимону)))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
       }, {
         osis: ["Lev"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*Левит|Lev|Лев(?:ит)?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*Левит|L(?:e(?:v(?:i(?:t(?:cus|[ei]cus))?|et(?:cus|[ei]cus))?)?|iv(?:[ei]t(?:cus|[ei]cus))|v)|Лев(?:ит)?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
       }, {
-        osis: ["Num"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Чис(?:ла)?|Num|Книга[\\s\\xa0]*Чисел))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+        osis: ["2Thess"],
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:II(?:[\s\xa0]*Th(?:s(?:ss?)?|es(?:elon(?:ains|ians?)|olonians?|al(?:oni(?:[ci]ans|ns|ans?|ons)|lonians)|s(?:al(?:on(?:eans|a(?:i(?:ns?|ans)|ns)|o(?:ians|ans)|i(?:(?:[ao](?:ns?|ans))|ns|ions|ens|c(?:i[ae]ns|ans))|ciens)|lonians)|elon(?:ains|ians?)|oloni(?:ns|ans?)|s)?)?)?|\.[\s\xa0]*Th(?:s(?:ss?)?|es(?:elon(?:ains|ians?)|olonians?|al(?:oni(?:[ci]ans|ns|ans?|ons)|lonians)|s(?:al(?:on(?:eans|a(?:i(?:ns?|ans)|ns)|o(?:ians|ans)|i(?:(?:[ao](?:ns?|ans))|ns|ions|ens|c(?:i[ae]ns|ans))|ciens)|lonians)|elon(?:ains|ians?)|oloni(?:ns|ans?)|s)?)?)?)|2(?:nd(?:[\s\xa0]*Th(?:s(?:ss?)?|es(?:elon(?:ains|ians?)|olonians?|al(?:oni(?:[ci]ans|ns|ans?|ons)|lonians)|s(?:al(?:on(?:eans|a(?:i(?:ns?|ans)|ns)|o(?:ians|ans)|i(?:(?:[ao](?:ns?|ans))|ns|ions|ens|c(?:i[ae]ns|ans))|ciens)|lonians)|elon(?:ains|ians?)|oloni(?:ns|ans?)|s)?)?)?|\.[\s\xa0]*Th(?:s(?:ss?)?|es(?:elon(?:ains|ians?)|olonians?|al(?:oni(?:[ci]ans|ns|ans?|ons)|lonians)|s(?:al(?:on(?:eans|a(?:i(?:ns?|ans)|ns)|o(?:ians|ans)|i(?:(?:[ao](?:ns?|ans))|ns|ions|ens|c(?:i[ae]ns|ans))|ciens)|lonians)|elon(?:ains|ians?)|oloni(?:ns|ans?)|s)?)?)?)|Thess|[ея](?:[\s\xa0]*(?:к[\s\xa0]*Фессалоники(?:[ий]цам|Фессалоники[ий]цам)|\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники[ий]цам|Фессалоники[ий]цам)))|-?[ея](?:[\s\xa0]*(?:к[\s\xa0]*Фессалоники(?:[ий]цам|Фессалоники[ий]цам)|\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники[ий]цам|Фессалоники[ий]цам)))|[\s\xa0]*(?:Th(?:s(?:ss?)?|es(?:elon(?:ains|ians?)|olonians?|al(?:oni(?:[ci]ans|ns|ans?|ons)|lonians)|s(?:al(?:on(?:eans|a(?:i(?:ns?|ans)|ns)|o(?:ians|ans)|i(?:(?:[ao](?:ns?|ans))|ns|ions|ens|c(?:i[ae]ns|ans))|ciens)|lonians)|elon(?:ains|ians?)|oloni(?:ns|ans?)|s)?)?)?|к[\s\xa0]*Фессалоники[ий]цам|Фес(?:салоники[ий]цам)?)|\.[\s\xa0]*(?:Th(?:s(?:ss?)?|es(?:elon(?:ains|ians?)|olonians?|al(?:oni(?:[ci]ans|ns|ans?|ons)|lonians)|s(?:al(?:on(?:eans|a(?:i(?:ns?|ans)|ns)|o(?:ians|ans)|i(?:(?:[ao](?:ns?|ans))|ns|ions|ens|c(?:i[ae]ns|ans))|ciens)|lonians)|elon(?:ains|ians?)|oloni(?:ns|ans?)|s)?)?)?|к[\s\xa0]*Фессалоники[ий]цам|Фессалоники[ий]цам))|Second[\s\xa0]*Th(?:s(?:ss?)?|es(?:elon(?:ains|ians?)|olonians?|al(?:oni(?:[ci]ans|ns|ans?|ons)|lonians)|s(?:al(?:on(?:eans|a(?:i(?:ns?|ans)|ns)|o(?:ians|ans)|i(?:(?:[ao](?:ns?|ans))|ns|ions|ens|c(?:i[ae]ns|ans))|ciens)|lonians)|elon(?:ains|ians?)|oloni(?:ns|ans?)|s)?)?)?)|2(?:-?[ея](?:[\s\xa0]*Фессалоники(?:[ий]цам|\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники[ий]цам|Фессалоники[ий]цам)))|[ея](?:[\s\xa0]*Фессалоники(?:[ий]цам|\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники[ий]цам|Фессалоники[ий]цам))))|2(?:-?[ея]\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники(?:[ий]цам|Фессалоники[ий]цам))|[ея]\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники(?:[ий]цам|Фессалоники[ий]цам)))|2(?:[ея]\.[\s\xa0]*Фессалоники(?:[ий]цам)|-?[ея]\.[\s\xa0]*Фессалоники(?:[ий]цам)))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
       }, {
-        osis: ["Sir"],
-        apocrypha: true,
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Премудрост(?:ь[\\s\\xa0]*Сираха|и[\\s\\xa0]*Иисуса,[\\s\\xa0]*сына[\\s\\xa0]*Сирахова)|Ekkleziastik|Сир(?:ахова)?|Sir))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+        osis: ["1Thess"],
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:1(?:Thess|[ея](?:[\s\xa0]*(?:к[\s\xa0]*Фессалоники(?:[ий]цам|Фессалоники[ий]цам)|\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники[ий]цам|Фессалоники[ий]цам)))|-?[ея](?:[\s\xa0]*(?:к[\s\xa0]*Фессалоники(?:[ий]цам|Фессалоники[ий]цам)|\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники[ий]цам|Фессалоники[ий]цам)))|st(?:[\s\xa0]*Th(?:s(?:ss?)?|es(?:elon(?:ains|ians?)|olonians?|al(?:oni(?:[ci]ans|ns|ans?|ons)|lonians)|s(?:al(?:on(?:eans|a(?:i(?:ns?|ans)|ns)|o(?:ians|ans)|i(?:(?:[ao](?:ns?|ans))|ns|ions|ens|c(?:i[ae]ns|ans))|ciens)|lonians)|elon(?:ains|ians?)|oloni(?:ns|ans?)|s)?)?)?|\.[\s\xa0]*Th(?:s(?:ss?)?|es(?:elon(?:ains|ians?)|olonians?|al(?:oni(?:[ci]ans|ns|ans?|ons)|lonians)|s(?:al(?:on(?:eans|a(?:i(?:ns?|ans)|ns)|o(?:ians|ans)|i(?:(?:[ao](?:ns?|ans))|ns|ions|ens|c(?:i[ae]ns|ans))|ciens)|lonians)|elon(?:ains|ians?)|oloni(?:ns|ans?)|s)?)?)?)|[\s\xa0]*(?:Th(?:s(?:ss?)?|es(?:elon(?:ains|ians?)|olonians?|al(?:oni(?:[ci]ans|ns|ans?|ons)|lonians)|s(?:al(?:on(?:eans|a(?:i(?:ns?|ans)|ns)|o(?:ians|ans)|i(?:(?:[ao](?:ns?|ans))|ns|ions|ens|c(?:i[ae]ns|ans))|ciens)|lonians)|elon(?:ains|ians?)|oloni(?:ns|ans?)|s)?)?)?|к[\s\xa0]*Фессалоники[ий]цам|Фес(?:салоники[ий]цам)?)|\.[\s\xa0]*(?:Th(?:s(?:ss?)?|es(?:elon(?:ains|ians?)|olonians?|al(?:oni(?:[ci]ans|ns|ans?|ons)|lonians)|s(?:al(?:on(?:eans|a(?:i(?:ns?|ans)|ns)|o(?:ians|ans)|i(?:(?:[ao](?:ns?|ans))|ns|ions|ens|c(?:i[ae]ns|ans))|ciens)|lonians)|elon(?:ains|ians?)|oloni(?:ns|ans?)|s)?)?)?|к[\s\xa0]*Фессалоники[ий]цам|Фессалоники[ий]цам))|I(?:[\s\xa0]*Th(?:s(?:ss?)?|es(?:elon(?:ains|ians?)|olonians?|al(?:oni(?:[ci]ans|ns|ans?|ons)|lonians)|s(?:al(?:on(?:eans|a(?:i(?:ns?|ans)|ns)|o(?:ians|ans)|i(?:(?:[ao](?:ns?|ans))|ns|ions|ens|c(?:i[ae]ns|ans))|ciens)|lonians)|elon(?:ains|ians?)|oloni(?:ns|ans?)|s)?)?)?|\.[\s\xa0]*Th(?:s(?:ss?)?|es(?:elon(?:ains|ians?)|olonians?|al(?:oni(?:[ci]ans|ns|ans?|ons)|lonians)|s(?:al(?:on(?:eans|a(?:i(?:ns?|ans)|ns)|o(?:ians|ans)|i(?:(?:[ao](?:ns?|ans))|ns|ions|ens|c(?:i[ae]ns|ans))|ciens)|lonians)|elon(?:ains|ians?)|oloni(?:ns|ans?)|s)?)?)?)|First[\s\xa0]*Th(?:s(?:ss?)?|es(?:elon(?:ains|ians?)|olonians?|al(?:oni(?:[ci]ans|ns|ans?|ons)|lonians)|s(?:al(?:on(?:eans|a(?:i(?:ns?|ans)|ns)|o(?:ians|ans)|i(?:(?:[ao](?:ns?|ans))|ns|ions|ens|c(?:i[ae]ns|ans))|ciens)|lonians)|elon(?:ains|ians?)|oloni(?:ns|ans?)|s)?)?)?)|1(?:-?[ея](?:[\s\xa0]*Фессалоники(?:[ий]цам|\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники[ий]цам|Фессалоники[ий]цам)))|[ея](?:[\s\xa0]*Фессалоники(?:[ий]цам|\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники[ий]цам|Фессалоники[ий]цам))))|1(?:-?[ея]\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники(?:[ий]цам|Фессалоники[ий]цам))|[ея]\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники(?:[ий]цам|Фессалоники[ий]цам)))|1(?:[ея]\.[\s\xa0]*Фессалоники(?:[ий]цам)|-?[ея]\.[\s\xa0]*Фессалоники(?:[ий]цам))|Thes(?:s(?:elon(?:ains|ians?)|oloni(?:ns|ans?)|al(?:lonians|on(?:eans|a(?:i(?:ns?|ans)|ns)|i(?:(?:[ao](?:ns?|ans))|ns|ions|c(?:i[ae]ns|ans))|o(?:ians|ans)|ciens)))|elon(?:ains|ians?)|olonians?|al(?:oni(?:[ic]ans|ns|ans?|ons)|lonians)))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
       }, {
-        osis: ["Wis"],
-        apocrypha: true,
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Wis|Прем(?:удрости[\\s\\xa0]*Соломона)?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+        osis: ["2Kgs"],
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:2(?:nd(?:[\s\xa0]*K(?:n(?:gs?|s)?|i(?:n(?:gs?|s)?|gs?|s)?|gs?|s)?|\.[\s\xa0]*K(?:n(?:gs?|s)?|i(?:n(?:gs?|s)?|gs?|s)?|gs?|s)?)|(?:[ея](?:[\s\xa0]*Царе[ий]|\.[\s\xa0]*Царе[ий]))|Kgs|-?(?:[ея](?:[\s\xa0]*Царе[ий]|\.[\s\xa0]*Царе[ий]))|[\s\xa0]*(?:Царе[ий]|K(?:n(?:gs?|s)?|i(?:n(?:gs?|s)?|gs?|s)?|gs?))|\.[\s\xa0]*(?:Царе[ий]|K(?:n(?:gs?|s)?|i(?:n(?:gs?|s)?|gs?|s)?|gs?)))|Fourth[\s\xa0]*Kingdoms|Second[\s\xa0]*K(?:n(?:gs?|s)?|i(?:n(?:gs?|s)?|gs?|s)?|gs?|s)?|I(?:V(?:\.[\s\xa0]*Kingdoms|[\s\xa0]*Kingdoms)|I(?:[\s\xa0]*K(?:n(?:gs?|s)?|i(?:n(?:gs?|s)?|gs?|s)?|gs?)?|\.[\s\xa0]*K(?:n(?:gs?|s)?|i(?:n(?:gs?|s)?|gs?|s)?|gs?)))|4(?:-?(?:[ея](?:[\s\xa0]*(?:Царств|Книга[\s\xa0]*Царств)|\.[\s\xa0]*(?:Царств|Книга[\s\xa0]*Царств)))|(?:[ея](?:[\s\xa0]*(?:Царств|Книга[\s\xa0]*Царств)|\.[\s\xa0]*(?:Царств|Книга[\s\xa0]*Царств)))|th(?:\.[\s\xa0]*Kingdoms|[\s\xa0]*Kingdoms)|[\s\xa0]*(?:Цар(?:ств)?|Kingdoms|Книга[\s\xa0]*Царств)|\.[\s\xa0]*(?:Kingdoms|Царств|Книга[\s\xa0]*Царств))))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
       }, {
-        osis: ["Lam"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Плач(?:[\\s\\xa0]*Иеремии)?|Lam))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+        osis: ["1Kgs"],
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:I(?:[\s\xa0]*K(?:n(?:gs?|s)?|gs?|i(?:n(?:gs?|s)?|gs?)?)?|II(?:\.[\s\xa0]*Kingdoms|[\s\xa0]*Kingdoms)|\.[\s\xa0]*K(?:n(?:gs?|s)?|gs?|i(?:n(?:gs?|s)?|gs?)?))|1(?:\.[\s\xa0]*(?:K(?:n(?:gs?|s)?|gs?|i(?:n(?:gs?|s)?|gs?)?)|Царе[ий])|(?:[ея](?:[\s\xa0]*Царе[ий]|\.[\s\xa0]*Царе[ий]))|Kgs|[\s\xa0]*(?:K(?:n(?:gs?|s)?|gs?|i(?:n(?:gs?|s)?|gs?)?)|Царе[ий])|-?(?:[ея](?:[\s\xa0]*Царе[ий]|\.[\s\xa0]*Царе[ий]))|st(?:[\s\xa0]*K(?:n(?:gs?|s)?|gs?|i(?:n(?:gs?|s)?|gs?)?|s)?|\.[\s\xa0]*K(?:n(?:gs?|s)?|gs?|i(?:n(?:gs?|s)?|gs?)?|s)?))|Third[\s\xa0]*Kingdoms|3(?:-?(?:[ея](?:[\s\xa0]*(?:Царств|Книга[\s\xa0]*Царств)|\.[\s\xa0]*(?:Царств|Книга[\s\xa0]*Царств)))|rd(?:\.[\s\xa0]*Kingdoms|[\s\xa0]*Kingdoms)|(?:[ея](?:[\s\xa0]*(?:Царств|Книга[\s\xa0]*Царств)|\.[\s\xa0]*(?:Царств|Книга[\s\xa0]*Царств)))|[\s\xa0]*(?:Цар(?:ств)?|Kingdoms|Книга[\s\xa0]*Царств)|\.[\s\xa0]*(?:Kingdoms|Царств|Книга[\s\xa0]*Царств))|First[\s\xa0]*K(?:n(?:gs?|s)?|gs?|i(?:n(?:gs?|s)?|gs?)?|s)?)|K(?:gs|in(?:gs)?|ngs))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
       }, {
         osis: ["EpJer"],
         apocrypha: true,
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Послание[\\s\\xa0]*Иеремии|EpJer))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Послание[\\s\\xa0]*Иеремии|Let(?:[\\s\\xa0]*of[\\s\\xa0]*Jeremiah|\\.[\\s\\xa0]*of[\\s\\xa0]*Jeremiah|ter[\\s\\xa0]*of[\\s\\xa0]*Jeremiah)|The[\\s\\xa0]*(?:Ep(?:[\\s\\xa0]*of[\\s\\xa0]*Jeremiah|\\.[\\s\\xa0]*of[\\s\\xa0]*Jeremiah|istle[\\s\\xa0]*of[\\s\\xa0]*Jeremiah)|Let(?:[\\s\\xa0]*of[\\s\\xa0]*Jeremiah|\\.[\\s\\xa0]*of[\\s\\xa0]*Jeremiah|ter[\\s\\xa0]*of[\\s\\xa0]*Jeremiah))|Ep(?:\\.[\\s\\xa0]*of[\\s\\xa0]*Jeremiah|istle[\\s\\xa0]*of[\\s\\xa0]*Jerem(?:iah|y)|Jer|[\\s\\xa0]*(?:of[\\s\\xa0]*Jeremiah|Jer))))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
       }, {
-        osis: ["Rev"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Отк(?:р(?:овение)?)?|Rev))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+        osis: ["Lam"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Плач(?:[\\s\\xa0]*Иеремии)?|L(?:am(?:[ei]ntations?)?|m)))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
       }, {
-        osis: ["PrMan"],
-        apocrypha: true,
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:PrMan|Молитва[\\s\\xa0]*Манассии))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Deut"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Втор(?:озаконие)?|Deut))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Josh"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:И(?:исус(?:[\\s\\xa0]*Навин|а[\\s\\xa0]*Навина)|еш(?:уа)?)|Josh|Нав|Книга[\\s\\xa0]*Иисуса[\\s\\xa0]*Навина))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Judg"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*Суде(?:[ий](?:[\\s\\xa0]*Израилевых)?)|Judg|Суд(?:е[ий]|ьи)?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Ruth"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*Руфи|Ruth|Ру(?:фь?|т)))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["1Esd"],
-        apocrypha: true,
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])((?:1Esd|2(?:(?:[ея](?:[\s\xa0]*Ездры|\.[\s\xa0]*Ездры))|-?(?:[ея](?:[\s\xa0]*Ездры|\.[\s\xa0]*Ездры))|[\s\xa0]*Езд(?:ры)?|\.[\s\xa0]*Ездры)))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
-      }, {
-        osis: ["2Esd"],
-        apocrypha: true,
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])((?:2Esd|3(?:(?:[ея](?:[\s\xa0]*Ездры|\.[\s\xa0]*Ездры))|-?(?:[ея](?:[\s\xa0]*Ездры|\.[\s\xa0]*Ездры))|[\s\xa0]*Езд(?:ры)?|\.[\s\xa0]*Ездры)))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
-      }, {
-        osis: ["Isa"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*пророка[\\s\\xa0]*Исаии|Isa|Ис(?:аи[ия]?)?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["2Sam"],
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])(2(?:\.[\s\xa0]*(?:Самуила|Царств|Книга[\s\xa0]*Царств)|-?(?:[ея](?:\.[\s\xa0]*(?:Самуила|Царств|Книга[\s\xa0]*Царств)|[\s\xa0]*(?:Самуила|Царств|Книга[\s\xa0]*Царств)))|(?:[ея](?:\.[\s\xa0]*(?:Самуила|Царств|Книга[\s\xa0]*Царств)|[\s\xa0]*(?:Самуила|Царств|Книга[\s\xa0]*Царств)))|[\s\xa0]*(?:Цар(?:ств)?|Самуила|Книга[\s\xa0]*Царств)|Sam))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
-      }, {
-        osis: ["1Sam"],
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])(1(?:\.[\s\xa0]*(?:Самуила|Царств|Книга[\s\xa0]*Царств)|-?(?:[ея](?:\.[\s\xa0]*(?:Самуила|Царств|Книга[\s\xa0]*Царств)|[\s\xa0]*(?:Самуила|Царств|Книга[\s\xa0]*Царств)))|(?:[ея](?:\.[\s\xa0]*(?:Самуила|Царств|Книга[\s\xa0]*Царств)|[\s\xa0]*(?:Самуила|Царств|Книга[\s\xa0]*Царств)))|[\s\xa0]*(?:Цар(?:ств)?|Самуила|Книга[\s\xa0]*Царств)|Sam))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
-      }, {
-        osis: ["2Kgs"],
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])((?:4(?:-?(?:[ея](?:[\s\xa0]*(?:Царств|Книга[\s\xa0]*Царств)|\.[\s\xa0]*(?:Царств|Книга[\s\xa0]*Царств)))|[\s\xa0]*(?:Цар(?:ств)?|Книга[\s\xa0]*Царств)|(?:[ея](?:[\s\xa0]*(?:Царств|Книга[\s\xa0]*Царств)|\.[\s\xa0]*(?:Царств|Книга[\s\xa0]*Царств)))|\.[\s\xa0]*(?:Царств|Книга[\s\xa0]*Царств))|2(?:[\s\xa0]*Царе[ий]|\.[\s\xa0]*Царе[ий]|(?:[ея](?:[\s\xa0]*Царе[ий]|\.[\s\xa0]*Царе[ий]))|Kgs|-?(?:[ея](?:[\s\xa0]*Царе[ий]|\.[\s\xa0]*Царе[ий])))))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
-      }, {
-        osis: ["1Kgs"],
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])((?:3(?:-?(?:[ея](?:[\s\xa0]*(?:Царств|Книга[\s\xa0]*Царств)|\.[\s\xa0]*(?:Царств|Книга[\s\xa0]*Царств)))|[\s\xa0]*(?:Цар(?:ств)?|Книга[\s\xa0]*Царств)|(?:[ея](?:[\s\xa0]*(?:Царств|Книга[\s\xa0]*Царств)|\.[\s\xa0]*(?:Царств|Книга[\s\xa0]*Царств)))|\.[\s\xa0]*(?:Царств|Книга[\s\xa0]*Царств))|1(?:[\s\xa0]*Царе[ий]|\.[\s\xa0]*Царе[ий]|(?:[ея](?:[\s\xa0]*Царе[ий]|\.[\s\xa0]*Царе[ий]))|Kgs|-?(?:[ея](?:[\s\xa0]*Царе[ий]|\.[\s\xa0]*Царе[ий])))))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
-      }, {
-        osis: ["2Chr"],
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])(2(?:[\s\xa0]*(?:Пар(?:алипоменон)?|Лет(?:опись)?|Хроник)|Chr|(?:[ея](?:[\s\xa0]*(?:Летопись|Паралипоменон|Хроник)|\.[\s\xa0]*(?:Летопись|Паралипоменон|Хроник)))|\.[\s\xa0]*(?:Летопись|Паралипоменон|Хроник)|-?(?:[ея](?:[\s\xa0]*(?:Летопись|Паралипоменон|Хроник)|\.[\s\xa0]*(?:Летопись|Паралипоменон|Хроник)))))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
-      }, {
-        osis: ["1Chr"],
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])(1(?:[\s\xa0]*(?:Пар(?:алипоменон)?|Лет(?:опись)?|Хроник)|Chr|(?:[ея](?:[\s\xa0]*(?:Летопись|Паралипоменон|Хроник)|\.[\s\xa0]*(?:Летопись|Паралипоменон|Хроник)))|\.[\s\xa0]*(?:Летопись|Паралипоменон|Хроник)|-?(?:[ея](?:[\s\xa0]*(?:Летопись|Паралипоменон|Хроник)|\.[\s\xa0]*(?:Летопись|Паралипоменон|Хроник)))))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
-      }, {
-        osis: ["Ezra"],
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])((?:Езд(?:р[аы])?|Первая[\s\xa0]*Ездры|Книга[\s\xa0]*Ездры|Ezra|1[\s\xa0]*Езд|Уза[ий]р))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
-      }, {
-        osis: ["Neh"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Неем(?:и[ия])?|Книга[\\s\\xa0]*Неемии|Neh))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["GkEsth"],
-        apocrypha: true,
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Дополнения[\\s\\xa0]*к[\\s\\xa0]*Есфири|GkEsth))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Esth"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*Есфири|Esth|Есф(?:ирь)?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Job"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Job|Книга[\\s\\xa0]*Иова|Иова?|Аюб))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Ps"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Заб(?:ур)?|Пс(?:ал(?:мы|ом|тирь)?)?|Ps))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["PrAzar"],
-        apocrypha: true,
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Молитва[\\s\\xa0]*Азария|PrAzar))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Prov"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*притче[ий][\\s\\xa0]*Соломоновых|Prov|Пр(?:ит(?:чи)?)?|Мудр(?:ые[\\s\\xa0]*изречения)?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Eccl"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*Екклесиаста|Разм(?:ышления)?|Екк(?:лесиаст)?|Eccl))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["SgThree"],
-        apocrypha: true,
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Благодарственная[\\s\\xa0]*песнь[\\s\\xa0]*отроков|SgThree|Песнь[\\s\\xa0]*тр[её]х[\\s\\xa0]*отроков|Молитва[\\s\\xa0]*святых[\\s\\xa0]*трех[\\s\\xa0]*отроков))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Song"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Song|Песн(?:ь(?:[\\s\\xa0]*(?:песне[ий][\\s\\xa0]*Соломона|Суле[ий]мана))?|и[\\s\\xa0]*Песне[ий])?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Jer"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Иер(?:еми[ия])?|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Иеремии|Jer))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Ezek"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Езек(?:иил)?|Иез(?:екиил[ья])?|Ezek|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Иезекииля))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Dan"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Д(?:ан(?:и(?:ила?|ял))?|он)|Dan|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Даниила))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Hos"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Ос(?:и[ия])?|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Осии|Hos))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Joel"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Иоил[ья]?|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Иоиля|Joel))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Amos"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Amos|Ам(?:оса?)?|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Амоса))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Obad"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*пророка[\\s\\xa0]*Авдия|Obad|Авд(?:и[ийя])?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Jonah"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*пророка[\\s\\xa0]*Ионы|Ион[аы]|Jonah|Юнус))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Mic"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Mic|Мих(?:е[ийя])?|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Михея))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Nah"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Наума?|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Наума|Nah))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Hab"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*пророка[\\s\\xa0]*Аввакума|Авв(?:акума?)?|Hab))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Zeph"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Соф(?:они[ия])?|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Софонии|Zeph))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Hag"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Hag|Агг(?:е[ийя])?|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Аггея))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Zech"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:За(?:к(?:ария)?|х(?:ари[ия])?)|Zech|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Захарии))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Mal"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*пророка[\\s\\xa0]*Малахии|Mal|Мал(?:ахи[ия])?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Matt"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:От[\\s\\xa0]*Матфея|Евангелие[\\s\\xa0]*от[\\s\\xa0]*Матфея|Matt|М(?:[тф]|ат(?:а[ий])?)))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Mark"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:М(?:арк|[кр])|От[\\s\\xa0]*Марка|Mark|Евангелие[\\s\\xa0]*от[\\s\\xa0]*Марка))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Luke"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Luke|Л(?:ука|к)|Евангелие[\\s\\xa0]*от[\\s\\xa0]*Луки|От[\\s\\xa0]*Луки))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["1John"],
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])(1(?:\.[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)|John|[\s\xa0]*(?:И(?:о(?:хана|анна)|н)|послание[\s\xa0]*Иоанна)|-?(?:[ея](?:\.[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)|[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)))|(?:[ея](?:\.[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)|[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)))))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
-      }, {
-        osis: ["2John"],
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])(2(?:\.[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)|John|[\s\xa0]*(?:И(?:о(?:хана|анна)|н)|послание[\s\xa0]*Иоанна)|-?(?:[ея](?:\.[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)|[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)))|(?:[ея](?:\.[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)|[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)))))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
-      }, {
-        osis: ["3John"],
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])(3(?:\.[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)|John|[\s\xa0]*(?:И(?:о(?:хана|анна)|н)|послание[\s\xa0]*Иоанна)|-?(?:[ея](?:\.[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)|[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)))|(?:[ея](?:\.[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)|[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)))))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
-      }, {
-        osis: ["John"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Евангелие[\\s\\xa0]*от[\\s\\xa0]*Иоанна|От[\\s\\xa0]*Иоанна|John|И(?:охан|н)))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Acts"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Деян(?:ия)?|Acts))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Rom"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Рим(?:лянам)?|Rom|Послание[\\s\\xa0]*к[\\s\\xa0]*Римлянам|К[\\s\\xa0]*Римлянам))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["2Cor"],
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])(2(?:-?(?:[ея](?:\.[\s\xa0]*(?:Коринфянам|к[\s\xa0]*Коринфянам)|[\s\xa0]*(?:Коринфянам|к[\s\xa0]*Коринфянам)))|\.[\s\xa0]*(?:Коринфянам|к[\s\xa0]*Коринфянам)|(?:[ея](?:\.[\s\xa0]*(?:Коринфянам|к[\s\xa0]*Коринфянам)|[\s\xa0]*(?:Коринфянам|к[\s\xa0]*Коринфянам)))|[\s\xa0]*(?:Кор(?:инфянам)?|к[\s\xa0]*Коринфянам)|Cor))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
-      }, {
-        osis: ["1Cor"],
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])(1(?:-?(?:[ея](?:\.[\s\xa0]*(?:Коринфянам|к[\s\xa0]*Коринфянам)|[\s\xa0]*(?:Коринфянам|к[\s\xa0]*Коринфянам)))|\.[\s\xa0]*(?:Коринфянам|к[\s\xa0]*Коринфянам)|(?:[ея](?:\.[\s\xa0]*(?:Коринфянам|к[\s\xa0]*Коринфянам)|[\s\xa0]*(?:Коринфянам|к[\s\xa0]*Коринфянам)))|[\s\xa0]*(?:Кор(?:инфянам)?|к[\s\xa0]*Коринфянам)|Cor))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
-      }, {
-        osis: ["Gal"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Гал(?:атам)?|Gal|К[\\s\\xa0]*Галатам|Послание[\\s\\xa0]*к[\\s\\xa0]*Галатам))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Eph"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Eph|К[\\s\\xa0]*Ефесянам|Послание[\\s\\xa0]*к[\\s\\xa0]*Ефесянам|(?:[ЕЭ]ф(?:есянам)?)))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Phil"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Phil|Послание[\\s\\xa0]*к[\\s\\xa0]*Филиппи[ий]цам|К[\\s\\xa0]*Филиппи[ий]цам|Ф(?:ил(?:иппи[ий]цам)?|лп)))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Col"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:К(?:ол(?:оссянам)?|[\\s\\xa0]*Колоссянам)|Col|Послание[\\s\\xa0]*к[\\s\\xa0]*Колоссянам))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["2Thess"],
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])(2(?:[\s\xa0]*(?:к[\s\xa0]*Фессалоники[ий]цам|Фес(?:салоники[ий]цам)?)|\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники[ий]цам|Фессалоники[ий]цам)|Thess|[ея](?:[\s\xa0]*(?:к[\s\xa0]*Фессалоники(?:[ий]цам|Фессалоники[ий]цам)|\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники[ий]цам|Фессалоники[ий]цам)))|-?[ея](?:[\s\xa0]*(?:к[\s\xa0]*Фессалоники(?:[ий]цам|Фессалоники[ий]цам)|\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники[ий]цам|Фессалоники[ий]цам))))|2(?:-?[ея](?:[\s\xa0]*Фессалоники(?:[ий]цам|\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники[ий]цам|Фессалоники[ий]цам)))|[ея](?:[\s\xa0]*Фессалоники(?:[ий]цам|\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники[ий]цам|Фессалоники[ий]цам))))|2(?:-?[ея]\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники(?:[ий]цам|Фессалоники[ий]цам))|[ея]\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники(?:[ий]цам|Фессалоники[ий]цам)))|2(?:[ея]\.[\s\xa0]*Фессалоники(?:[ий]цам)|-?[ея]\.[\s\xa0]*Фессалоники(?:[ий]цам)))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
-      }, {
-        osis: ["1Thess"],
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])(1(?:[\s\xa0]*(?:к[\s\xa0]*Фессалоники[ий]цам|Фес(?:салоники[ий]цам)?)|\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники[ий]цам|Фессалоники[ий]цам)|Thess|[ея](?:[\s\xa0]*(?:к[\s\xa0]*Фессалоники(?:[ий]цам|Фессалоники[ий]цам)|\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники[ий]цам|Фессалоники[ий]цам)))|-?[ея](?:[\s\xa0]*(?:к[\s\xa0]*Фессалоники(?:[ий]цам|Фессалоники[ий]цам)|\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники[ий]цам|Фессалоники[ий]цам))))|1(?:-?[ея](?:[\s\xa0]*Фессалоники(?:[ий]цам|\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники[ий]цам|Фессалоники[ий]цам)))|[ея](?:[\s\xa0]*Фессалоники(?:[ий]цам|\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники[ий]цам|Фессалоники[ий]цам))))|1(?:-?[ея]\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники(?:[ий]цам|Фессалоники[ий]цам))|[ея]\.[\s\xa0]*(?:к[\s\xa0]*Фессалоники(?:[ий]цам|Фессалоники[ий]цам)))|1(?:[ея]\.[\s\xa0]*Фессалоники(?:[ий]цам)|-?[ея]\.[\s\xa0]*Фессалоники(?:[ий]цам)))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
-      }, {
-        osis: ["2Tim"],
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])(2(?:Tim|-?(?:[ея](?:\.[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею))|[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею))))|\.[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею))|(?:[ея](?:\.[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею))|[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею))))|[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею)?)))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
-      }, {
-        osis: ["1Tim"],
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])(1(?:Tim|-?(?:[ея](?:\.[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею))|[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею))))|\.[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею))|(?:[ея](?:\.[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею))|[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею))))|[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею)?)))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
-      }, {
-        osis: ["Titus"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Titus|Послание[\\s\\xa0]*к[\\s\\xa0]*Титу|К[\\s\\xa0]*Титу|Титу?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Phlm"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Послание[\\s\\xa0]*к[\\s\\xa0]*Филимону|К[\\s\\xa0]*Филимону|Ф(?:лм|илимону)|Phlm))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Heb"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Heb|Евр(?:еям)?|К[\\s\\xa0]*Евреям|Послание[\\s\\xa0]*к[\\s\\xa0]*Евреям))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Jas"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Послание[\\s\\xa0]*Иакова|Якуб|Jas|Иак(?:ова)?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["2Pet"],
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])(2(?:\.[\s\xa0]*(?:послание[\s\xa0]*Петра|Пет(?:ра|ира))|-?(?:[ея](?:\.[\s\xa0]*(?:послание[\s\xa0]*Петра|Пет(?:ра|ира))|[\s\xa0]*(?:послание[\s\xa0]*Петра|Пет(?:ра|ира))))|(?:[ея](?:\.[\s\xa0]*(?:послание[\s\xa0]*Петра|Пет(?:ра|ира))|[\s\xa0]*(?:послание[\s\xa0]*Петра|Пет(?:ра|ира))))|Pet|[\s\xa0]*(?:Пет(?:ра|ира)?|послание[\s\xa0]*Петра)))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
-      }, {
-        osis: ["1Pet"],
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])(1(?:\.[\s\xa0]*(?:послание[\s\xa0]*Петра|Пет(?:ра|ира))|-?(?:[ея](?:\.[\s\xa0]*(?:послание[\s\xa0]*Петра|Пет(?:ра|ира))|[\s\xa0]*(?:послание[\s\xa0]*Петра|Пет(?:ра|ира))))|(?:[ея](?:\.[\s\xa0]*(?:послание[\s\xa0]*Петра|Пет(?:ра|ира))|[\s\xa0]*(?:послание[\s\xa0]*Петра|Пет(?:ра|ира))))|Pet|[\s\xa0]*(?:Пет(?:ра|ира)?|послание[\s\xa0]*Петра)))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
-      }, {
-        osis: ["Jude"],
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Jude|Послание[\\s\\xa0]*Иуды|Иуд[аы]?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Tob"],
-        apocrypha: true,
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Tob|Тов(?:ита)?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Jdt"],
-        apocrypha: true,
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Jdt|Юди(?:фь)?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
-      }, {
-        osis: ["Bar"],
-        apocrypha: true,
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Вар(?:уха)?|Bar|Бару́ха|Книга[\\s\\xa0]*(?:Варуха|пророка[\\s\\xa0]*Вару́ха)))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+        osis: ["Num"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Чис(?:ла)?|N(?:u(?:m(?:b(?:ers?)?)?)?|m)|Книга[\\s\\xa0]*Чисел))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
       }, {
         osis: ["Sus"],
         apocrypha: true,
-        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Sus|С(?:казанию[\\s\\xa0]*о[\\s\\xa0]*Сусанне[\\s\\xa0]*и[\\s\\xa0]*Данииле|усанна(?:[\\s\\xa0]*и[\\s\\xa0]*старцы)?)))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:С(?:казанию[\\s\\xa0]*о[\\s\\xa0]*Сусанне[\\s\\xa0]*и[\\s\\xa0]*Данииле|усанна(?:[\\s\\xa0]*и[\\s\\xa0]*старцы)?)|S(?:hoshana|us(?:annah?)?)))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Sir"],
+        apocrypha: true,
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Премудрост(?:ь[\\s\\xa0]*Сираха|и[\\s\\xa0]*Иисуса,[\\s\\xa0]*сына[\\s\\xa0]*Сирахова)|Ben[\\s\\xa0]*Sira|The[\\s\\xa0]*Wisdom[\\s\\xa0]*of[\\s\\xa0]*Jesus(?:[\\s\\xa0]*(?:Son[\\s\\xa0]*of[\\s\\xa0]*Sirach|ben[\\s\\xa0]*Sirach)|,[\\s\\xa0]*Son[\\s\\xa0]*of[\\s\\xa0]*Sirach)|Сир(?:ахова)?|E(?:cc(?:l(?:us(?:iasticus)?|esiasticus)|s)|kkleziastik)|Wisdom[\\s\\xa0]*of[\\s\\xa0]*Jesus(?:[\\s\\xa0]*(?:Son[\\s\\xa0]*of[\\s\\xa0]*Sirach|ben[\\s\\xa0]*Sirach)|,[\\s\\xa0]*Son[\\s\\xa0]*of[\\s\\xa0]*Sirach)|Sir(?:ach)?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["PrMan"],
+        apocrypha: true,
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:The[\\s\\xa0]*Pr(?:ayer(?:s[\\s\\xa0]*(?:Manasseh|of[\\s\\xa0]*Manasseh)|[\\s\\xa0]*(?:Manasseh|of[\\s\\xa0]*Manasseh))|[\\s\\xa0]*(?:Manasseh|of[\\s\\xa0]*Manasseh))|Молитва[\\s\\xa0]*Манассии|Pr(?:ayer(?:s[\\s\\xa0]*(?:Manasseh|of[\\s\\xa0]*Manasseh)|[\\s\\xa0]*(?:Manasseh|of[\\s\\xa0]*Manasseh))|[\\s\\xa0]*(?:Man(?:asseh)?|of[\\s\\xa0]*Manasseh)|Man)))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Acts"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:The[\\s\\xa0]*Acts[\\s\\xa0]*of[\\s\\xa0]*the[\\s\\xa0]*Apostles|Деян(?:ия)?|Ac(?:t(?:s(?:ss?|[\\s\\xa0]*of[\\s\\xa0]*the[\\s\\xa0]*Apostles)?)?)?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Rev"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Отк(?:р(?:овение)?)?|R(?:ev(?:el(?:ations?)?|[ao]lations?|lations?)?|v)))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["PrAzar"],
+        apocrypha: true,
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Azariah?|The[\\s\\xa0]*Pr(?:[\\s\\xa0]*of[\\s\\xa0]*Azariah?|ayer(?:s[\\s\\xa0]*of[\\s\\xa0]*Azariah?|[\\s\\xa0]*of[\\s\\xa0]*Azariah?))|Молитва[\\s\\xa0]*Азария|Pr(?:[\\s\\xa0]*(?:Azar|of[\\s\\xa0]*Azariah?)|Az(?:ar|r)|ayer(?:s[\\s\\xa0]*of[\\s\\xa0]*Azariah?|[\\s\\xa0]*of[\\s\\xa0]*Azariah?))))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["SgThree"],
+        apocrypha: true,
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:Благодарственная[\s\xa0]*песнь[\s\xa0]*отроков|Песнь[\s\xa0]*тр[её]х[\s\xa0]*отроков|The[\s\xa0]*Song[\s\xa0]*of[\s\xa0]*(?:3[\s\xa0]*(?:You(?:ng[\s\xa0]*Men|ths)|Holy[\s\xa0]*Children|Jews)|Three[\s\xa0]*(?:You(?:ng[\s\xa0]*Men|ths)|Holy[\s\xa0]*Children|Jews)|the[\s\xa0]*(?:3[\s\xa0]*(?:You(?:ng[\s\xa0]*Men|ths)|Holy[\s\xa0]*Children|Jews)|Three[\s\xa0]*(?:You(?:ng[\s\xa0]*Men|ths)|Holy[\s\xa0]*Children|Jews)))|Молитва[\s\xa0]*святых[\s\xa0]*трех[\s\xa0]*отроков|S(?:[\s\xa0]*(?:of[\s\xa0]*(?:3(?:[\s\xa0]*(?:Ch|Y)|\.[\s\xa0]*(?:Ch|Y))|Th(?:[\s\xa0]*(?:Ch|Y)|\.[\s\xa0]*(?:Ch|Y)|ree(?:[\s\xa0]*(?:Ch|Y)|\.[\s\xa0]*(?:Ch|Y))))|3(?:[\s\xa0]*(?:Ch|Y)|\.[\s\xa0]*(?:Ch|Y))|Th(?:[\s\xa0]*(?:Ch|Y)|\.[\s\xa0]*(?:Ch|Y)|ree(?:[\s\xa0]*(?:Ch|Y)|\.[\s\xa0]*(?:Ch|Y))))|ong[\s\xa0]*Three|g(?:Three|[\s\xa0]*Thr(?:ee)?)|\.[\s\xa0]*(?:of[\s\xa0]*(?:3(?:[\s\xa0]*(?:Ch|Y)|\.[\s\xa0]*(?:Ch|Y))|Th(?:[\s\xa0]*(?:Ch|Y)|\.[\s\xa0]*(?:Ch|Y)|ree(?:[\s\xa0]*(?:Ch|Y)|\.[\s\xa0]*(?:Ch|Y))))|3(?:[\s\xa0]*(?:Ch|Y)|\.[\s\xa0]*(?:Ch|Y))|Th(?:[\s\xa0]*(?:Ch|Y)|\.[\s\xa0]*(?:Ch|Y)|ree(?:[\s\xa0]*(?:Ch|Y)|\.[\s\xa0]*(?:Ch|Y))))|ng[\s\xa0]*Three))|Song[\s\xa0]*of[\s\xa0]*(?:3[\s\xa0]*(?:You(?:ng[\s\xa0]*Men|ths)|Holy[\s\xa0]*Children|Jews)|Three[\s\xa0]*(?:You(?:ng[\s\xa0]*Men|ths)|Holy[\s\xa0]*Children|Jews)|the[\s\xa0]*(?:3[\s\xa0]*(?:You(?:ng[\s\xa0]*Men|ths)|Holy[\s\xa0]*Children|Jews)|Three[\s\xa0]*(?:You(?:ng[\s\xa0]*Men|ths)|Holy[\s\xa0]*Children|Jews))))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+      }, {
+        osis: ["2Pet"],
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:II(?:[\s\xa0]*P(?:tr?|e(?:t(?:er?|r)?|r)?)?|\.[\s\xa0]*P(?:tr?|e(?:t(?:er?|r)?|r)?)?)|Second[\s\xa0]*P(?:tr?|e(?:t(?:er?|r)?|r)?)?|2(?:-?(?:[ея](?:\.[\s\xa0]*(?:послание[\s\xa0]*Петра|Пет(?:ра|ира))|[\s\xa0]*(?:послание[\s\xa0]*Петра|Пет(?:ра|ира))))|(?:[ея](?:\.[\s\xa0]*(?:послание[\s\xa0]*Петра|Пет(?:ра|ира))|[\s\xa0]*(?:послание[\s\xa0]*Петра|Пет(?:ра|ира))))|nd(?:[\s\xa0]*P(?:tr?|e(?:t(?:er?|r)?|r)?)?|\.[\s\xa0]*P(?:tr?|e(?:t(?:er?|r)?|r)?)?)|[\s\xa0]*(?:P(?:tr?|e(?:t(?:er?|r)?|r)?)?|Пет(?:ра|ира)?|послание[\s\xa0]*Петра)|\.[\s\xa0]*(?:P(?:tr?|e(?:t(?:er?|r)?|r)?)?|послание[\s\xa0]*Петра|Пет(?:ра|ира))|Pet)))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+      }, {
+        osis: ["1Pet"],
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:1(?:-?(?:[ея](?:\.[\s\xa0]*(?:послание[\s\xa0]*Петра|Пет(?:ра|ира))|[\s\xa0]*(?:послание[\s\xa0]*Петра|Пет(?:ра|ира))))|(?:[ея](?:\.[\s\xa0]*(?:послание[\s\xa0]*Петра|Пет(?:ра|ира))|[\s\xa0]*(?:послание[\s\xa0]*Петра|Пет(?:ра|ира))))|[\s\xa0]*(?:P(?:tr?|e(?:t(?:er?|r)?|r)?)?|Пет(?:ра|ира)?|послание[\s\xa0]*Петра)|\.[\s\xa0]*(?:P(?:tr?|e(?:t(?:er?|r)?|r)?)?|послание[\s\xa0]*Петра|Пет(?:ра|ира))|Pet|st(?:[\s\xa0]*P(?:tr?|e(?:t(?:er?|r)?|r)?)?|\.[\s\xa0]*P(?:tr?|e(?:t(?:er?|r)?|r)?)?))|I(?:[\s\xa0]*P(?:tr?|e(?:t(?:er?|r)?|r)?)?|\.[\s\xa0]*P(?:tr?|e(?:t(?:er?|r)?|r)?)?)|First[\s\xa0]*P(?:tr?|e(?:t(?:er?|r)?|r)?)?)|Peter)(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+      }, {
+        osis: ["Rom"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Рим(?:лянам)?|Послание[\\s\\xa0]*к[\\s\\xa0]*Римлянам|К[\\s\\xa0]*Римлянам|R(?:pmans|m(?:ns?|s)?|o(?:amns|s|m(?:s|a(?:n(?:ds|s)?|sn))?)?)))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Song"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Песн(?:ь[\\s\\xa0]*(?:песне[ий][\\s\\xa0]*Соломона|Суле[ий]мана)|и[\\s\\xa0]*Песне[ий])?|S(?:o[Sln]?|gs?|ngs?|[\\s\\xa0]*of[\\s\\xa0]*S|S)|The[\\s\\xa0]*Song(?:s[\\s\\xa0]*of[\\s\\xa0]*S(?:o(?:lom[ao]ns?|ngs?)|alom[ao]ns?)|[\\s\\xa0]*of[\\s\\xa0]*S(?:o(?:lom[ao]ns?|ngs?)|alom[ao]ns?)))|(?:Песнь|Song(?:s[\\s\\xa0]*of[\\s\\xa0]*S(?:o(?:lom[oa]ns?|ngs?)|alom[ao]ns?)|[\\s\\xa0]*of[\\s\\xa0]*S(?:o(?:lom[oa]ns?|ngs?)|alom[oa]ns?))?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Prov"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Oroverbs|P(?:o(?:rverbs|verbs)|v|r(?:o(?:b(?:verbs|erbs)|v(?:e(?:bs|rbs?))?)?|v(?:erbs?|bs?)?|everbs?)?)|Книга[\\s\\xa0]*притче[ий][\\s\\xa0]*Соломоновых|Пр(?:ит(?:чи)?)?|Мудр(?:ые[\\s\\xa0]*изречения)?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Wis"],
+        apocrypha: true,
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Wis(?:[\\s\\xa0]*of[\\s\\xa0]*Solomon|om[\\s\\xa0]*of[\\s\\xa0]*Solomon|d(?:[\\s\\xa0]*of[\\s\\xa0]*Solomon|om(?:[\\s\\xa0]*of[\\s\\xa0]*Solomon)?)?)?|The[\\s\\xa0]*Wis(?:[\\s\\xa0]*of[\\s\\xa0]*Solomon|om[\\s\\xa0]*of[\\s\\xa0]*Solomon|d(?:[\\s\\xa0]*of[\\s\\xa0]*Solomon|om[\\s\\xa0]*of[\\s\\xa0]*Solomon))|Прем(?:удрости[\\s\\xa0]*Соломона)?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Joel"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Иоил[ья]?|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Иоиля|J(?:l|oel?)))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Jonah"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*пророка[\\s\\xa0]*Ионы|Ион[аы]|J(?:nh|on(?:ah)?)|Юнус))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Nah"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Na(?:h(?:um?)?)?|Наума?|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Наума))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["1John"],
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:1(?:\.[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна|J(?:phn|o(?:phn|nh|on|h[mn]?)?|n|h(?:[ho]n|n)?))|John|-?(?:[ея](?:\.[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)|[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)))|(?:[ея](?:\.[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)|[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)))|st(?:[\s\xa0]*J(?:phn|o(?:phn|nh|on|h[mn]?)?|n|h(?:[ho]n|n)?)|\.[\s\xa0]*J(?:phn|o(?:phn|nh|on|h[mn]?)?|n|h(?:[ho]n|n)?))|[\s\xa0]*(?:И(?:о(?:хана|анна)|н)|послание[\s\xa0]*Иоанна|J(?:phn|o(?:phn|nh|on|h[mn]?)?|n|h(?:[ho]n|n)?)))|I(?:[\s\xa0]*J(?:phn|o(?:phn|nh|on|h[mn]?)?|n|h(?:[ho]n|n)?)|\.[\s\xa0]*J(?:phn|o(?:phn|nh|on|h[mn]?)?|n|h(?:[ho]n|n)?))|First[\s\xa0]*J(?:phn|o(?:phn|nh|on|h[mn]?)?|n|h(?:[ho]n|n)?)))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+      }, {
+        osis: ["2John"],
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:II(?:[\s\xa0]*J(?:phn|o(?:phn|nh|on|h[mn]?)?|n|h(?:[ho]n|n)?)|\.[\s\xa0]*J(?:phn|o(?:phn|nh|on|h[mn]?)?|n|h(?:[ho]n|n)?))|Second[\s\xa0]*J(?:phn|o(?:phn|nh|on|h[mn]?)?|n|h(?:[ho]n|n)?)|2(?:\.[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна|J(?:phn|o(?:phn|nh|on|h[mn]?)?|n|h(?:[ho]n|n)?))|nd(?:[\s\xa0]*J(?:phn|o(?:phn|nh|on|h[mn]?)?|n|h(?:[ho]n|n)?)|\.[\s\xa0]*J(?:phn|o(?:phn|nh|on|h[mn]?)?|n|h(?:[ho]n|n)?))|John|-?(?:[ея](?:\.[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)|[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)))|(?:[ея](?:\.[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)|[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)))|[\s\xa0]*(?:И(?:о(?:хана|анна)|н)|послание[\s\xa0]*Иоанна|J(?:phn|o(?:phn|nh|on|h[mn]?)?|n|h(?:[ho]n|n)?)))))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+      }, {
+        osis: ["3John"],
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:III(?:[\s\xa0]*J(?:phn|o(?:phn|nh|on|h[mn]?)?|n|h(?:[ho]n|n)?)|\.[\s\xa0]*J(?:phn|o(?:phn|nh|on|h[mn]?)?|n|h(?:[ho]n|n)?))|3(?:\.[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна|J(?:phn|o(?:phn|nh|on|h[mn]?)?|n|h(?:[ho]n|n)?))|rd(?:[\s\xa0]*J(?:phn|o(?:phn|nh|on|h[mn]?)?|n|h(?:[ho]n|n)?)|\.[\s\xa0]*J(?:phn|o(?:phn|nh|on|h[mn]?)?|n|h(?:[ho]n|n)?))|John|-?(?:[ея](?:\.[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)|[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)))|(?:[ея](?:\.[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)|[\s\xa0]*(?:Ио(?:хана|анна)|послание[\s\xa0]*Иоанна)))|[\s\xa0]*(?:И(?:о(?:хана|анна)|н)|послание[\s\xa0]*Иоанна|J(?:phn|o(?:phn|nh|on|h[mn]?)?|n|h(?:[ho]n|n)?)))|Third[\s\xa0]*J(?:phn|o(?:phn|nh|on|h[mn]?)?|n|h(?:[ho]n|n)?)))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+      }, {
+        osis: ["John"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:The[\\s\\xa0]*Gospel[\\s\\xa0]*(?:of[\\s\\xa0]*(?:S(?:t(?:[\\s\\xa0]*J(?:phn|n|o(?:phn|nh|on|h[mn]?)|h(?:[ho]n|n)?)|\\.[\\s\\xa0]*J(?:phn|n|o(?:phn|nh|on|h[mn]?)|h(?:[ho]n|n)?))|aint[\\s\\xa0]*J(?:phn|n|o(?:phn|nh|on|h[mn]?)|h(?:[ho]n|n)?))|J(?:phn|n|o(?:phn|nh|on|h[mn]?)|h(?:[ho]n|n)?))|according[\\s\\xa0]*to[\\s\\xa0]*(?:S(?:t(?:[\\s\\xa0]*J(?:phn|n|o(?:phn|nh|on|h[mn]?)|h(?:[ho]n|n)?)|\\.[\\s\\xa0]*J(?:phn|n|o(?:phn|nh|on|h[mn]?)|h(?:[ho]n|n)?))|aint[\\s\\xa0]*J(?:phn|n|o(?:phn|nh|on|h[mn]?)|h(?:[ho]n|n)?))|J(?:phn|n|o(?:phn|nh|on|h[mn]?)|h(?:[ho]n|n)?)))|Евангелие[\\s\\xa0]*от[\\s\\xa0]*Иоанна|От[\\s\\xa0]*Иоанна|И(?:охан|н))|(?:S(?:t(?:[\\s\\xa0]*J(?:phn|n|o(?:phn|nh|on|h[nm]?)|h(?:[ho]n|n)?)|\\.[\\s\\xa0]*J(?:phn|n|o(?:phn|nh|on|h[mn]?)|h(?:[ho]n|n)?))|aint[\\s\\xa0]*J(?:phn|n|o(?:phn|nh|on|h[mn]?)|h(?:[oh]n|n)?))|Gospel[\\s\\xa0]*(?:of[\\s\\xa0]*(?:S(?:t(?:[\\s\\xa0]*J(?:phn|n|o(?:phn|nh|on|h[mn]?)|h(?:[ho]n|n)?)|\\.[\\s\\xa0]*J(?:phn|n|o(?:phn|nh|on|h[mn]?)|h(?:[oh]n|n)?))|aint[\\s\\xa0]*J(?:phn|n|o(?:phn|nh|on|h[nm]?)|h(?:[oh]n|n)?))|J(?:phn|n|o(?:phn|nh|on|h[mn]?)|h(?:[ho]n|n)?))|according[\\s\\xa0]*to[\\s\\xa0]*(?:S(?:t(?:[\\s\\xa0]*J(?:phn|n|o(?:phn|nh|on|h[mn]?)|h(?:[oh]n|n)?)|\\.[\\s\\xa0]*J(?:phn|n|o(?:phn|nh|on|h[nm]?)|h(?:[ho]n|n)?))|aint[\\s\\xa0]*J(?:phn|n|o(?:phn|nh|on|h[nm]?)|h(?:[ho]n|n)?))|J(?:phn|n|o(?:phn|nh|on|h[nm]?)|h(?:[oh]n|n)?)))|J(?:phn|n|o(?:phn|nh|on|h[mn]?)|h(?:[oh]n|n)?)))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Josh"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:J(?:sh|o(?:s(?:h(?:ua)?|ua)?|us(?:hua|ua)))|И(?:исус(?:[\\s\\xa0]*Навин|а[\\s\\xa0]*Навина)|еш(?:уа)?)|Нав|Книга[\\s\\xa0]*Иисуса[\\s\\xa0]*Навина))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Judg"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*Суде(?:[ий](?:[\\s\\xa0]*Израилевых)?)|J(?:gs?|udg(?:es)?|dgs?)|Суд(?:е[ий]|ьи)?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["1Esd"],
+        apocrypha: true,
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:First[\s\xa0]*Esd(?:r(?:as)?)?|I(?:\.[\s\xa0]*Esd(?:r(?:as)?)?|[\s\xa0]*Esd(?:r(?:as)?)?)|1(?:\.[\s\xa0]*Esd(?:r(?:as)?)?|[\s\xa0]*Esd(?:r(?:as)?)?|Esd|st(?:\.[\s\xa0]*Esd(?:r(?:as)?)?|[\s\xa0]*Esd(?:r(?:as)?)?))|2(?:(?:[ея](?:[\s\xa0]*Ездры|\.[\s\xa0]*Ездры))|-?(?:[ея](?:[\s\xa0]*Ездры|\.[\s\xa0]*Ездры))|[\s\xa0]*Езд(?:ры)?|\.[\s\xa0]*Ездры)))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+      }, {
+        osis: ["2Esd"],
+        apocrypha: true,
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:2(?:\.[\s\xa0]*Esd(?:r(?:as)?)?|[\s\xa0]*Esd(?:r(?:as)?)?|nd(?:\.[\s\xa0]*Esd(?:r(?:as)?)?|[\s\xa0]*Esd(?:r(?:as)?)?)|Esd)|Second[\s\xa0]*Esd(?:r(?:as)?)?|II(?:\.[\s\xa0]*Esd(?:r(?:as)?)?|[\s\xa0]*Esd(?:r(?:as)?)?)|3(?:(?:[ея](?:[\s\xa0]*Ездры|\.[\s\xa0]*Ездры))|-?(?:[ея](?:[\s\xa0]*Ездры|\.[\s\xa0]*Ездры))|[\s\xa0]*Езд(?:ры)?|\.[\s\xa0]*Ездры)))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+      }, {
+        osis: ["Isa"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*пророка[\\s\\xa0]*Исаии|Ис(?:аия?)?|I(?:s(?:i(?:[ai](?:(?:[ai](?:(?:[ai]ha?|ha?))|ha?))|ha)|a(?:a(?:[ai](?:(?:[ai]ha?|ha?))|ha?)|i(?:[ai](?:(?:[ai]ha?|ha?))|sha?|ha?)?|ha?)?|sah)?|a))|Исаии)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["2Sam"],
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:2(?:-?(?:[ея](?:\.[\s\xa0]*(?:Самуила|Царств|Книга[\s\xa0]*Царств)|[\s\xa0]*(?:Самуила|Царств|Книга[\s\xa0]*Царств)))|[\s\xa0]*(?:Цар(?:ств)?|Самуила|Kingdoms|Книга[\s\xa0]*Царств|S(?:a(?:m(?:u[ae]l[ls]?)?)?|ma?)?)|nd(?:[\s\xa0]*(?:Kingdoms|S(?:a(?:m(?:u[ae]l[ls]?)?)?|ma?))|\.[\s\xa0]*(?:Kingdoms|S(?:a(?:m(?:u[ae]l[ls]?)?)?|ma?)))|(?:[ея](?:\.[\s\xa0]*(?:Самуила|Царств|Книга[\s\xa0]*Царств)|[\s\xa0]*(?:Самуила|Царств|Книга[\s\xa0]*Царств)))|\.[\s\xa0]*(?:Самуила|Kingdoms|Царств|Книга[\s\xa0]*Царств|S(?:a(?:m(?:u[ae]l[ls]?)?)?|ma?))|Sam)|II(?:[\s\xa0]*(?:Kingdoms|S(?:a(?:m(?:u[ae]l[ls]?)?)?|ma?))|\.[\s\xa0]*(?:Kingdoms|S(?:a(?:m(?:u[ae]l[ls]?)?)?|ma?)))|Second[\s\xa0]*(?:Kingdoms|S(?:a(?:m(?:u[ae]l[ls]?)?)?|ma?))))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+      }, {
+        osis: ["1Sam"],
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:I(?:[\s\xa0]*(?:Kingdoms|S(?:a(?:m(?:u[ae]l[ls]?)?)?|ma?))|\.[\s\xa0]*(?:Kingdoms|S(?:a(?:m(?:u[ae]l[ls]?)?)?|ma?)))|First[\s\xa0]*(?:Kingdoms|S(?:a(?:m(?:u[ae]l[ls]?)?)?|ma?))|1(?:-?(?:[ея](?:\.[\s\xa0]*(?:Самуила|Царств|Книга[\s\xa0]*Царств)|[\s\xa0]*(?:Самуила|Царств|Книга[\s\xa0]*Царств)))|[\s\xa0]*(?:Цар(?:ств)?|Самуила|Kingdoms|Книга[\s\xa0]*Царств|S(?:a(?:m(?:u[ae]l[ls]?)?)?|ma?)?)|(?:[ея](?:\.[\s\xa0]*(?:Самуила|Царств|Книга[\s\xa0]*Царств)|[\s\xa0]*(?:Самуила|Царств|Книга[\s\xa0]*Царств)))|\.[\s\xa0]*(?:Самуила|Kingdoms|Царств|Книга[\s\xa0]*Царств|S(?:a(?:m(?:u[ae]l[ls]?)?)?|ma?))|st(?:[\s\xa0]*(?:Kingdoms|S(?:a(?:m(?:u[ae]l[ls]?)?)?|ma?))|\.[\s\xa0]*(?:Kingdoms|S(?:a(?:m(?:u[ae]l[ls]?)?)?|ma?)))|Sam))|Samu(?:[ae]l[sl]?))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+      }, {
+        osis: ["2Chr"],
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:2(?:nd(?:\.[\s\xa0]*(?:C(?:ron(?:[io]cles?)?|h(?:r(?:o(?:n(?:ocles?|ic(?:les?|als))?)?|n)?|oron[io]cles?)|oron[io]cles?)|Paralipomenon)|[\s\xa0]*(?:C(?:ron(?:[io]cles?)?|h(?:r(?:o(?:n(?:ocles?|ic(?:les?|als))?)?|n)?|oron[io]cles?)|oron[io]cles?)|Paralipomenon))|[\s\xa0]*(?:Пар(?:алипоменон)?|C(?:ron(?:[io]cles?)?|h(?:r(?:o(?:n(?:ocles?|ic(?:les?|als))?)?|n)?|oron[io]cles?)?|oron[io]cles?)|Лет(?:опись)?|Paralipomenon|Хроник)|Chr|(?:[ея](?:[\s\xa0]*(?:Летопись|Паралипоменон|Хроник)|\.[\s\xa0]*(?:Летопись|Паралипоменон|Хроник)))|-?(?:[ея](?:[\s\xa0]*(?:Летопись|Паралипоменон|Хроник)|\.[\s\xa0]*(?:Летопись|Паралипоменон|Хроник)))|\.[\s\xa0]*(?:C(?:ron(?:[io]cles?)?|h(?:r(?:o(?:n(?:ocles?|ic(?:les?|als))?)?|n)?|oron[io]cles?)|oron[io]cles?)|Летопись|Паралипоменон|Paralipomenon|Хроник))|II(?:\.[\s\xa0]*(?:C(?:ron(?:[io]cles?)?|h(?:r(?:o(?:n(?:ocles?|ic(?:les?|als))?)?|n)?|oron[io]cles?)|oron[io]cles?)|Paralipomenon)|[\s\xa0]*(?:C(?:ron(?:[io]cles?)?|h(?:r(?:o(?:n(?:ocles?|ic(?:les?|als))?)?|n)?|oron[io]cles?)|oron[io]cles?)|Paralipomenon))|Second[\s\xa0]*(?:C(?:ron(?:[io]cles?)?|h(?:r(?:o(?:n(?:ocles?|ic(?:les?|als))?)?|n)?|oron[io]cles?)|oron[io]cles?)|Paralipomenon)))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+      }, {
+        osis: ["1Chr"],
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:1(?:\.[\s\xa0]*(?:C(?:h(?:oron(?:ocles?|icles)|r(?:o(?:n(?:ocles?|ic(?:les?|als))?)?|n)?)|ron(?:[io]cles?)?|oron[io]cles?)|Летопись|Паралипоменон|Paralipomenon|Хроник)|Chr|(?:[ея](?:[\s\xa0]*(?:Летопись|Паралипоменон|Хроник)|\.[\s\xa0]*(?:Летопись|Паралипоменон|Хроник)))|-?(?:[ея](?:[\s\xa0]*(?:Летопись|Паралипоменон|Хроник)|\.[\s\xa0]*(?:Летопись|Паралипоменон|Хроник)))|st(?:\.[\s\xa0]*(?:C(?:h(?:oron(?:ocles?|icles)|r(?:o(?:n(?:ocles?|ic(?:les?|als))?)?|n)?)|ron(?:[io]cles?)?|oron[io]cles?)|Paralipomenon)|[\s\xa0]*(?:C(?:h(?:oron(?:ocles?|icles)|r(?:o(?:n(?:ocles?|ic(?:les?|als))?)?|n)?)|ron(?:[io]cles?)?|oron[io]cles?)|Paralipomenon))|[\s\xa0]*(?:Пар(?:алипоменон)?|Лет(?:опись)?|Paralipomenon|Хроник|C(?:h(?:oron(?:ocles?|icles)|r(?:o(?:n(?:ocles?|ic(?:les?|als))?)?|n)?)?|ron(?:[io]cles?)?|oron[io]cles?)))|I(?:\.[\s\xa0]*(?:C(?:h(?:oron(?:ocles?|icles)|r(?:o(?:n(?:ocles?|ic(?:les?|als))?)?|n)?)|ron(?:[io]cles?)?|oron[io]cles?)|Paralipomenon)|[\s\xa0]*(?:C(?:h(?:oron(?:ocles?|icles)|r(?:o(?:n(?:ocles?|ic(?:les?|als))?)?|n)?)|ron(?:[io]cles?)?|oron[io]cles?)|Paralipomenon))|Choronicle|First[\s\xa0]*(?:C(?:h(?:oron(?:ocles?|icles)|r(?:o(?:n(?:ocles?|ic(?:les?|als))?)?|n)?)|ron(?:[io]cles?)?|oron[io]cles?)|Paralipomenon))|(?:C(?:ron[oi]cles?|h(?:oron(?:ocles?|icles)|ron(?:ocles?|ic(?:les?|als)))|oron[oi]cles?)|Paralipomenon))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+      }, {
+        osis: ["Ezra"],
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:Езд(?:р[аы])?|Первая[\s\xa0]*Ездры|Книга[\s\xa0]*Ездры|1[\s\xa0]*Езд|E(?:zra?|sra)|Уза[ий]р))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+      }, {
+        osis: ["Ruth"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*Руфи|R(?:th?|u(?:th?)?)|Ру(?:фь?|т)))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Neh"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Неем(?:ия)?|Книга[\\s\\xa0]*Неемии|Ne(?:h(?:(?:[ei]m(?:i(?:h|i(?:[ai]h|h)|a(?:[ai]h|h)?)|a(?:h|[ai](?:(?:[ai]h|h)))))|amiah?)?)?)|Неемии)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["GkEsth"],
+        apocrypha: true,
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Дополнения[\\s\\xa0]*к[\\s\\xa0]*Есфири|G(?:k(?:Esth|[\\s\\xa0]*Esth?)|r(?:[\\s\\xa0]*Esth?|eek[\\s\\xa0]*Est(?:h(?:er)?)?))|Esther[\\s\\xa0]*\\(Greek\\)))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Esth"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*Есфири|Есф(?:ирь)?|Es(?:t(?:h(?:er|r)?|er)?)?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Job"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*Иова|J(?:b|ob)|Иова?|Аюб))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Mal"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Mal(?:ichi|ac(?:hi?|i))?|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Малахии|Мал(?:ахи[ия])?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Matt"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Mtt|От[\\s\\xa0]*Матфея|Евангелие[\\s\\xa0]*от[\\s\\xa0]*Матфея|The[\\s\\xa0]*Gospel[\\s\\xa0]*(?:according[\\s\\xa0]*to[\\s\\xa0]*(?:M(?:at(?:t(?:iew|t(?:iew|h(?:iew|ew)|ew)|ew|h(?:iew|(?:[ht](?:iew|ew))|ew|we)|we)?|h(?:iew|ew|(?:[ht](?:iew|(?:[ht](?:iew|ew))|ew))))?|t)|S(?:aint[\\s\\xa0]*M(?:at(?:t(?:iew|t(?:iew|h(?:iew|ew)|ew)|ew|h(?:iew|(?:[ht](?:iew|ew))|ew|we)|we)?|h(?:iew|ew|(?:[ht](?:iew|(?:[ht](?:iew|ew))|ew))))?|t)|t(?:\\.[\\s\\xa0]*M(?:at(?:t(?:iew|t(?:iew|h(?:iew|ew)|ew)|ew|h(?:iew|(?:[ht](?:iew|ew))|ew|we)|we)?|h(?:iew|ew|(?:[ht](?:iew|(?:[ht](?:iew|ew))|ew))))?|t)|[\\s\\xa0]*M(?:at(?:t(?:iew|t(?:iew|h(?:iew|ew)|ew)|ew|h(?:iew|(?:[ht](?:iew|ew))|ew|we)|we)?|h(?:iew|ew|(?:[ht](?:iew|(?:[ht](?:iew|ew))|ew))))?|t))))|of[\\s\\xa0]*(?:M(?:at(?:t(?:iew|t(?:iew|h(?:iew|ew)|ew)|ew|h(?:iew|(?:[ht](?:iew|ew))|ew|we)|we)?|h(?:iew|ew|(?:[ht](?:iew|(?:[ht](?:iew|ew))|ew))))?|t)|S(?:aint[\\s\\xa0]*M(?:at(?:t(?:iew|t(?:iew|h(?:iew|ew)|ew)|ew|h(?:iew|(?:[ht](?:iew|ew))|ew|we)|we)?|h(?:iew|ew|(?:[ht](?:iew|(?:[ht](?:iew|ew))|ew))))?|t)|t(?:\\.[\\s\\xa0]*M(?:at(?:t(?:iew|t(?:iew|h(?:iew|ew)|ew)|ew|h(?:iew|(?:[ht](?:iew|ew))|ew|we)|we)?|h(?:iew|ew|(?:[ht](?:iew|(?:[ht](?:iew|ew))|ew))))?|t)|[\\s\\xa0]*M(?:at(?:t(?:iew|t(?:iew|h(?:iew|ew)|ew)|ew|h(?:iew|(?:[ht](?:iew|ew))|ew|we)|we)?|h(?:iew|ew|(?:[ht](?:iew|(?:[ht](?:iew|ew))|ew))))?|t)))))|М(?:[тф]|ат(?:а[ий])?))|(?:M(?:at(?:t(?:iew|t(?:iew|h(?:iew|ew)|ew)|ew|h(?:iew|(?:[ht](?:iew|ew))|ew|we)|we)?|h(?:iew|ew|(?:[ht](?:iew|(?:[th](?:iew|ew))|ew))))?|t)|S(?:aint[\\s\\xa0]*M(?:at(?:t(?:iew|t(?:iew|h(?:iew|ew)|ew)|ew|h(?:iew|(?:[th](?:iew|ew))|ew|we)|we)?|h(?:iew|ew|(?:[ht](?:iew|(?:[th](?:iew|ew))|ew))))?|t)|t(?:\\.[\\s\\xa0]*M(?:at(?:t(?:iew|t(?:iew|h(?:iew|ew)|ew)|ew|h(?:iew|(?:[ht](?:iew|ew))|ew|we)|we)?|h(?:iew|ew|(?:[th](?:iew|(?:[ht](?:iew|ew))|ew))))?|t)|[\\s\\xa0]*M(?:at(?:t(?:iew|t(?:iew|h(?:iew|ew)|ew)|ew|h(?:iew|(?:[ht](?:iew|ew))|ew|we)|we)?|h(?:iew|ew|(?:[th](?:iew|(?:[ht](?:iew|ew))|ew))))?|t)))|Gospel[\\s\\xa0]*(?:according[\\s\\xa0]*to[\\s\\xa0]*(?:M(?:at(?:t(?:iew|t(?:iew|h(?:iew|ew)|ew)|ew|h(?:iew|(?:[ht](?:iew|ew))|ew|we)|we)?|h(?:iew|ew|(?:[th](?:iew|(?:[ht](?:iew|ew))|ew))))?|t)|S(?:aint[\\s\\xa0]*M(?:at(?:t(?:iew|t(?:iew|h(?:iew|ew)|ew)|ew|h(?:iew|(?:[th](?:iew|ew))|ew|we)|we)?|h(?:iew|ew|(?:[th](?:iew|(?:[ht](?:iew|ew))|ew))))?|t)|t(?:\\.[\\s\\xa0]*M(?:at(?:t(?:iew|t(?:iew|h(?:iew|ew)|ew)|ew|h(?:iew|(?:[th](?:iew|ew))|ew|we)|we)?|h(?:iew|ew|(?:[ht](?:iew|(?:[th](?:iew|ew))|ew))))?|t)|[\\s\\xa0]*M(?:at(?:t(?:iew|t(?:iew|h(?:iew|ew)|ew)|ew|h(?:iew|(?:[th](?:iew|ew))|ew|we)|we)?|h(?:iew|ew|(?:[ht](?:iew|(?:[ht](?:iew|ew))|ew))))?|t))))|of[\\s\\xa0]*(?:M(?:at(?:t(?:iew|t(?:iew|h(?:iew|ew)|ew)|ew|h(?:iew|(?:[ht](?:iew|ew))|ew|we)|we)?|h(?:iew|ew|(?:[th](?:iew|(?:[th](?:iew|ew))|ew))))?|t)|S(?:aint[\\s\\xa0]*M(?:at(?:t(?:iew|t(?:iew|h(?:iew|ew)|ew)|ew|h(?:iew|(?:[ht](?:iew|ew))|ew|we)|we)?|h(?:iew|ew|(?:[ht](?:iew|(?:[th](?:iew|ew))|ew))))?|t)|t(?:\\.[\\s\\xa0]*M(?:at(?:t(?:iew|t(?:iew|h(?:iew|ew)|ew)|ew|h(?:iew|(?:[ht](?:iew|ew))|ew|we)|we)?|h(?:iew|ew|(?:[th](?:iew|(?:[ht](?:iew|ew))|ew))))?|t)|[\\s\\xa0]*M(?:at(?:t(?:iew|t(?:iew|h(?:iew|ew)|ew)|ew|h(?:iew|(?:[ht](?:iew|ew))|ew|we)|we)?|h(?:iew|ew|(?:[th](?:iew|(?:[ht](?:iew|ew))|ew))))?|t)))))))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Ps"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Заб(?:ур)?|Пс(?:ал(?:мы|ом|тирь)?)?|P(?:s(?:l(?:a(?:ms?|lms?)?|m(?:as|[ms])?)|sm?|m(?:ls?|m|a(?:l(?:ms?|s)?)?)?|a(?:a(?:ms|a|lms?)|m(?:ms?|as|l(?:ms?|[as])?|s)?|l(?:m(?:[alm]s?|s)?|a(?:ms?|s)?|s|lms?)?)?)?|l(?:ms|s(?:s(?:s(?:ss?)?)?|ms?|a(?:ms?)?)|a(?:m(?:as|s)?|as?|s(?:m(?:as?|s)?|s)?))|a(?:m[ls]s|l(?:[lm]s|sms?)|s(?:ss|m(?:ls|s)|lms?)))|Salms?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Eccl"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Ec(?:l(?:es(?:i(?:stes|a(?:tes|stes?|iastes))|sia(?:tes|stes)))?|c(?:l(?:es(?:s(?:aistes|ia(?:tes|stes))|a(?:stes|i(?:tes|stes|astes))|i(?:a(?:i(?:stes|astes)|st(?:es?|ies)?|tes?|a(?:tes|stes))|tes|stes|iastes))?)?)?)?|Книга[\\s\\xa0]*Екклесиаста|Разм(?:ышления)?|Екк(?:лесиаст)?|Qo(?:h(?:eleth)?)?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Ezek"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Иез(?:екииль)?|Езек(?:иил)?|E(?:z(?:e(?:(?:[ei]k(?:el|iel))|k(?:el|i[ae]l)?)?|i(?:(?:[ei]k(?:el|iel))|k(?:el|iel))|k)|x(?:[ei](?:(?:[ei]k(?:el|iel))|k(?:el|iel))))|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Иезекииля)|Иезекииля)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Hos"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Ос(?:и[ия])?|H(?:o(?:s(?:ea)?)?|s)|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Осии))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Obad"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*пророка[\\s\\xa0]*Авдия|Ob(?:idah|a(?:d(?:iah?)?)?|d)?|Авд(?:и[ийя])?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Hag"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:H(?:gg?|ag(?:ai|g(?:ai|ia[hi])?)?)|Агг(?:е[ийя])?|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Аггея))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Hab"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Книга[\\s\\xa0]*пророка[\\s\\xa0]*Аввакума|Hab(?:bak(?:[au]kk?|k[au]kk?)|ak(?:[au]kk?|k[au]kk?)|k)?|Авв(?:акум)?)|Аввакума)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Mic"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Мих(?:е[ийя])?|Mic(?:ah?|hah?)?|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Михея))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Zech"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Z(?:ch?|e(?:kariah?|c(?:h(?:[ae]r(?:i(?:ih|ah?|h)|a(?:[ai]h|h)))?)?)|a(?:kariah|c(?:h(?:[ae]r(?:i(?:ih|ah?|h)|a(?:[ai]h|h)))?)?))|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Захарии|За(?:[кх](?:ария)?))|Захарии)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Zeph"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Z(?:e(?:p(?:h(?:an(?:aiah?|iah?))?)?|faniah?)|ph?|a(?:phaniah?|faniah?))|Соф(?:они[ия])?|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Софонии))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Luke"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Л(?:ука|к)|The[\\s\\xa0]*Gospel[\\s\\xa0]*(?:of[\\s\\xa0]*(?:S(?:aint[\\s\\xa0]*L(?:u(?:ke?)?|k)|t(?:[\\s\\xa0]*L(?:u(?:ke?)?|k)|\\.[\\s\\xa0]*L(?:u(?:ke?)?|k)))|L(?:u(?:ke?)?|k))|according[\\s\\xa0]*to[\\s\\xa0]*(?:S(?:aint[\\s\\xa0]*L(?:u(?:ke?)?|k)|t(?:[\\s\\xa0]*L(?:u(?:ke?)?|k)|\\.[\\s\\xa0]*L(?:u(?:ke?)?|k)))|L(?:u(?:ke?)?|k)))|Евангелие[\\s\\xa0]*от[\\s\\xa0]*Луки|От[\\s\\xa0]*Луки)|(?:S(?:aint[\\s\\xa0]*L(?:u(?:ke?)?|k)|t(?:[\\s\\xa0]*L(?:u(?:ke?)?|k)|\\.[\\s\\xa0]*L(?:u(?:ke?)?|k)))|L(?:u(?:ke?)?|k)|Gospel[\\s\\xa0]*(?:of[\\s\\xa0]*(?:S(?:aint[\\s\\xa0]*L(?:u(?:ke?)?|k)|t(?:[\\s\\xa0]*L(?:u(?:ke?)?|k)|\\.[\\s\\xa0]*L(?:u(?:ke?)?|k)))|L(?:u(?:ke?)?|k))|according[\\s\\xa0]*to[\\s\\xa0]*(?:S(?:aint[\\s\\xa0]*L(?:u(?:ke?)?|k)|t(?:[\\s\\xa0]*L(?:u(?:ke?)?|k)|\\.[\\s\\xa0]*L(?:u(?:ke?)?|k)))|L(?:u(?:ke?)?|k)))))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Jer"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Иер(?:емия)?|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Иеремии|J(?:r|e(?:r(?:im(?:ah|i(?:[ai]h|h))|m[im]ah|e(?:m(?:i(?:ih|ah?|e|ha?)?|a(?:h|i(?:ah|h))))?|a(?:m(?:a(?:ih|h)|i(?:ih|ah?|ha?))|iah))?)?))|Иеремии)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["2Cor"],
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:II(?:[\s\xa0]*C(?:hor(?:anthians|nthians|i(?:nth(?:i(?:ns|ans)|ains)|thians))|o(?:r(?:i(?:n(?:ith(?:i(?:nas|ans)|a(?:ns|ins))|t(?:h(?:a(?:i(?:ns|ans)|ns)|o(?:ians|ans)|i(?:ians|n(?:as|s)|a(?:n(?:[ao]s|s)?|[ai]ns)|ons))?|i[ao]ns)?|[an]thians)?|th(?:oans|a(?:ns|ins)|i(?:ians|ns|ans))|inthi(?:ians|ans))|anthians|n(?:i(?:nth(?:ians|a(?:ns|ins))|th(?:ians|a(?:i(?:ns|ans)|ns)))|th(?:ains|i(?:ians|ns|ans)))|ri(?:th(?:ians|ains)|nth(?:ians|ains))|th(?:ians?)?)?)?)|\.[\s\xa0]*C(?:hor(?:anthians|nthians|i(?:nth(?:i(?:ns|ans)|ains)|thians))|o(?:r(?:i(?:n(?:ith(?:i(?:nas|ans)|a(?:ns|ins))|t(?:h(?:a(?:i(?:ns|ans)|ns)|o(?:ians|ans)|i(?:ians|n(?:as|s)|a(?:n(?:[ao]s|s)?|[ai]ns)|ons))?|i[ao]ns)?|[an]thians)?|th(?:oans|a(?:ns|ins)|i(?:ians|ns|ans))|inthi(?:ians|ans))|anthians|n(?:i(?:nth(?:ians|a(?:ns|ins))|th(?:ians|a(?:i(?:ns|ans)|ns)))|th(?:ains|i(?:ians|ns|ans)))|ri(?:th(?:ians|ains)|nth(?:ians|ains))|th(?:ians?)?)?)?))|Second[\s\xa0]*C(?:hor(?:anthians|nthians|i(?:nth(?:i(?:ns|ans)|ains)|thians))|o(?:r(?:i(?:n(?:ith(?:i(?:nas|ans)|a(?:ns|ins))|t(?:h(?:a(?:i(?:ns|ans)|ns)|o(?:ians|ans)|i(?:ians|n(?:as|s)|a(?:n(?:[ao]s|s)?|[ai]ns)|ons))?|i[ao]ns)?|[an]thians)?|th(?:oans|a(?:ns|ins)|i(?:ians|ns|ans))|inthi(?:ians|ans))|anthians|n(?:i(?:nth(?:ians|a(?:ns|ins))|th(?:ians|a(?:i(?:ns|ans)|ns)))|th(?:ains|i(?:ians|ns|ans)))|ri(?:th(?:ians|ains)|nth(?:ians|ains))|th(?:ians?)?)?)?)|2(?:-?(?:[ея](?:\.[\s\xa0]*(?:Коринфянам|к[\s\xa0]*Коринфянам)|[\s\xa0]*(?:Коринфянам|к[\s\xa0]*Коринфянам)))|nd(?:[\s\xa0]*C(?:hor(?:anthians|nthians|i(?:nth(?:i(?:ns|ans)|ains)|thians))|o(?:r(?:i(?:n(?:ith(?:i(?:nas|ans)|a(?:ns|ins))|t(?:h(?:a(?:i(?:ns|ans)|ns)|o(?:ians|ans)|i(?:ians|n(?:as|s)|a(?:n(?:[ao]s|s)?|[ai]ns)|ons))?|i[ao]ns)?|[an]thians)?|th(?:oans|a(?:ns|ins)|i(?:ians|ns|ans))|inthi(?:ians|ans))|anthians|n(?:i(?:nth(?:ians|a(?:ns|ins))|th(?:ians|a(?:i(?:ns|ans)|ns)))|th(?:ains|i(?:ians|ns|ans)))|ri(?:th(?:ians|ains)|nth(?:ians|ains))|th(?:ians?)?)?)?)|\.[\s\xa0]*C(?:hor(?:anthians|nthians|i(?:nth(?:i(?:ns|ans)|ains)|thians))|o(?:r(?:i(?:n(?:ith(?:i(?:nas|ans)|a(?:ns|ins))|t(?:h(?:a(?:i(?:ns|ans)|ns)|o(?:ians|ans)|i(?:ians|n(?:as|s)|a(?:n(?:[ao]s|s)?|[ai]ns)|ons))?|i[ao]ns)?|[an]thians)?|th(?:oans|a(?:ns|ins)|i(?:ians|ns|ans))|inthi(?:ians|ans))|anthians|n(?:i(?:nth(?:ians|a(?:ns|ins))|th(?:ians|a(?:i(?:ns|ans)|ns)))|th(?:ains|i(?:ians|ns|ans)))|ri(?:th(?:ians|ains)|nth(?:ians|ains))|th(?:ians?)?)?)?))|(?:[ея](?:\.[\s\xa0]*(?:Коринфянам|к[\s\xa0]*Коринфянам)|[\s\xa0]*(?:Коринфянам|к[\s\xa0]*Коринфянам)))|\.[\s\xa0]*(?:Коринфянам|C(?:hor(?:anthians|nthians|i(?:nth(?:i(?:ns|ans)|ains)|thians))|o(?:r(?:i(?:n(?:ith(?:i(?:nas|ans)|a(?:ns|ins))|t(?:h(?:a(?:i(?:ns|ans)|ns)|o(?:ians|ans)|i(?:ians|n(?:as|s)|a(?:n(?:[ao]s|s)?|[ai]ns)|ons))?|i[ao]ns)?|[an]thians)?|th(?:oans|a(?:ns|ins)|i(?:ians|ns|ans))|inthi(?:ians|ans))|anthians|n(?:i(?:nth(?:ians|a(?:ns|ins))|th(?:ians|a(?:i(?:ns|ans)|ns)))|th(?:ains|i(?:ians|ns|ans)))|ri(?:th(?:ians|ains)|nth(?:ians|ains))|th(?:ians?)?)?)?)|к[\s\xa0]*Коринфянам)|Cor|[\s\xa0]*(?:C(?:hor(?:anthians|nthians|i(?:nth(?:i(?:ns|ans)|ains)|thians))|o(?:r(?:i(?:n(?:ith(?:i(?:nas|ans)|a(?:ns|ins))|t(?:h(?:a(?:i(?:ns|ans)|ns)|o(?:ians|ans)|i(?:ians|n(?:as|s)|a(?:n(?:[ao]s|s)?|[ai]ns)|ons))?|i[ao]ns)?|[an]thians)?|th(?:oans|a(?:ns|ins)|i(?:ians|ns|ans))|inthi(?:ians|ans))|anthians|n(?:i(?:nth(?:ians|a(?:ns|ins))|th(?:ians|a(?:i(?:ns|ans)|ns)))|th(?:ains|i(?:ians|ns|ans)))|ri(?:th(?:ians|ains)|nth(?:ians|ains))|th(?:ians?)?)?)?)|Кор(?:инфянам)?|к[\s\xa0]*Коринфянам))))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+      }, {
+        osis: ["1Cor"],
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:First[\s\xa0]*C(?:hor(?:anthians|nthians|i(?:nth(?:i(?:ns|ans)|ains)|thians))|o(?:r(?:i(?:n(?:ith(?:i(?:nas|ans)|a(?:ns|ins))|t(?:h(?:a(?:i(?:ns|ans)|ns)|o(?:ians|ans)|i(?:ians|n(?:as|s)|a(?:n(?:[ao]s|s)?|[ai]ns)|ons))?|i[ao]ns)?|[an]thians)?|th(?:oans|a(?:ns|ins)|i(?:ians|ns|ans))|inthi(?:ians|ans))|anthians|n(?:i(?:nth(?:ians|a(?:ns|ins))|th(?:ians|a(?:i(?:ns|ans)|ns)))|th(?:ains|i(?:ians|ns|ans)))|ri(?:th(?:ians|ains)|nth(?:ians|ains))|th(?:ians?)?)?)?)|1(?:-?(?:[ея](?:\.[\s\xa0]*(?:Коринфянам|к[\s\xa0]*Коринфянам)|[\s\xa0]*(?:Коринфянам|к[\s\xa0]*Коринфянам)))|(?:[ея](?:\.[\s\xa0]*(?:Коринфянам|к[\s\xa0]*Коринфянам)|[\s\xa0]*(?:Коринфянам|к[\s\xa0]*Коринфянам)))|\.[\s\xa0]*(?:Коринфянам|C(?:hor(?:anthians|nthians|i(?:nth(?:i(?:ns|ans)|ains)|thians))|o(?:r(?:i(?:n(?:ith(?:i(?:nas|ans)|a(?:ns|ins))|t(?:h(?:a(?:i(?:ns|ans)|ns)|o(?:ians|ans)|i(?:ians|n(?:as|s)|a(?:n(?:[ao]s|s)?|[ai]ns)|ons))?|i[ao]ns)?|[an]thians)?|th(?:oans|a(?:ns|ins)|i(?:ians|ns|ans))|inthi(?:ians|ans))|anthians|n(?:i(?:nth(?:ians|a(?:ns|ins))|th(?:ians|a(?:i(?:ns|ans)|ns)))|th(?:ains|i(?:ians|ns|ans)))|ri(?:th(?:ians|ains)|nth(?:ians|ains))|th(?:ians?)?)?)?)|к[\s\xa0]*Коринфянам)|st(?:[\s\xa0]*C(?:hor(?:anthians|nthians|i(?:nth(?:i(?:ns|ans)|ains)|thians))|o(?:r(?:i(?:n(?:ith(?:i(?:nas|ans)|a(?:ns|ins))|t(?:h(?:a(?:i(?:ns|ans)|ns)|o(?:ians|ans)|i(?:ians|n(?:as|s)|a(?:n(?:[ao]s|s)?|[ai]ns)|ons))?|i[ao]ns)?|[an]thians)?|th(?:oans|a(?:ns|ins)|i(?:ians|ns|ans))|inthi(?:ians|ans))|anthians|n(?:i(?:nth(?:ians|a(?:ns|ins))|th(?:ians|a(?:i(?:ns|ans)|ns)))|th(?:ains|i(?:ians|ns|ans)))|ri(?:th(?:ians|ains)|nth(?:ians|ains))|th(?:ians?)?)?)?)|\.[\s\xa0]*C(?:hor(?:anthians|nthians|i(?:nth(?:i(?:ns|ans)|ains)|thians))|o(?:r(?:i(?:n(?:ith(?:i(?:nas|ans)|a(?:ns|ins))|t(?:h(?:a(?:i(?:ns|ans)|ns)|o(?:ians|ans)|i(?:ians|n(?:as|s)|a(?:n(?:[ao]s|s)?|[ai]ns)|ons))?|i[ao]ns)?|[an]thians)?|th(?:oans|a(?:ns|ins)|i(?:ians|ns|ans))|inthi(?:ians|ans))|anthians|n(?:i(?:nth(?:ians|a(?:ns|ins))|th(?:ians|a(?:i(?:ns|ans)|ns)))|th(?:ains|i(?:ians|ns|ans)))|ri(?:th(?:ians|ains)|nth(?:ians|ains))|th(?:ians?)?)?)?))|Cor|[\s\xa0]*(?:C(?:hor(?:anthians|nthians|i(?:nth(?:i(?:ns|ans)|ains)|thians))|o(?:r(?:i(?:n(?:ith(?:i(?:nas|ans)|a(?:ns|ins))|t(?:h(?:a(?:i(?:ns|ans)|ns)|o(?:ians|ans)|i(?:ians|n(?:as|s)|a(?:n(?:[ao]s|s)?|[ai]ns)|ons))?|i[ao]ns)?|[an]thians)?|th(?:oans|a(?:ns|ins)|i(?:ians|ns|ans))|inthi(?:ians|ans))|anthians|n(?:i(?:nth(?:ians|a(?:ns|ins))|th(?:ians|a(?:i(?:ns|ans)|ns)))|th(?:ains|i(?:ians|ns|ans)))|ri(?:th(?:ians|ains)|nth(?:ians|ains))|th(?:ians?)?)?)?)|Кор(?:инфянам)?|к[\s\xa0]*Коринфянам))|I(?:[\s\xa0]*C(?:hor(?:anthians|nthians|i(?:nth(?:i(?:ns|ans)|ains)|thians))|o(?:r(?:i(?:n(?:ith(?:i(?:nas|ans)|a(?:ns|ins))|t(?:h(?:a(?:i(?:ns|ans)|ns)|o(?:ians|ans)|i(?:ians|n(?:as|s)|a(?:n(?:[ao]s|s)?|[ai]ns)|ons))?|i[ao]ns)?|[an]thians)?|th(?:oans|a(?:ns|ins)|i(?:ians|ns|ans))|inthi(?:ians|ans))|anthians|n(?:i(?:nth(?:ians|a(?:ns|ins))|th(?:ians|a(?:i(?:ns|ans)|ns)))|th(?:ains|i(?:ians|ns|ans)))|ri(?:th(?:ians|ains)|nth(?:ians|ains))|th(?:ians?)?)?)?)|\.[\s\xa0]*C(?:hor(?:anthians|nthians|i(?:nth(?:i(?:ns|ans)|ains)|thians))|o(?:r(?:i(?:n(?:ith(?:i(?:nas|ans)|a(?:ns|ins))|t(?:h(?:a(?:i(?:ns|ans)|ns)|o(?:ians|ans)|i(?:ians|n(?:as|s)|a(?:n(?:[ao]s|s)?|[ai]ns)|ons))?|i[ao]ns)?|[an]thians)?|th(?:oans|a(?:ns|ins)|i(?:ians|ns|ans))|inthi(?:ians|ans))|anthians|n(?:i(?:nth(?:ians|a(?:ns|ins))|th(?:ians|a(?:i(?:ns|ans)|ns)))|th(?:ains|i(?:ians|ns|ans)))|ri(?:th(?:ians|ains)|nth(?:ians|ains))|th(?:ians?)?)?)?)))|C(?:or(?:i(?:n(?:ith(?:i(?:nas|ans)|a(?:ns|ins))|t(?:h(?:a(?:i(?:ns|ans)|ns)|o(?:ians|ans)|i(?:ians|n(?:as|s)|a(?:n(?:[oa]s|s)?|[ai]ns)|ons))|i[oa]ns)|[na]thians)|th(?:oans|a(?:ns|ins)|i(?:ians|ns|ans))|inthi(?:ians|ans))|n(?:i(?:nth(?:ians|a(?:ns|ins))|th(?:ians|a(?:i(?:ns|ans)|ns)))|th(?:ains|i(?:ians|ns|ans)))|ri(?:th(?:ians|ains)|nth(?:ians|ains)))|hor(?:anthians|nthians|i(?:nth(?:i(?:ns|ans)|ains)|thians))))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+      }, {
+        osis: ["Gal"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:G(?:a(?:l(?:a(?:t(?:o(?:ns|ans)|ns|a(?:ns|s|i(?:ns|[ao]ns)|[ao]ns)|i(?:o(?:n(?:[an]s|s)|s|ans)|a(?:n(?:[ai]s|s)?|s|[ai]ns)|n(?:a(?:ns|s)|s)|i(?:ns|[ao]ns)))?)?|lati(?:ns|[ao]ns))?)?|l)|Гал|К[\\s\\xa0]*Галатам|Послание[\\s\\xa0]*к[\\s\\xa0]*Галатам)|Галатам)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Eph"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:К[\\s\\xa0]*Ефесянам|Послание[\\s\\xa0]*к[\\s\\xa0]*Ефесянам|E(?:sphesians|p(?:e(?:hesians|sians)|h(?:e(?:s(?:ains?|i(?:an[ds]?|ons))?)?|s(?:ians?)?|isians?)?)?|hp(?:[ei]sians)?)|Еф|Эф(?:есянам)?)|Ефесянам)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Col"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:C(?:al(?:l(?:asi[ao]ns|os(?:sians|i[ao]ns))|[ao]s(?:si(?:[ao]ns|i[ao]ns)))|o(?:l(?:os(?:s(?:i(?:ans?|ons)|ans)?|i[ao]ns)|l[ao]si(?:[ao]ns)|as(?:si[ao]ns|i[ao]ns))?)?)|К(?:ол|[\\s\\xa0]*Колоссянам)|Послание[\\s\\xa0]*к[\\s\\xa0]*Колоссянам)|Cal[ao]si(?:[ao]ns)|Колоссянам)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["2Tim"],
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:II(?:[\s\xa0]*T(?:omothy|i(?:m(?:ot(?:hy?|y))?)?|himot(?:hy|y)|m)|\.[\s\xa0]*T(?:omothy|i(?:m(?:ot(?:hy?|y))?)?|himot(?:hy|y)|m))|2(?:Tim|\.[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею)|T(?:omothy|i(?:m(?:ot(?:hy?|y))?)?|himot(?:hy|y)|m))|nd(?:[\s\xa0]*T(?:omothy|i(?:m(?:ot(?:hy?|y))?)?|himot(?:hy|y)|m)|\.[\s\xa0]*T(?:omothy|i(?:m(?:ot(?:hy?|y))?)?|himot(?:hy|y)|m))|-?(?:[ея](?:\.[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею))|[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею))))|(?:[ея](?:\.[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею))|[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею))))|[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею)?|T(?:omothy|i(?:m(?:ot(?:hy?|y))?)?|himot(?:hy|y)|m)))|Second[\s\xa0]*T(?:omothy|i(?:m(?:ot(?:hy?|y))?)?|himot(?:hy|y)|m)))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+      }, {
+        osis: ["1Tim"],
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:1(?:Tim|\.[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею)|T(?:omothy|i(?:m(?:ot(?:hy?|y))?)?|himot(?:hy|y)|m))|-?(?:[ея](?:\.[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею))|[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею))))|(?:[ея](?:\.[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею))|[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею))))|st(?:[\s\xa0]*T(?:omothy|i(?:m(?:ot(?:hy?|y))?)?|himot(?:hy|y)|m)|\.[\s\xa0]*T(?:omothy|i(?:m(?:ot(?:hy?|y))?)?|himot(?:hy|y)|m))|[\s\xa0]*(?:к[\s\xa0]*Тимофею|Тим(?:етею|офею)?|T(?:omothy|i(?:m(?:ot(?:hy?|y))?)?|himot(?:hy|y)|m)))|I(?:[\s\xa0]*T(?:omothy|i(?:m(?:ot(?:hy?|y))?)?|himot(?:hy|y)|m)|\.[\s\xa0]*T(?:omothy|i(?:m(?:ot(?:hy?|y))?)?|himot(?:hy|y)|m))|First[\s\xa0]*T(?:omothy|i(?:m(?:ot(?:hy?|y))?)?|himot(?:hy|y)|m))|Timothy?)(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+      }, {
+        osis: ["Deut"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Втор(?:озаконие)?|D(?:t|e(?:et(?:ron(?:omy|my)|(?:[eo]ron(?:omy|my)))|u(?:t(?:ron(?:omy|my)|(?:[eo]ron(?:omy|my)))?)?)|u(?:et(?:ron(?:omy|my)|(?:[eo]ron(?:omy|my)))?|ut(?:ron(?:omy|my)|(?:[eo]ron(?:omy|my)))))))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Titus"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Ti(?:t(?:us)?)?|Послание[\\s\\xa0]*к[\\s\\xa0]*Титу|К[\\s\\xa0]*Титу|Титу?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Heb"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:H(?:brew(?:ws|s)|w(?:brew(?:ws|s)|(?:[ew]brew(?:ws|s)))|e(?:b(?:e(?:rws|w[erw]s)|r(?:e(?:s|w(?:ws|s)?)|rws|w(?:es|s)|s)|w(?:ers|res))?|(?:[ew]brew(?:ws|s))))|Евр|К[\\s\\xa0]*Евреям|Послание[\\s\\xa0]*к[\\s\\xa0]*Евреям)|Евреям)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Phil"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Ph(?:l(?:pp?|ip(?:ians|p(?:ians)?)?)|p|i(?:l(?:p(?:eans|i(?:ns|ans?)|a(?:n|ins)|p(?:pians|i(?:ians|ans?))?)?|l(?:l(?:ip(?:pians|i(?:ians|ans?))|p(?:ians|pians))|p(?:pians?|i(?:ans?|ens)|ans)|i(?:p(?:a(?:i(?:ns?|ans)|ns?)|i(?:ians|e(?:ns|ans)|ns|a(?:ns?|[ai]ns))|p(?:pians|a(?:ns|ins)|i(?:[ei]ans|a(?:ns?|ins)|ns)|eans?)|eans?)?)?)|i(?:p(?:a(?:i(?:ns?|ans)|ns?)|e(?:ns|ans)|i(?:ians|ns|ans?|ens)|p(?:a(?:i(?:ns|ans)|ns?)|i(?:ians|ns?|a(?:ns?|[ai]ns)|ens)|pians?|eans?)?)?)?)?)?)|Послание[\\s\\xa0]*к[\\s\\xa0]*Филиппи[ий]цам|Ф(?:ил|лп)|К[\\s\\xa0]*Филиппи[ий]цам)|Филиппи(?:[ий]цам))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Dan"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Д(?:ан(?:и(?:ила?|ял))?|он)|D(?:a(?:n(?:i[ae]l)?)?|[ln])|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Даниила))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Jude"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Послание[\\s\\xa0]*Иуды|J(?:ude|de)|Иуд[аы]?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
       }, {
         osis: ["2Macc"],
         apocrypha: true,
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])((?:2(?:-?(?:[ея](?:\.[\s\xa0]*Маккавеев|[\s\xa0]*Маккавеев))|(?:[ея](?:\.[\s\xa0]*Маккавеев|[\s\xa0]*Маккавеев))|\.[\s\xa0]*Маккавеев|Macc|[\s\xa0]*Макк(?:авеев)?)|Вторая[\s\xa0]*книга[\s\xa0]*Маккаве[ий]ская))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:Вторая[\s\xa0]*книга[\s\xa0]*Маккаве[ий]ская|Second[\s\xa0]*Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?|II(?:\.[\s\xa0]*Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?|[\s\xa0]*Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?)|2(?:-?(?:[ея](?:\.[\s\xa0]*Маккавеев|[\s\xa0]*Маккавеев))|[\s\xa0]*(?:M(?:a(?:c(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?)?|c)|Макк(?:авеев)?)|(?:[ея](?:\.[\s\xa0]*Маккавеев|[\s\xa0]*Маккавеев))|\.[\s\xa0]*(?:Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?|Маккавеев)|nd(?:\.[\s\xa0]*Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?|[\s\xa0]*Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?)|Macc)))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
       }, {
         osis: ["3Macc"],
         apocrypha: true,
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])((?:3(?:-?(?:[ея](?:\.[\s\xa0]*Маккавеев|[\s\xa0]*Маккавеев))|(?:[ея](?:\.[\s\xa0]*Маккавеев|[\s\xa0]*Маккавеев))|\.[\s\xa0]*Маккавеев|Macc|[\s\xa0]*Макк(?:авеев)?)|Третья[\s\xa0]*книга[\s\xa0]*Маккаве[ий]ская))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:Третья[\s\xa0]*книга[\s\xa0]*Маккаве[ий]ская|III(?:\.[\s\xa0]*Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?|[\s\xa0]*Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?)|3(?:-?(?:[ея](?:\.[\s\xa0]*Маккавеев|[\s\xa0]*Маккавеев))|(?:[ея](?:\.[\s\xa0]*Маккавеев|[\s\xa0]*Маккавеев))|\.[\s\xa0]*(?:Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?|Маккавеев)|rd(?:\.[\s\xa0]*Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?|[\s\xa0]*Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?)|Macc|[\s\xa0]*(?:M(?:ac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?|c)|Макк(?:авеев)?))|Third[\s\xa0]*Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
       }, {
         osis: ["4Macc"],
         apocrypha: true,
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])(4(?:-?(?:[ея](?:\.[\s\xa0]*Маккавеев|[\s\xa0]*Маккавеев))|(?:[ея](?:\.[\s\xa0]*Маккавеев|[\s\xa0]*Маккавеев))|\.[\s\xa0]*Маккавеев|Macc|[\s\xa0]*Макк(?:авеев)?))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:IV(?:\.[\s\xa0]*Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?|[\s\xa0]*Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?)|Fourth[\s\xa0]*Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?|4(?:-?(?:[ея](?:\.[\s\xa0]*Маккавеев|[\s\xa0]*Маккавеев))|(?:[ея](?:\.[\s\xa0]*Маккавеев|[\s\xa0]*Маккавеев))|\.[\s\xa0]*(?:Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?|Маккавеев)|Macc|[\s\xa0]*(?:M(?:ac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?|c)|Макк(?:авеев)?)|th(?:\.[\s\xa0]*Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?|[\s\xa0]*Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?))))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
       }, {
         osis: ["1Macc"],
         apocrypha: true,
-        regexp: /(^|[^0-9A-Za-zЀ-ҁ҃-҇Ҋ-ԧⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟ])((?:1(?:-?(?:[ея](?:\.[\s\xa0]*Маккавеев|[\s\xa0]*Маккавеев))|(?:[ея](?:\.[\s\xa0]*Маккавеев|[\s\xa0]*Маккавеев))|\.[\s\xa0]*Маккавеев|Macc|[\s\xa0]*Макк(?:авеев)?)|Первая[\s\xa0]*книга[\s\xa0]*Маккаве[ий]ская))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:First[\s\xa0]*Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?|I(?:\.[\s\xa0]*Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?|[\s\xa0]*Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?)|1(?:-?(?:[ея](?:\.[\s\xa0]*Маккавеев|[\s\xa0]*Маккавеев))|[\s\xa0]*(?:M(?:a(?:c(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?)?|c)|Макк(?:авеев)?)|st(?:\.[\s\xa0]*Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?|[\s\xa0]*Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?)|(?:[ея](?:\.[\s\xa0]*Маккавеев|[\s\xa0]*Маккавеев))|\.[\s\xa0]*(?:Mac(?:c(?:c(?:ab(?:b(?:e[es]?|be)|e(?:e[es]?|s)?))?|ab(?:e(?:e(?:es?|s)?|s)?|b(?:be[es]?|e(?:e[es]?|s)?)))?|ab(?:b(?:be(?:e[es]?|s)?|e(?:e(?:es?|s)?|s)?)|e(?:e(?:es?|s)?|s)?))?|Маккавеев)|Macc)|Первая[\s\xa0]*книга[\s\xa0]*Маккаве[ий]ская)|Maccabees)(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+      }, {
+        osis: ["Mark"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:М(?:арк|[кр])|От[\\s\\xa0]*Марка|The[\\s\\xa0]*Gospel[\\s\\xa0]*(?:according[\\s\\xa0]*to[\\s\\xa0]*(?:M(?:rk?|ark?|k)|S(?:aint[\\s\\xa0]*M(?:rk?|ark?|k)|t(?:\\.[\\s\\xa0]*M(?:rk?|ark?|k)|[\\s\\xa0]*M(?:rk?|ark?|k))))|of[\\s\\xa0]*(?:M(?:rk?|ark?|k)|S(?:aint[\\s\\xa0]*M(?:rk?|ark?|k)|t(?:\\.[\\s\\xa0]*M(?:rk?|ark?|k)|[\\s\\xa0]*M(?:rk?|ark?|k)))))|Евангелие[\\s\\xa0]*от[\\s\\xa0]*Марка)|(?:Gospel[\\s\\xa0]*(?:according[\\s\\xa0]*to[\\s\\xa0]*(?:M(?:rk?|ark?|k)|S(?:aint[\\s\\xa0]*M(?:rk?|ark?|k)|t(?:\\.[\\s\\xa0]*M(?:rk?|ark?|k)|[\\s\\xa0]*M(?:rk?|ark?|k))))|of[\\s\\xa0]*(?:M(?:rk?|ark?|k)|S(?:aint[\\s\\xa0]*M(?:rk?|ark?|k)|t(?:\\.[\\s\\xa0]*M(?:rk?|ark?|k)|[\\s\\xa0]*M(?:rk?|ark?|k)))))|M(?:rk?|ark?|k)|S(?:aint[\\s\\xa0]*M(?:rk?|ark?|k)|t(?:\\.[\\s\\xa0]*M(?:rk?|ark?|k)|[\\s\\xa0]*M(?:rk?|ark?|k)))))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Jas"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Послание[\\s\\xa0]*Иакова|Якуб|Иак(?:ова)?|J(?:a(?:m(?:es?)?|s)?|ms?)))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Amos"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Am(?:os?|s)?|Ам(?:оса?)?|Книга[\\s\\xa0]*пророка[\\s\\xa0]*Амоса))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Tob"],
+        apocrypha: true,
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:T(?:ob(?:i(?:as|t)?|t)?|b)|Тов(?:ита)?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Jdt"],
+        apocrypha: true,
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Юди(?:фь)?|J(?:d(?:th?|ith?)|ud(?:th?|ith?))))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Bar"],
+        apocrypha: true,
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:B(?:ar(?:uch)?|r)|Вар(?:уха)?|Бару́ха|Книга[\\s\\xa0]*(?:Варуха|пророка[\\s\\xa0]*Вару́ха)))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["1Kgs"],
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:I(?:\.[\s\xa0]*Ks|[\s\xa0]*Ks)|1(?:\.[\s\xa0]*(?:Ks|Re)|[\s\xa0]*(?:Ks|Re))))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+      }, {
+        osis: ["2Kgs"],
+        regexp: /(^|[^0-9A-Za-zªµºÀ-ÖØ-öø-ɏЀ-ҁ҃-҇Ҋ-ԧḀ-ỿⱠ-Ɀⷠ-ⷿꙀ-꙯ꙴ-꙽ꙿ-ꚗꚟꜢ-ꞈꞋ-ꞎꞐ-ꞓꞠ-Ɦꟸ-ꟿ])((?:2(?:\.[\s\xa0]*(?:Ks|Re)|[\s\xa0]*(?:Ks|Re))|II(?:\.[\s\xa0]*Ks|[\s\xa0]*Ks)))(?:(?=[\d\s\xa0.:,;\x1e\x1f&\(\)（）\[\]\/"'\*=~\-\u2013\u2014])|$)/gi
+      }, {
+        osis: ["Acts"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")(Апостол)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Ezek", "Ezra"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")(Ez)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Ezra"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")(拉)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Hab", "Hag"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")(Ha)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Heb", "Hab"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")(Hb)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Job"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")(伯)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["John"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:約|Jan))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["John", "Jonah", "Job", "Josh", "Joel"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")(Jo)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Josh"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")(書)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Jude", "Judg"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")(J(?:d|ud?))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Lam"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")(La)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Lev"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")(利)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Matt"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")(太)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Matt", "Mark", "Mal"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")(Ma)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Mic"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")(Mi)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Phil", "Phlm"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")(Ph)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Rev"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")(Re)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Song"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")((?:Songs|歌))(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
+      }, {
+        osis: ["Zeph", "Zech"],
+        regexp: RegExp("(^|" + bcv_parser.prototype.regexps.pre_book + ")(Ze)(?:(?=[\\d\\s\\xa0.:,;\\x1e\\x1f&\\(\\)（）\\[\\]/\"'\\*=~\\-\\u2013\\u2014])|$)", "gi")
       }
     ];
     if (include_apocrypha === true && case_sensitive === "none") {
@@ -2600,78 +2711,120 @@ var grammar = (function() {
         peg$c41 = function(val_1, val_2) { return {"type": "c_title", "value": [val_1, val_2], "indices": [offset(), peg$currPos - 1]} },
         peg$c42 = function(val_1, val_2) { return {"type": "cv", "value": [val_1, val_2], "indices": [offset(), peg$currPos - 1]} },
         peg$c43 = function(val) { return {"type": "c", "value": [val], "indices": [offset(), peg$currPos - 1]} },
-        peg$c44 = "\u0438",
-        peg$c45 = { type: "literal", value: "\u0438", description: "\"\\u0438\"" },
-        peg$c46 = "\u0434\u0430\u043B\u0435\u0435",
-        peg$c47 = { type: "literal", value: "\u0434\u0430\u043B\u0435\u0435", description: "\"\\u0434\\u0430\\u043B\\u0435\\u0435\"" },
-        peg$c48 = /^[a-z]/,
-        peg$c49 = { type: "class", value: "[a-z]", description: "[a-z]" },
-        peg$c50 = function(val_1) { return {"type": "ff", "value": [val_1], "indices": [offset(), peg$currPos - 1]} },
-        peg$c51 = "\u043D\u0430\u0434\u043F\u0438\u0441\u0430\u043D\u0438\u044F\u0445",
-        peg$c52 = { type: "literal", value: "\u043D\u0430\u0434\u043F\u0438\u0441\u0430\u043D\u0438\u044F\u0445", description: "\"\\u043D\\u0430\\u0434\\u043F\\u0438\\u0441\\u0430\\u043D\\u0438\\u044F\\u0445\"" },
-        peg$c53 = function(val_1) { return {"type": "integer_title", "value": [val_1], "indices": [offset(), peg$currPos - 1]} },
-        peg$c54 = "/2\x1F",
-        peg$c55 = { type: "literal", value: "/2\x1F", description: "\"/2\\x1F\"" },
-        peg$c56 = ".1",
-        peg$c57 = { type: "literal", value: ".1", description: "\".1\"" },
-        peg$c58 = /^[0-9]/,
-        peg$c59 = { type: "class", value: "[0-9]", description: "[0-9]" },
-        peg$c60 = function(val) { return {"type": "bc", "value": [val, {"type": "c", "value": [{"type": "integer", "value": 151, "indices": [peg$currPos - 2, peg$currPos - 1]}], "indices": [peg$currPos - 2, peg$currPos - 1]}], "indices": [offset(), peg$currPos - 1]} },
-        peg$c61 = function(val_1, val_2) { return {"type": "bcv", "value": [val_1, {"type": "v", "value": [val_2], "indices": [val_2.indices[0], val_2.indices[1]]}], "indices": [offset(), peg$currPos - 1]} },
-        peg$c62 = /^[\u0430\u0431]/i,
-        peg$c63 = { type: "class", value: "[\\u0430\\u0431]i", description: "[\\u0430\\u0431]i" },
-        peg$c64 = function(val) { return {"type": "v", "value": [val], "indices": [offset(), peg$currPos - 1]} },
-        peg$c65 = "\u0433\u043B\u0430\u0432\u044B",
-        peg$c66 = { type: "literal", value: "\u0433\u043B\u0430\u0432\u044B", description: "\"\\u0433\\u043B\\u0430\\u0432\\u044B\"" },
-        peg$c67 = "\u0433\u043B\u0430\u0432",
-        peg$c68 = { type: "literal", value: "\u0433\u043B\u0430\u0432", description: "\"\\u0433\\u043B\\u0430\\u0432\"" },
-        peg$c69 = "\u0433\u043B",
-        peg$c70 = { type: "literal", value: "\u0433\u043B", description: "\"\\u0433\\u043B\"" },
-        peg$c71 = function() { return {"type": "c_explicit"} },
-        peg$c72 = "\u0441\u0442\u0438\u0445\u0438",
-        peg$c73 = { type: "literal", value: "\u0441\u0442\u0438\u0445\u0438", description: "\"\\u0441\\u0442\\u0438\\u0445\\u0438\"" },
-        peg$c74 = "\u0441\u0442\u0438\u0445",
-        peg$c75 = { type: "literal", value: "\u0441\u0442\u0438\u0445", description: "\"\\u0441\\u0442\\u0438\\u0445\"" },
-        peg$c76 = function() { return {"type": "v_explicit"} },
-        peg$c77 = ":",
-        peg$c78 = { type: "literal", value: ":", description: "\":\"" },
-        peg$c79 = /^["']/,
-        peg$c80 = { type: "class", value: "[\"']", description: "[\"']" },
-        peg$c81 = /^[,;\/:&\-\u2013\u2014~]/,
-        peg$c82 = { type: "class", value: "[,;\\/:&\\-\\u2013\\u2014~]", description: "[,;\\/:&\\-\\u2013\\u2014~]" },
-        peg$c83 = function() { return "" },
-        peg$c84 = /^[\-\u2013\u2014]/,
-        peg$c85 = { type: "class", value: "[\\-\\u2013\\u2014]", description: "[\\-\\u2013\\u2014]" },
-        peg$c86 = "\u2014",
-        peg$c87 = { type: "literal", value: "\u2014", description: "\"\\u2014\"" },
-        peg$c88 = function(val) { return {type:"title", value: [val], "indices": [offset(), peg$currPos - 1]} },
-        peg$c89 = "from",
-        peg$c90 = { type: "literal", value: "from", description: "\"from\"" },
-        peg$c91 = "of",
-        peg$c92 = { type: "literal", value: "of", description: "\"of\"" },
-        peg$c93 = "in",
-        peg$c94 = { type: "literal", value: "in", description: "\"in\"" },
-        peg$c95 = "the",
-        peg$c96 = { type: "literal", value: "the", description: "\"the\"" },
-        peg$c97 = "book",
-        peg$c98 = { type: "literal", value: "book", description: "\"book\"" },
-        peg$c99 = /^[([]/,
-        peg$c100 = { type: "class", value: "[([]", description: "[([]" },
-        peg$c101 = /^[)\]]/,
-        peg$c102 = { type: "class", value: "[)\\]]", description: "[)\\]]" },
-        peg$c103 = function(val) { return {"type": "translation_sequence", "value": val, "indices": [offset(), peg$currPos - 1]} },
-        peg$c104 = "\x1E",
-        peg$c105 = { type: "literal", value: "\x1E", description: "\"\\x1E\"" },
-        peg$c106 = function(val) { return {"type": "translation", "value": val.value, "indices": [offset(), peg$currPos - 1]} },
-        peg$c107 = ",000",
-        peg$c108 = { type: "literal", value: ",000", description: "\",000\"" },
-        peg$c109 = function(val) { return {"type": "integer", "value": parseInt(val.join(""), 10), "indices": [offset(), peg$currPos - 1]} },
-        peg$c110 = /^[^\x1F\x1E([]/,
-        peg$c111 = { type: "class", value: "[^\\x1F\\x1E([]", description: "[^\\x1F\\x1E([]" },
-        peg$c112 = function(val) { return {"type": "word", "value": val.join(""), "indices": [offset(), peg$currPos - 1]} },
-        peg$c113 = function(val) { return {"type": "stop", "value": val, "indices": [offset(), peg$currPos - 1]} },
-        peg$c114 = /^[\s\xa0*]/,
-        peg$c115 = { type: "class", value: "[\\s\\xa0*]", description: "[\\s\\xa0*]" },
+        peg$c44 = "ff",
+        peg$c45 = { type: "literal", value: "ff", description: "\"ff\"" },
+        peg$c46 = /^[a-z0-9]/,
+        peg$c47 = { type: "class", value: "[a-z0-9]", description: "[a-z0-9]" },
+        peg$c48 = "f",
+        peg$c49 = { type: "literal", value: "f", description: "\"f\"" },
+        peg$c50 = /^[a-z]/,
+        peg$c51 = { type: "class", value: "[a-z]", description: "[a-z]" },
+        peg$c52 = function(val_1) { return {"type": "ff", "value": [val_1], "indices": [offset(), peg$currPos - 1]} },
+        peg$c53 = "title",
+        peg$c54 = { type: "literal", value: "title", description: "\"title\"" },
+        peg$c55 = function(val_1) { return {"type": "integer_title", "value": [val_1], "indices": [offset(), peg$currPos - 1]} },
+        peg$c56 = "/2\x1F",
+        peg$c57 = { type: "literal", value: "/2\x1F", description: "\"/2\\x1F\"" },
+        peg$c58 = ".1",
+        peg$c59 = { type: "literal", value: ".1", description: "\".1\"" },
+        peg$c60 = /^[0-9]/,
+        peg$c61 = { type: "class", value: "[0-9]", description: "[0-9]" },
+        peg$c62 = function(val) { return {"type": "bc", "value": [val, {"type": "c", "value": [{"type": "integer", "value": 151, "indices": [peg$currPos - 2, peg$currPos - 1]}], "indices": [peg$currPos - 2, peg$currPos - 1]}], "indices": [offset(), peg$currPos - 1]} },
+        peg$c63 = function(val_1, val_2) { return {"type": "bcv", "value": [val_1, {"type": "v", "value": [val_2], "indices": [val_2.indices[0], val_2.indices[1]]}], "indices": [offset(), peg$currPos - 1]} },
+        peg$c64 = /^[a-e]/,
+        peg$c65 = { type: "class", value: "[a-e]", description: "[a-e]" },
+        peg$c66 = function(val) { return {"type": "v", "value": [val], "indices": [offset(), peg$currPos - 1]} },
+        peg$c67 = "chapters",
+        peg$c68 = { type: "literal", value: "chapters", description: "\"chapters\"" },
+        peg$c69 = "chapter",
+        peg$c70 = { type: "literal", value: "chapter", description: "\"chapter\"" },
+        peg$c71 = "chapts",
+        peg$c72 = { type: "literal", value: "chapts", description: "\"chapts\"" },
+        peg$c73 = "chpts",
+        peg$c74 = { type: "literal", value: "chpts", description: "\"chpts\"" },
+        peg$c75 = "chapt",
+        peg$c76 = { type: "literal", value: "chapt", description: "\"chapt\"" },
+        peg$c77 = "chaps",
+        peg$c78 = { type: "literal", value: "chaps", description: "\"chaps\"" },
+        peg$c79 = "chap",
+        peg$c80 = { type: "literal", value: "chap", description: "\"chap\"" },
+        peg$c81 = "chp",
+        peg$c82 = { type: "literal", value: "chp", description: "\"chp\"" },
+        peg$c83 = "chs",
+        peg$c84 = { type: "literal", value: "chs", description: "\"chs\"" },
+        peg$c85 = "cha",
+        peg$c86 = { type: "literal", value: "cha", description: "\"cha\"" },
+        peg$c87 = "ch",
+        peg$c88 = { type: "literal", value: "ch", description: "\"ch\"" },
+        peg$c89 = function() { return {"type": "c_explicit"} },
+        peg$c90 = "verses",
+        peg$c91 = { type: "literal", value: "verses", description: "\"verses\"" },
+        peg$c92 = "verse",
+        peg$c93 = { type: "literal", value: "verse", description: "\"verse\"" },
+        peg$c94 = "ver",
+        peg$c95 = { type: "literal", value: "ver", description: "\"ver\"" },
+        peg$c96 = "vss",
+        peg$c97 = { type: "literal", value: "vss", description: "\"vss\"" },
+        peg$c98 = "vs",
+        peg$c99 = { type: "literal", value: "vs", description: "\"vs\"" },
+        peg$c100 = "vv",
+        peg$c101 = { type: "literal", value: "vv", description: "\"vv\"" },
+        peg$c102 = "v",
+        peg$c103 = { type: "literal", value: "v", description: "\"v\"" },
+        peg$c104 = function() { return {"type": "v_explicit"} },
+        peg$c105 = ":",
+        peg$c106 = { type: "literal", value: ":", description: "\":\"" },
+        peg$c107 = /^["']/,
+        peg$c108 = { type: "class", value: "[\"']", description: "[\"']" },
+        peg$c109 = /^[,;\/:&\-\u2013\u2014~]/,
+        peg$c110 = { type: "class", value: "[,;\\/:&\\-\\u2013\\u2014~]", description: "[,;\\/:&\\-\\u2013\\u2014~]" },
+        peg$c111 = "and",
+        peg$c112 = { type: "literal", value: "and", description: "\"and\"" },
+        peg$c113 = "compare",
+        peg$c114 = { type: "literal", value: "compare", description: "\"compare\"" },
+        peg$c115 = "cf",
+        peg$c116 = { type: "literal", value: "cf", description: "\"cf\"" },
+        peg$c117 = "see",
+        peg$c118 = { type: "literal", value: "see", description: "\"see\"" },
+        peg$c119 = "also",
+        peg$c120 = { type: "literal", value: "also", description: "\"also\"" },
+        peg$c121 = function() { return "" },
+        peg$c122 = /^[\-\u2013\u2014]/,
+        peg$c123 = { type: "class", value: "[\\-\\u2013\\u2014]", description: "[\\-\\u2013\\u2014]" },
+        peg$c124 = "through",
+        peg$c125 = { type: "literal", value: "through", description: "\"through\"" },
+        peg$c126 = "thru",
+        peg$c127 = { type: "literal", value: "thru", description: "\"thru\"" },
+        peg$c128 = "to",
+        peg$c129 = { type: "literal", value: "to", description: "\"to\"" },
+        peg$c130 = function(val) { return {type:"title", value: [val], "indices": [offset(), peg$currPos - 1]} },
+        peg$c131 = "from",
+        peg$c132 = { type: "literal", value: "from", description: "\"from\"" },
+        peg$c133 = "of",
+        peg$c134 = { type: "literal", value: "of", description: "\"of\"" },
+        peg$c135 = "in",
+        peg$c136 = { type: "literal", value: "in", description: "\"in\"" },
+        peg$c137 = "the",
+        peg$c138 = { type: "literal", value: "the", description: "\"the\"" },
+        peg$c139 = "book",
+        peg$c140 = { type: "literal", value: "book", description: "\"book\"" },
+        peg$c141 = /^[([]/,
+        peg$c142 = { type: "class", value: "[([]", description: "[([]" },
+        peg$c143 = /^[)\]]/,
+        peg$c144 = { type: "class", value: "[)\\]]", description: "[)\\]]" },
+        peg$c145 = function(val) { return {"type": "translation_sequence", "value": val, "indices": [offset(), peg$currPos - 1]} },
+        peg$c146 = "\x1E",
+        peg$c147 = { type: "literal", value: "\x1E", description: "\"\\x1E\"" },
+        peg$c148 = function(val) { return {"type": "translation", "value": val.value, "indices": [offset(), peg$currPos - 1]} },
+        peg$c149 = ",000",
+        peg$c150 = { type: "literal", value: ",000", description: "\",000\"" },
+        peg$c151 = function(val) { return {"type": "integer", "value": parseInt(val.join(""), 10), "indices": [offset(), peg$currPos - 1]} },
+        peg$c152 = /^[^\x1F\x1E([]/,
+        peg$c153 = { type: "class", value: "[^\\x1F\\x1E([]", description: "[^\\x1F\\x1E([]" },
+        peg$c154 = function(val) { return {"type": "word", "value": val.join(""), "indices": [offset(), peg$currPos - 1]} },
+        peg$c155 = function(val) { return {"type": "stop", "value": val, "indices": [offset(), peg$currPos - 1]} },
+        peg$c156 = /^[\s\xa0*]/,
+        peg$c157 = { type: "class", value: "[\\s\\xa0*]", description: "[\\s\\xa0*]" },
 
         peg$currPos          = 0,
         peg$reportedPos      = 0,
@@ -4792,7 +4945,7 @@ var grammar = (function() {
     }
 
     function peg$parseff() {
-      var s0, s1, s2, s3, s4, s5, s6, s7, s8;
+      var s0, s1, s2, s3, s4, s5, s6;
 
       s0 = peg$currPos;
       s1 = peg$parsebcv();
@@ -4820,57 +4973,106 @@ var grammar = (function() {
       if (s1 !== peg$FAILED) {
         s2 = peg$parsesp();
         if (s2 !== peg$FAILED) {
-          if (input.substr(peg$currPos, 1).toLowerCase() === peg$c44) {
-            s3 = input.charAt(peg$currPos);
-            peg$currPos++;
+          s3 = peg$currPos;
+          if (input.substr(peg$currPos, 2) === peg$c44) {
+            s4 = peg$c44;
+            peg$currPos += 2;
           } else {
-            s3 = peg$FAILED;
+            s4 = peg$FAILED;
             if (peg$silentFails === 0) { peg$fail(peg$c45); }
           }
-          if (s3 !== peg$FAILED) {
-            s4 = peg$parsespace();
+          if (s4 !== peg$FAILED) {
+            s5 = peg$currPos;
+            peg$silentFails++;
+            if (peg$c46.test(input.charAt(peg$currPos))) {
+              s6 = input.charAt(peg$currPos);
+              peg$currPos++;
+            } else {
+              s6 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c47); }
+            }
+            peg$silentFails--;
+            if (s6 === peg$FAILED) {
+              s5 = peg$c9;
+            } else {
+              peg$currPos = s5;
+              s5 = peg$c1;
+            }
+            if (s5 !== peg$FAILED) {
+              s4 = [s4, s5];
+              s3 = s4;
+            } else {
+              peg$currPos = s3;
+              s3 = peg$c1;
+            }
+          } else {
+            peg$currPos = s3;
+            s3 = peg$c1;
+          }
+          if (s3 === peg$FAILED) {
+            s3 = peg$currPos;
+            if (input.charCodeAt(peg$currPos) === 102) {
+              s4 = peg$c48;
+              peg$currPos++;
+            } else {
+              s4 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c49); }
+            }
             if (s4 !== peg$FAILED) {
-              if (input.substr(peg$currPos, 5).toLowerCase() === peg$c46) {
-                s5 = input.substr(peg$currPos, 5);
-                peg$currPos += 5;
+              s5 = peg$currPos;
+              peg$silentFails++;
+              if (peg$c46.test(input.charAt(peg$currPos))) {
+                s6 = input.charAt(peg$currPos);
+                peg$currPos++;
               } else {
-                s5 = peg$FAILED;
+                s6 = peg$FAILED;
                 if (peg$silentFails === 0) { peg$fail(peg$c47); }
               }
+              peg$silentFails--;
+              if (s6 === peg$FAILED) {
+                s5 = peg$c9;
+              } else {
+                peg$currPos = s5;
+                s5 = peg$c1;
+              }
               if (s5 !== peg$FAILED) {
-                s6 = peg$parseabbrev();
-                if (s6 === peg$FAILED) {
-                  s6 = peg$c2;
-                }
-                if (s6 !== peg$FAILED) {
-                  s7 = peg$currPos;
-                  peg$silentFails++;
-                  if (peg$c48.test(input.charAt(peg$currPos))) {
-                    s8 = input.charAt(peg$currPos);
-                    peg$currPos++;
-                  } else {
-                    s8 = peg$FAILED;
-                    if (peg$silentFails === 0) { peg$fail(peg$c49); }
-                  }
-                  peg$silentFails--;
-                  if (s8 === peg$FAILED) {
-                    s7 = peg$c9;
-                  } else {
-                    peg$currPos = s7;
-                    s7 = peg$c1;
-                  }
-                  if (s7 !== peg$FAILED) {
-                    peg$reportedPos = s0;
-                    s1 = peg$c50(s1);
-                    s0 = s1;
-                  } else {
-                    peg$currPos = s0;
-                    s0 = peg$c1;
-                  }
-                } else {
-                  peg$currPos = s0;
-                  s0 = peg$c1;
-                }
+                s4 = [s4, s5];
+                s3 = s4;
+              } else {
+                peg$currPos = s3;
+                s3 = peg$c1;
+              }
+            } else {
+              peg$currPos = s3;
+              s3 = peg$c1;
+            }
+          }
+          if (s3 !== peg$FAILED) {
+            s4 = peg$parseabbrev();
+            if (s4 === peg$FAILED) {
+              s4 = peg$c2;
+            }
+            if (s4 !== peg$FAILED) {
+              s5 = peg$currPos;
+              peg$silentFails++;
+              if (peg$c50.test(input.charAt(peg$currPos))) {
+                s6 = input.charAt(peg$currPos);
+                peg$currPos++;
+              } else {
+                s6 = peg$FAILED;
+                if (peg$silentFails === 0) { peg$fail(peg$c51); }
+              }
+              peg$silentFails--;
+              if (s6 === peg$FAILED) {
+                s5 = peg$c9;
+              } else {
+                peg$currPos = s5;
+                s5 = peg$c1;
+              }
+              if (s5 !== peg$FAILED) {
+                peg$reportedPos = s0;
+                s1 = peg$c52(s1);
+                s0 = s1;
               } else {
                 peg$currPos = s0;
                 s0 = peg$c1;
@@ -4909,16 +5111,16 @@ var grammar = (function() {
           s2 = peg$c2;
         }
         if (s2 !== peg$FAILED) {
-          if (input.substr(peg$currPos, 11).toLowerCase() === peg$c51) {
-            s3 = input.substr(peg$currPos, 11);
-            peg$currPos += 11;
+          if (input.substr(peg$currPos, 5) === peg$c53) {
+            s3 = peg$c53;
+            peg$currPos += 5;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c52); }
+            if (peg$silentFails === 0) { peg$fail(peg$c54); }
           }
           if (s3 !== peg$FAILED) {
             peg$reportedPos = s0;
-            s1 = peg$c53(s1);
+            s1 = peg$c55(s1);
             s0 = s1;
           } else {
             peg$currPos = s0;
@@ -4950,12 +5152,12 @@ var grammar = (function() {
       if (s1 !== peg$FAILED) {
         s2 = peg$parseany_integer();
         if (s2 !== peg$FAILED) {
-          if (input.substr(peg$currPos, 3) === peg$c54) {
-            s3 = peg$c54;
+          if (input.substr(peg$currPos, 3) === peg$c56) {
+            s3 = peg$c56;
             peg$currPos += 3;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c55); }
+            if (peg$silentFails === 0) { peg$fail(peg$c57); }
           }
           if (s3 !== peg$FAILED) {
             peg$reportedPos = s0;
@@ -4983,22 +5185,22 @@ var grammar = (function() {
       s0 = peg$currPos;
       s1 = peg$parseps151_b();
       if (s1 !== peg$FAILED) {
-        if (input.substr(peg$currPos, 2) === peg$c56) {
-          s2 = peg$c56;
+        if (input.substr(peg$currPos, 2) === peg$c58) {
+          s2 = peg$c58;
           peg$currPos += 2;
         } else {
           s2 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c57); }
+          if (peg$silentFails === 0) { peg$fail(peg$c59); }
         }
         if (s2 !== peg$FAILED) {
           s3 = peg$currPos;
           peg$silentFails++;
-          if (peg$c58.test(input.charAt(peg$currPos))) {
+          if (peg$c60.test(input.charAt(peg$currPos))) {
             s4 = input.charAt(peg$currPos);
             peg$currPos++;
           } else {
             s4 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c59); }
+            if (peg$silentFails === 0) { peg$fail(peg$c61); }
           }
           peg$silentFails--;
           if (s4 === peg$FAILED) {
@@ -5009,7 +5211,7 @@ var grammar = (function() {
           }
           if (s3 !== peg$FAILED) {
             peg$reportedPos = s0;
-            s1 = peg$c60(s1);
+            s1 = peg$c62(s1);
             s0 = s1;
           } else {
             peg$currPos = s0;
@@ -5044,7 +5246,7 @@ var grammar = (function() {
           s3 = peg$parseinteger();
           if (s3 !== peg$FAILED) {
             peg$reportedPos = s0;
-            s1 = peg$c61(s1, s3);
+            s1 = peg$c63(s1, s3);
             s0 = s1;
           } else {
             peg$currPos = s0;
@@ -5078,25 +5280,69 @@ var grammar = (function() {
             s4 = peg$currPos;
             peg$silentFails++;
             s5 = peg$currPos;
-            if (input.substr(peg$currPos, 1).toLowerCase() === peg$c44) {
-              s6 = input.charAt(peg$currPos);
-              peg$currPos++;
+            if (input.substr(peg$currPos, 2) === peg$c44) {
+              s6 = peg$c44;
+              peg$currPos += 2;
             } else {
               s6 = peg$FAILED;
               if (peg$silentFails === 0) { peg$fail(peg$c45); }
             }
             if (s6 !== peg$FAILED) {
-              s7 = peg$parsespace();
+              s7 = peg$currPos;
+              peg$silentFails++;
+              if (peg$c46.test(input.charAt(peg$currPos))) {
+                s8 = input.charAt(peg$currPos);
+                peg$currPos++;
+              } else {
+                s8 = peg$FAILED;
+                if (peg$silentFails === 0) { peg$fail(peg$c47); }
+              }
+              peg$silentFails--;
+              if (s8 === peg$FAILED) {
+                s7 = peg$c9;
+              } else {
+                peg$currPos = s7;
+                s7 = peg$c1;
+              }
               if (s7 !== peg$FAILED) {
-                if (input.substr(peg$currPos, 5).toLowerCase() === peg$c46) {
-                  s8 = input.substr(peg$currPos, 5);
-                  peg$currPos += 5;
+                s6 = [s6, s7];
+                s5 = s6;
+              } else {
+                peg$currPos = s5;
+                s5 = peg$c1;
+              }
+            } else {
+              peg$currPos = s5;
+              s5 = peg$c1;
+            }
+            if (s5 === peg$FAILED) {
+              s5 = peg$currPos;
+              if (input.charCodeAt(peg$currPos) === 102) {
+                s6 = peg$c48;
+                peg$currPos++;
+              } else {
+                s6 = peg$FAILED;
+                if (peg$silentFails === 0) { peg$fail(peg$c49); }
+              }
+              if (s6 !== peg$FAILED) {
+                s7 = peg$currPos;
+                peg$silentFails++;
+                if (peg$c46.test(input.charAt(peg$currPos))) {
+                  s8 = input.charAt(peg$currPos);
+                  peg$currPos++;
                 } else {
                   s8 = peg$FAILED;
                   if (peg$silentFails === 0) { peg$fail(peg$c47); }
                 }
-                if (s8 !== peg$FAILED) {
-                  s6 = [s6, s7, s8];
+                peg$silentFails--;
+                if (s8 === peg$FAILED) {
+                  s7 = peg$c9;
+                } else {
+                  peg$currPos = s7;
+                  s7 = peg$c1;
+                }
+                if (s7 !== peg$FAILED) {
+                  s6 = [s6, s7];
                   s5 = s6;
                 } else {
                   peg$currPos = s5;
@@ -5106,9 +5352,6 @@ var grammar = (function() {
                 peg$currPos = s5;
                 s5 = peg$c1;
               }
-            } else {
-              peg$currPos = s5;
-              s5 = peg$c1;
             }
             peg$silentFails--;
             if (s5 === peg$FAILED) {
@@ -5118,22 +5361,22 @@ var grammar = (function() {
               s4 = peg$c1;
             }
             if (s4 !== peg$FAILED) {
-              if (peg$c62.test(input.charAt(peg$currPos))) {
+              if (peg$c64.test(input.charAt(peg$currPos))) {
                 s5 = input.charAt(peg$currPos);
                 peg$currPos++;
               } else {
                 s5 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c63); }
+                if (peg$silentFails === 0) { peg$fail(peg$c65); }
               }
               if (s5 !== peg$FAILED) {
                 s6 = peg$currPos;
                 peg$silentFails++;
-                if (peg$c48.test(input.charAt(peg$currPos))) {
+                if (peg$c50.test(input.charAt(peg$currPos))) {
                   s7 = input.charAt(peg$currPos);
                   peg$currPos++;
                 } else {
                   s7 = peg$FAILED;
-                  if (peg$silentFails === 0) { peg$fail(peg$c49); }
+                  if (peg$silentFails === 0) { peg$fail(peg$c51); }
                 }
                 peg$silentFails--;
                 if (s7 === peg$FAILED) {
@@ -5144,7 +5387,7 @@ var grammar = (function() {
                 }
                 if (s6 !== peg$FAILED) {
                   peg$reportedPos = s0;
-                  s1 = peg$c64(s2);
+                  s1 = peg$c66(s2);
                   s0 = s1;
                 } else {
                   peg$currPos = s0;
@@ -5186,7 +5429,7 @@ var grammar = (function() {
         s2 = peg$parseinteger();
         if (s2 !== peg$FAILED) {
           peg$reportedPos = s0;
-          s1 = peg$c64(s2);
+          s1 = peg$c66(s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
@@ -5206,29 +5449,29 @@ var grammar = (function() {
       s0 = peg$currPos;
       s1 = peg$parsesp();
       if (s1 !== peg$FAILED) {
-        if (input.substr(peg$currPos, 5).toLowerCase() === peg$c65) {
-          s2 = input.substr(peg$currPos, 5);
-          peg$currPos += 5;
+        if (input.substr(peg$currPos, 8) === peg$c67) {
+          s2 = peg$c67;
+          peg$currPos += 8;
         } else {
           s2 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c66); }
+          if (peg$silentFails === 0) { peg$fail(peg$c68); }
         }
         if (s2 === peg$FAILED) {
-          if (input.substr(peg$currPos, 4).toLowerCase() === peg$c67) {
-            s2 = input.substr(peg$currPos, 4);
-            peg$currPos += 4;
+          if (input.substr(peg$currPos, 7) === peg$c69) {
+            s2 = peg$c69;
+            peg$currPos += 7;
           } else {
             s2 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c68); }
+            if (peg$silentFails === 0) { peg$fail(peg$c70); }
           }
           if (s2 === peg$FAILED) {
             s2 = peg$currPos;
-            if (input.substr(peg$currPos, 2).toLowerCase() === peg$c69) {
-              s3 = input.substr(peg$currPos, 2);
-              peg$currPos += 2;
+            if (input.substr(peg$currPos, 6) === peg$c71) {
+              s3 = peg$c71;
+              peg$currPos += 6;
             } else {
               s3 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c70); }
+              if (peg$silentFails === 0) { peg$fail(peg$c72); }
             }
             if (s3 !== peg$FAILED) {
               s4 = peg$parseabbrev();
@@ -5246,13 +5489,221 @@ var grammar = (function() {
               peg$currPos = s2;
               s2 = peg$c1;
             }
+            if (s2 === peg$FAILED) {
+              s2 = peg$currPos;
+              if (input.substr(peg$currPos, 5) === peg$c73) {
+                s3 = peg$c73;
+                peg$currPos += 5;
+              } else {
+                s3 = peg$FAILED;
+                if (peg$silentFails === 0) { peg$fail(peg$c74); }
+              }
+              if (s3 !== peg$FAILED) {
+                s4 = peg$parseabbrev();
+                if (s4 === peg$FAILED) {
+                  s4 = peg$c2;
+                }
+                if (s4 !== peg$FAILED) {
+                  s3 = [s3, s4];
+                  s2 = s3;
+                } else {
+                  peg$currPos = s2;
+                  s2 = peg$c1;
+                }
+              } else {
+                peg$currPos = s2;
+                s2 = peg$c1;
+              }
+              if (s2 === peg$FAILED) {
+                s2 = peg$currPos;
+                if (input.substr(peg$currPos, 5) === peg$c75) {
+                  s3 = peg$c75;
+                  peg$currPos += 5;
+                } else {
+                  s3 = peg$FAILED;
+                  if (peg$silentFails === 0) { peg$fail(peg$c76); }
+                }
+                if (s3 !== peg$FAILED) {
+                  s4 = peg$parseabbrev();
+                  if (s4 === peg$FAILED) {
+                    s4 = peg$c2;
+                  }
+                  if (s4 !== peg$FAILED) {
+                    s3 = [s3, s4];
+                    s2 = s3;
+                  } else {
+                    peg$currPos = s2;
+                    s2 = peg$c1;
+                  }
+                } else {
+                  peg$currPos = s2;
+                  s2 = peg$c1;
+                }
+                if (s2 === peg$FAILED) {
+                  s2 = peg$currPos;
+                  if (input.substr(peg$currPos, 5) === peg$c77) {
+                    s3 = peg$c77;
+                    peg$currPos += 5;
+                  } else {
+                    s3 = peg$FAILED;
+                    if (peg$silentFails === 0) { peg$fail(peg$c78); }
+                  }
+                  if (s3 !== peg$FAILED) {
+                    s4 = peg$parseabbrev();
+                    if (s4 === peg$FAILED) {
+                      s4 = peg$c2;
+                    }
+                    if (s4 !== peg$FAILED) {
+                      s3 = [s3, s4];
+                      s2 = s3;
+                    } else {
+                      peg$currPos = s2;
+                      s2 = peg$c1;
+                    }
+                  } else {
+                    peg$currPos = s2;
+                    s2 = peg$c1;
+                  }
+                  if (s2 === peg$FAILED) {
+                    s2 = peg$currPos;
+                    if (input.substr(peg$currPos, 4) === peg$c79) {
+                      s3 = peg$c79;
+                      peg$currPos += 4;
+                    } else {
+                      s3 = peg$FAILED;
+                      if (peg$silentFails === 0) { peg$fail(peg$c80); }
+                    }
+                    if (s3 !== peg$FAILED) {
+                      s4 = peg$parseabbrev();
+                      if (s4 === peg$FAILED) {
+                        s4 = peg$c2;
+                      }
+                      if (s4 !== peg$FAILED) {
+                        s3 = [s3, s4];
+                        s2 = s3;
+                      } else {
+                        peg$currPos = s2;
+                        s2 = peg$c1;
+                      }
+                    } else {
+                      peg$currPos = s2;
+                      s2 = peg$c1;
+                    }
+                    if (s2 === peg$FAILED) {
+                      s2 = peg$currPos;
+                      if (input.substr(peg$currPos, 3) === peg$c81) {
+                        s3 = peg$c81;
+                        peg$currPos += 3;
+                      } else {
+                        s3 = peg$FAILED;
+                        if (peg$silentFails === 0) { peg$fail(peg$c82); }
+                      }
+                      if (s3 !== peg$FAILED) {
+                        s4 = peg$parseabbrev();
+                        if (s4 === peg$FAILED) {
+                          s4 = peg$c2;
+                        }
+                        if (s4 !== peg$FAILED) {
+                          s3 = [s3, s4];
+                          s2 = s3;
+                        } else {
+                          peg$currPos = s2;
+                          s2 = peg$c1;
+                        }
+                      } else {
+                        peg$currPos = s2;
+                        s2 = peg$c1;
+                      }
+                      if (s2 === peg$FAILED) {
+                        s2 = peg$currPos;
+                        if (input.substr(peg$currPos, 3) === peg$c83) {
+                          s3 = peg$c83;
+                          peg$currPos += 3;
+                        } else {
+                          s3 = peg$FAILED;
+                          if (peg$silentFails === 0) { peg$fail(peg$c84); }
+                        }
+                        if (s3 !== peg$FAILED) {
+                          s4 = peg$parseabbrev();
+                          if (s4 === peg$FAILED) {
+                            s4 = peg$c2;
+                          }
+                          if (s4 !== peg$FAILED) {
+                            s3 = [s3, s4];
+                            s2 = s3;
+                          } else {
+                            peg$currPos = s2;
+                            s2 = peg$c1;
+                          }
+                        } else {
+                          peg$currPos = s2;
+                          s2 = peg$c1;
+                        }
+                        if (s2 === peg$FAILED) {
+                          s2 = peg$currPos;
+                          if (input.substr(peg$currPos, 3) === peg$c85) {
+                            s3 = peg$c85;
+                            peg$currPos += 3;
+                          } else {
+                            s3 = peg$FAILED;
+                            if (peg$silentFails === 0) { peg$fail(peg$c86); }
+                          }
+                          if (s3 !== peg$FAILED) {
+                            s4 = peg$parseabbrev();
+                            if (s4 === peg$FAILED) {
+                              s4 = peg$c2;
+                            }
+                            if (s4 !== peg$FAILED) {
+                              s3 = [s3, s4];
+                              s2 = s3;
+                            } else {
+                              peg$currPos = s2;
+                              s2 = peg$c1;
+                            }
+                          } else {
+                            peg$currPos = s2;
+                            s2 = peg$c1;
+                          }
+                          if (s2 === peg$FAILED) {
+                            s2 = peg$currPos;
+                            if (input.substr(peg$currPos, 2) === peg$c87) {
+                              s3 = peg$c87;
+                              peg$currPos += 2;
+                            } else {
+                              s3 = peg$FAILED;
+                              if (peg$silentFails === 0) { peg$fail(peg$c88); }
+                            }
+                            if (s3 !== peg$FAILED) {
+                              s4 = peg$parseabbrev();
+                              if (s4 === peg$FAILED) {
+                                s4 = peg$c2;
+                              }
+                              if (s4 !== peg$FAILED) {
+                                s3 = [s3, s4];
+                                s2 = s3;
+                              } else {
+                                peg$currPos = s2;
+                                s2 = peg$c1;
+                              }
+                            } else {
+                              peg$currPos = s2;
+                              s2 = peg$c1;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
         if (s2 !== peg$FAILED) {
           s3 = peg$parsesp();
           if (s3 !== peg$FAILED) {
             peg$reportedPos = s0;
-            s1 = peg$c71();
+            s1 = peg$c89();
             s0 = s1;
           } else {
             peg$currPos = s0;
@@ -5276,31 +5727,161 @@ var grammar = (function() {
       s0 = peg$currPos;
       s1 = peg$parsesp();
       if (s1 !== peg$FAILED) {
-        if (input.substr(peg$currPos, 5).toLowerCase() === peg$c72) {
-          s2 = input.substr(peg$currPos, 5);
-          peg$currPos += 5;
+        if (input.substr(peg$currPos, 6) === peg$c90) {
+          s2 = peg$c90;
+          peg$currPos += 6;
         } else {
           s2 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c73); }
+          if (peg$silentFails === 0) { peg$fail(peg$c91); }
         }
         if (s2 === peg$FAILED) {
-          if (input.substr(peg$currPos, 4).toLowerCase() === peg$c74) {
-            s2 = input.substr(peg$currPos, 4);
-            peg$currPos += 4;
+          if (input.substr(peg$currPos, 5) === peg$c92) {
+            s2 = peg$c92;
+            peg$currPos += 5;
           } else {
             s2 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c75); }
+            if (peg$silentFails === 0) { peg$fail(peg$c93); }
+          }
+          if (s2 === peg$FAILED) {
+            s2 = peg$currPos;
+            if (input.substr(peg$currPos, 3) === peg$c94) {
+              s3 = peg$c94;
+              peg$currPos += 3;
+            } else {
+              s3 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c95); }
+            }
+            if (s3 !== peg$FAILED) {
+              s4 = peg$parseabbrev();
+              if (s4 === peg$FAILED) {
+                s4 = peg$c2;
+              }
+              if (s4 !== peg$FAILED) {
+                s3 = [s3, s4];
+                s2 = s3;
+              } else {
+                peg$currPos = s2;
+                s2 = peg$c1;
+              }
+            } else {
+              peg$currPos = s2;
+              s2 = peg$c1;
+            }
+            if (s2 === peg$FAILED) {
+              s2 = peg$currPos;
+              if (input.substr(peg$currPos, 3) === peg$c96) {
+                s3 = peg$c96;
+                peg$currPos += 3;
+              } else {
+                s3 = peg$FAILED;
+                if (peg$silentFails === 0) { peg$fail(peg$c97); }
+              }
+              if (s3 !== peg$FAILED) {
+                s4 = peg$parseabbrev();
+                if (s4 === peg$FAILED) {
+                  s4 = peg$c2;
+                }
+                if (s4 !== peg$FAILED) {
+                  s3 = [s3, s4];
+                  s2 = s3;
+                } else {
+                  peg$currPos = s2;
+                  s2 = peg$c1;
+                }
+              } else {
+                peg$currPos = s2;
+                s2 = peg$c1;
+              }
+              if (s2 === peg$FAILED) {
+                s2 = peg$currPos;
+                if (input.substr(peg$currPos, 2) === peg$c98) {
+                  s3 = peg$c98;
+                  peg$currPos += 2;
+                } else {
+                  s3 = peg$FAILED;
+                  if (peg$silentFails === 0) { peg$fail(peg$c99); }
+                }
+                if (s3 !== peg$FAILED) {
+                  s4 = peg$parseabbrev();
+                  if (s4 === peg$FAILED) {
+                    s4 = peg$c2;
+                  }
+                  if (s4 !== peg$FAILED) {
+                    s3 = [s3, s4];
+                    s2 = s3;
+                  } else {
+                    peg$currPos = s2;
+                    s2 = peg$c1;
+                  }
+                } else {
+                  peg$currPos = s2;
+                  s2 = peg$c1;
+                }
+                if (s2 === peg$FAILED) {
+                  s2 = peg$currPos;
+                  if (input.substr(peg$currPos, 2) === peg$c100) {
+                    s3 = peg$c100;
+                    peg$currPos += 2;
+                  } else {
+                    s3 = peg$FAILED;
+                    if (peg$silentFails === 0) { peg$fail(peg$c101); }
+                  }
+                  if (s3 !== peg$FAILED) {
+                    s4 = peg$parseabbrev();
+                    if (s4 === peg$FAILED) {
+                      s4 = peg$c2;
+                    }
+                    if (s4 !== peg$FAILED) {
+                      s3 = [s3, s4];
+                      s2 = s3;
+                    } else {
+                      peg$currPos = s2;
+                      s2 = peg$c1;
+                    }
+                  } else {
+                    peg$currPos = s2;
+                    s2 = peg$c1;
+                  }
+                  if (s2 === peg$FAILED) {
+                    s2 = peg$currPos;
+                    if (input.charCodeAt(peg$currPos) === 118) {
+                      s3 = peg$c102;
+                      peg$currPos++;
+                    } else {
+                      s3 = peg$FAILED;
+                      if (peg$silentFails === 0) { peg$fail(peg$c103); }
+                    }
+                    if (s3 !== peg$FAILED) {
+                      s4 = peg$parseabbrev();
+                      if (s4 === peg$FAILED) {
+                        s4 = peg$c2;
+                      }
+                      if (s4 !== peg$FAILED) {
+                        s3 = [s3, s4];
+                        s2 = s3;
+                      } else {
+                        peg$currPos = s2;
+                        s2 = peg$c1;
+                      }
+                    } else {
+                      peg$currPos = s2;
+                      s2 = peg$c1;
+                    }
+                  }
+                }
+              }
+            }
           }
         }
         if (s2 !== peg$FAILED) {
           s3 = peg$currPos;
           peg$silentFails++;
-          if (peg$c48.test(input.charAt(peg$currPos))) {
+          if (peg$c50.test(input.charAt(peg$currPos))) {
             s4 = input.charAt(peg$currPos);
             peg$currPos++;
           } else {
             s4 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c49); }
+            if (peg$silentFails === 0) { peg$fail(peg$c51); }
           }
           peg$silentFails--;
           if (s4 === peg$FAILED) {
@@ -5313,7 +5894,7 @@ var grammar = (function() {
             s4 = peg$parsesp();
             if (s4 !== peg$FAILED) {
               peg$reportedPos = s0;
-              s1 = peg$c76();
+              s1 = peg$c104();
               s0 = s1;
             } else {
               peg$currPos = s0;
@@ -5343,21 +5924,21 @@ var grammar = (function() {
       if (s1 !== peg$FAILED) {
         s2 = [];
         if (input.charCodeAt(peg$currPos) === 58) {
-          s3 = peg$c77;
+          s3 = peg$c105;
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c78); }
+          if (peg$silentFails === 0) { peg$fail(peg$c106); }
         }
         if (s3 !== peg$FAILED) {
           while (s3 !== peg$FAILED) {
             s2.push(s3);
             if (input.charCodeAt(peg$currPos) === 58) {
-              s3 = peg$c77;
+              s3 = peg$c105;
               peg$currPos++;
             } else {
               s3 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c78); }
+              if (peg$silentFails === 0) { peg$fail(peg$c106); }
             }
           }
         } else {
@@ -5460,12 +6041,12 @@ var grammar = (function() {
       s0 = peg$currPos;
       s1 = peg$parsesp();
       if (s1 !== peg$FAILED) {
-        if (peg$c79.test(input.charAt(peg$currPos))) {
+        if (peg$c107.test(input.charAt(peg$currPos))) {
           s2 = input.charAt(peg$currPos);
           peg$currPos++;
         } else {
           s2 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c80); }
+          if (peg$silentFails === 0) { peg$fail(peg$c108); }
         }
         if (s2 !== peg$FAILED) {
           s3 = peg$parsesp();
@@ -5496,12 +6077,12 @@ var grammar = (function() {
 
       s0 = peg$currPos;
       s1 = [];
-      if (peg$c81.test(input.charAt(peg$currPos))) {
+      if (peg$c109.test(input.charAt(peg$currPos))) {
         s2 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s2 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c82); }
+        if (peg$silentFails === 0) { peg$fail(peg$c110); }
       }
       if (s2 === peg$FAILED) {
         s2 = peg$currPos;
@@ -5573,27 +6154,115 @@ var grammar = (function() {
           s2 = peg$c1;
         }
         if (s2 === peg$FAILED) {
-          if (input.substr(peg$currPos, 1).toLowerCase() === peg$c44) {
-            s2 = input.charAt(peg$currPos);
-            peg$currPos++;
+          if (input.substr(peg$currPos, 3) === peg$c111) {
+            s2 = peg$c111;
+            peg$currPos += 3;
           } else {
             s2 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c45); }
+            if (peg$silentFails === 0) { peg$fail(peg$c112); }
           }
           if (s2 === peg$FAILED) {
-            s2 = peg$parsespace();
+            if (input.substr(peg$currPos, 7) === peg$c113) {
+              s2 = peg$c113;
+              peg$currPos += 7;
+            } else {
+              s2 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c114); }
+            }
+            if (s2 === peg$FAILED) {
+              s2 = peg$currPos;
+              if (input.substr(peg$currPos, 2) === peg$c115) {
+                s3 = peg$c115;
+                peg$currPos += 2;
+              } else {
+                s3 = peg$FAILED;
+                if (peg$silentFails === 0) { peg$fail(peg$c116); }
+              }
+              if (s3 !== peg$FAILED) {
+                s4 = peg$parseabbrev();
+                if (s4 === peg$FAILED) {
+                  s4 = peg$c2;
+                }
+                if (s4 !== peg$FAILED) {
+                  s3 = [s3, s4];
+                  s2 = s3;
+                } else {
+                  peg$currPos = s2;
+                  s2 = peg$c1;
+                }
+              } else {
+                peg$currPos = s2;
+                s2 = peg$c1;
+              }
+              if (s2 === peg$FAILED) {
+                s2 = peg$currPos;
+                if (input.substr(peg$currPos, 3) === peg$c117) {
+                  s3 = peg$c117;
+                  peg$currPos += 3;
+                } else {
+                  s3 = peg$FAILED;
+                  if (peg$silentFails === 0) { peg$fail(peg$c118); }
+                }
+                if (s3 !== peg$FAILED) {
+                  s4 = peg$parsespace();
+                  if (s4 !== peg$FAILED) {
+                    if (input.substr(peg$currPos, 4) === peg$c119) {
+                      s5 = peg$c119;
+                      peg$currPos += 4;
+                    } else {
+                      s5 = peg$FAILED;
+                      if (peg$silentFails === 0) { peg$fail(peg$c120); }
+                    }
+                    if (s5 !== peg$FAILED) {
+                      s3 = [s3, s4, s5];
+                      s2 = s3;
+                    } else {
+                      peg$currPos = s2;
+                      s2 = peg$c1;
+                    }
+                  } else {
+                    peg$currPos = s2;
+                    s2 = peg$c1;
+                  }
+                } else {
+                  peg$currPos = s2;
+                  s2 = peg$c1;
+                }
+                if (s2 === peg$FAILED) {
+                  if (input.substr(peg$currPos, 4) === peg$c119) {
+                    s2 = peg$c119;
+                    peg$currPos += 4;
+                  } else {
+                    s2 = peg$FAILED;
+                    if (peg$silentFails === 0) { peg$fail(peg$c120); }
+                  }
+                  if (s2 === peg$FAILED) {
+                    if (input.substr(peg$currPos, 3) === peg$c117) {
+                      s2 = peg$c117;
+                      peg$currPos += 3;
+                    } else {
+                      s2 = peg$FAILED;
+                      if (peg$silentFails === 0) { peg$fail(peg$c118); }
+                    }
+                    if (s2 === peg$FAILED) {
+                      s2 = peg$parsespace();
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
       if (s2 !== peg$FAILED) {
         while (s2 !== peg$FAILED) {
           s1.push(s2);
-          if (peg$c81.test(input.charAt(peg$currPos))) {
+          if (peg$c109.test(input.charAt(peg$currPos))) {
             s2 = input.charAt(peg$currPos);
             peg$currPos++;
           } else {
             s2 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c82); }
+            if (peg$silentFails === 0) { peg$fail(peg$c110); }
           }
           if (s2 === peg$FAILED) {
             s2 = peg$currPos;
@@ -5665,15 +6334,103 @@ var grammar = (function() {
               s2 = peg$c1;
             }
             if (s2 === peg$FAILED) {
-              if (input.substr(peg$currPos, 1).toLowerCase() === peg$c44) {
-                s2 = input.charAt(peg$currPos);
-                peg$currPos++;
+              if (input.substr(peg$currPos, 3) === peg$c111) {
+                s2 = peg$c111;
+                peg$currPos += 3;
               } else {
                 s2 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c45); }
+                if (peg$silentFails === 0) { peg$fail(peg$c112); }
               }
               if (s2 === peg$FAILED) {
-                s2 = peg$parsespace();
+                if (input.substr(peg$currPos, 7) === peg$c113) {
+                  s2 = peg$c113;
+                  peg$currPos += 7;
+                } else {
+                  s2 = peg$FAILED;
+                  if (peg$silentFails === 0) { peg$fail(peg$c114); }
+                }
+                if (s2 === peg$FAILED) {
+                  s2 = peg$currPos;
+                  if (input.substr(peg$currPos, 2) === peg$c115) {
+                    s3 = peg$c115;
+                    peg$currPos += 2;
+                  } else {
+                    s3 = peg$FAILED;
+                    if (peg$silentFails === 0) { peg$fail(peg$c116); }
+                  }
+                  if (s3 !== peg$FAILED) {
+                    s4 = peg$parseabbrev();
+                    if (s4 === peg$FAILED) {
+                      s4 = peg$c2;
+                    }
+                    if (s4 !== peg$FAILED) {
+                      s3 = [s3, s4];
+                      s2 = s3;
+                    } else {
+                      peg$currPos = s2;
+                      s2 = peg$c1;
+                    }
+                  } else {
+                    peg$currPos = s2;
+                    s2 = peg$c1;
+                  }
+                  if (s2 === peg$FAILED) {
+                    s2 = peg$currPos;
+                    if (input.substr(peg$currPos, 3) === peg$c117) {
+                      s3 = peg$c117;
+                      peg$currPos += 3;
+                    } else {
+                      s3 = peg$FAILED;
+                      if (peg$silentFails === 0) { peg$fail(peg$c118); }
+                    }
+                    if (s3 !== peg$FAILED) {
+                      s4 = peg$parsespace();
+                      if (s4 !== peg$FAILED) {
+                        if (input.substr(peg$currPos, 4) === peg$c119) {
+                          s5 = peg$c119;
+                          peg$currPos += 4;
+                        } else {
+                          s5 = peg$FAILED;
+                          if (peg$silentFails === 0) { peg$fail(peg$c120); }
+                        }
+                        if (s5 !== peg$FAILED) {
+                          s3 = [s3, s4, s5];
+                          s2 = s3;
+                        } else {
+                          peg$currPos = s2;
+                          s2 = peg$c1;
+                        }
+                      } else {
+                        peg$currPos = s2;
+                        s2 = peg$c1;
+                      }
+                    } else {
+                      peg$currPos = s2;
+                      s2 = peg$c1;
+                    }
+                    if (s2 === peg$FAILED) {
+                      if (input.substr(peg$currPos, 4) === peg$c119) {
+                        s2 = peg$c119;
+                        peg$currPos += 4;
+                      } else {
+                        s2 = peg$FAILED;
+                        if (peg$silentFails === 0) { peg$fail(peg$c120); }
+                      }
+                      if (s2 === peg$FAILED) {
+                        if (input.substr(peg$currPos, 3) === peg$c117) {
+                          s2 = peg$c117;
+                          peg$currPos += 3;
+                        } else {
+                          s2 = peg$FAILED;
+                          if (peg$silentFails === 0) { peg$fail(peg$c118); }
+                        }
+                        if (s2 === peg$FAILED) {
+                          s2 = peg$parsespace();
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -5683,7 +6440,7 @@ var grammar = (function() {
       }
       if (s1 !== peg$FAILED) {
         peg$reportedPos = s0;
-        s1 = peg$c83();
+        s1 = peg$c121();
       }
       s0 = s1;
 
@@ -5698,12 +6455,12 @@ var grammar = (function() {
       if (s1 !== peg$FAILED) {
         s2 = [];
         s3 = peg$currPos;
-        if (peg$c84.test(input.charAt(peg$currPos))) {
+        if (peg$c122.test(input.charAt(peg$currPos))) {
           s4 = input.charAt(peg$currPos);
           peg$currPos++;
         } else {
           s4 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c85); }
+          if (peg$silentFails === 0) { peg$fail(peg$c123); }
         }
         if (s4 !== peg$FAILED) {
           s5 = peg$parsesp();
@@ -5720,12 +6477,12 @@ var grammar = (function() {
         }
         if (s3 === peg$FAILED) {
           s3 = peg$currPos;
-          if (input.substr(peg$currPos, 1).toLowerCase() === peg$c86) {
-            s4 = input.charAt(peg$currPos);
-            peg$currPos++;
+          if (input.substr(peg$currPos, 7) === peg$c124) {
+            s4 = peg$c124;
+            peg$currPos += 7;
           } else {
             s4 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c87); }
+            if (peg$silentFails === 0) { peg$fail(peg$c125); }
           }
           if (s4 !== peg$FAILED) {
             s5 = peg$parsesp();
@@ -5740,17 +6497,14 @@ var grammar = (function() {
             peg$currPos = s3;
             s3 = peg$c1;
           }
-        }
-        if (s3 !== peg$FAILED) {
-          while (s3 !== peg$FAILED) {
-            s2.push(s3);
+          if (s3 === peg$FAILED) {
             s3 = peg$currPos;
-            if (peg$c84.test(input.charAt(peg$currPos))) {
-              s4 = input.charAt(peg$currPos);
-              peg$currPos++;
+            if (input.substr(peg$currPos, 4) === peg$c126) {
+              s4 = peg$c126;
+              peg$currPos += 4;
             } else {
               s4 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c85); }
+              if (peg$silentFails === 0) { peg$fail(peg$c127); }
             }
             if (s4 !== peg$FAILED) {
               s5 = peg$parsesp();
@@ -5767,12 +6521,12 @@ var grammar = (function() {
             }
             if (s3 === peg$FAILED) {
               s3 = peg$currPos;
-              if (input.substr(peg$currPos, 1).toLowerCase() === peg$c86) {
-                s4 = input.charAt(peg$currPos);
-                peg$currPos++;
+              if (input.substr(peg$currPos, 2) === peg$c128) {
+                s4 = peg$c128;
+                peg$currPos += 2;
               } else {
                 s4 = peg$FAILED;
-                if (peg$silentFails === 0) { peg$fail(peg$c87); }
+                if (peg$silentFails === 0) { peg$fail(peg$c129); }
               }
               if (s4 !== peg$FAILED) {
                 s5 = peg$parsesp();
@@ -5786,6 +6540,101 @@ var grammar = (function() {
               } else {
                 peg$currPos = s3;
                 s3 = peg$c1;
+              }
+            }
+          }
+        }
+        if (s3 !== peg$FAILED) {
+          while (s3 !== peg$FAILED) {
+            s2.push(s3);
+            s3 = peg$currPos;
+            if (peg$c122.test(input.charAt(peg$currPos))) {
+              s4 = input.charAt(peg$currPos);
+              peg$currPos++;
+            } else {
+              s4 = peg$FAILED;
+              if (peg$silentFails === 0) { peg$fail(peg$c123); }
+            }
+            if (s4 !== peg$FAILED) {
+              s5 = peg$parsesp();
+              if (s5 !== peg$FAILED) {
+                s4 = [s4, s5];
+                s3 = s4;
+              } else {
+                peg$currPos = s3;
+                s3 = peg$c1;
+              }
+            } else {
+              peg$currPos = s3;
+              s3 = peg$c1;
+            }
+            if (s3 === peg$FAILED) {
+              s3 = peg$currPos;
+              if (input.substr(peg$currPos, 7) === peg$c124) {
+                s4 = peg$c124;
+                peg$currPos += 7;
+              } else {
+                s4 = peg$FAILED;
+                if (peg$silentFails === 0) { peg$fail(peg$c125); }
+              }
+              if (s4 !== peg$FAILED) {
+                s5 = peg$parsesp();
+                if (s5 !== peg$FAILED) {
+                  s4 = [s4, s5];
+                  s3 = s4;
+                } else {
+                  peg$currPos = s3;
+                  s3 = peg$c1;
+                }
+              } else {
+                peg$currPos = s3;
+                s3 = peg$c1;
+              }
+              if (s3 === peg$FAILED) {
+                s3 = peg$currPos;
+                if (input.substr(peg$currPos, 4) === peg$c126) {
+                  s4 = peg$c126;
+                  peg$currPos += 4;
+                } else {
+                  s4 = peg$FAILED;
+                  if (peg$silentFails === 0) { peg$fail(peg$c127); }
+                }
+                if (s4 !== peg$FAILED) {
+                  s5 = peg$parsesp();
+                  if (s5 !== peg$FAILED) {
+                    s4 = [s4, s5];
+                    s3 = s4;
+                  } else {
+                    peg$currPos = s3;
+                    s3 = peg$c1;
+                  }
+                } else {
+                  peg$currPos = s3;
+                  s3 = peg$c1;
+                }
+                if (s3 === peg$FAILED) {
+                  s3 = peg$currPos;
+                  if (input.substr(peg$currPos, 2) === peg$c128) {
+                    s4 = peg$c128;
+                    peg$currPos += 2;
+                  } else {
+                    s4 = peg$FAILED;
+                    if (peg$silentFails === 0) { peg$fail(peg$c129); }
+                  }
+                  if (s4 !== peg$FAILED) {
+                    s5 = peg$parsesp();
+                    if (s5 !== peg$FAILED) {
+                      s4 = [s4, s5];
+                      s3 = s4;
+                    } else {
+                      peg$currPos = s3;
+                      s3 = peg$c1;
+                    }
+                  } else {
+                    peg$currPos = s3;
+                    s3 = peg$c1;
+                  }
+                }
               }
             }
           }
@@ -5819,16 +6668,16 @@ var grammar = (function() {
         s1 = peg$c2;
       }
       if (s1 !== peg$FAILED) {
-        if (input.substr(peg$currPos, 11).toLowerCase() === peg$c51) {
-          s2 = input.substr(peg$currPos, 11);
-          peg$currPos += 11;
+        if (input.substr(peg$currPos, 5) === peg$c53) {
+          s2 = peg$c53;
+          peg$currPos += 5;
         } else {
           s2 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c52); }
+          if (peg$silentFails === 0) { peg$fail(peg$c54); }
         }
         if (s2 !== peg$FAILED) {
           peg$reportedPos = s0;
-          s1 = peg$c88(s2);
+          s1 = peg$c130(s2);
           s0 = s1;
         } else {
           peg$currPos = s0;
@@ -5848,28 +6697,28 @@ var grammar = (function() {
       s0 = peg$currPos;
       s1 = peg$parsesp();
       if (s1 !== peg$FAILED) {
-        if (input.substr(peg$currPos, 4) === peg$c89) {
-          s2 = peg$c89;
+        if (input.substr(peg$currPos, 4) === peg$c131) {
+          s2 = peg$c131;
           peg$currPos += 4;
         } else {
           s2 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c90); }
+          if (peg$silentFails === 0) { peg$fail(peg$c132); }
         }
         if (s2 === peg$FAILED) {
-          if (input.substr(peg$currPos, 2) === peg$c91) {
-            s2 = peg$c91;
+          if (input.substr(peg$currPos, 2) === peg$c133) {
+            s2 = peg$c133;
             peg$currPos += 2;
           } else {
             s2 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c92); }
+            if (peg$silentFails === 0) { peg$fail(peg$c134); }
           }
           if (s2 === peg$FAILED) {
-            if (input.substr(peg$currPos, 2) === peg$c93) {
-              s2 = peg$c93;
+            if (input.substr(peg$currPos, 2) === peg$c135) {
+              s2 = peg$c135;
               peg$currPos += 2;
             } else {
               s2 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c94); }
+              if (peg$silentFails === 0) { peg$fail(peg$c136); }
             }
           }
         }
@@ -5877,32 +6726,32 @@ var grammar = (function() {
           s3 = peg$parsesp();
           if (s3 !== peg$FAILED) {
             s4 = peg$currPos;
-            if (input.substr(peg$currPos, 3) === peg$c95) {
-              s5 = peg$c95;
+            if (input.substr(peg$currPos, 3) === peg$c137) {
+              s5 = peg$c137;
               peg$currPos += 3;
             } else {
               s5 = peg$FAILED;
-              if (peg$silentFails === 0) { peg$fail(peg$c96); }
+              if (peg$silentFails === 0) { peg$fail(peg$c138); }
             }
             if (s5 !== peg$FAILED) {
               s6 = peg$parsesp();
               if (s6 !== peg$FAILED) {
-                if (input.substr(peg$currPos, 4) === peg$c97) {
-                  s7 = peg$c97;
+                if (input.substr(peg$currPos, 4) === peg$c139) {
+                  s7 = peg$c139;
                   peg$currPos += 4;
                 } else {
                   s7 = peg$FAILED;
-                  if (peg$silentFails === 0) { peg$fail(peg$c98); }
+                  if (peg$silentFails === 0) { peg$fail(peg$c140); }
                 }
                 if (s7 !== peg$FAILED) {
                   s8 = peg$parsesp();
                   if (s8 !== peg$FAILED) {
-                    if (input.substr(peg$currPos, 2) === peg$c91) {
-                      s9 = peg$c91;
+                    if (input.substr(peg$currPos, 2) === peg$c133) {
+                      s9 = peg$c133;
                       peg$currPos += 2;
                     } else {
                       s9 = peg$FAILED;
-                      if (peg$silentFails === 0) { peg$fail(peg$c92); }
+                      if (peg$silentFails === 0) { peg$fail(peg$c134); }
                     }
                     if (s9 !== peg$FAILED) {
                       s10 = peg$parsesp();
@@ -6046,12 +6895,12 @@ var grammar = (function() {
       s0 = peg$currPos;
       s1 = peg$parsesp();
       if (s1 !== peg$FAILED) {
-        if (peg$c99.test(input.charAt(peg$currPos))) {
+        if (peg$c141.test(input.charAt(peg$currPos))) {
           s2 = input.charAt(peg$currPos);
           peg$currPos++;
         } else {
           s2 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c100); }
+          if (peg$silentFails === 0) { peg$fail(peg$c142); }
         }
         if (s2 !== peg$FAILED) {
           s3 = peg$parsesp();
@@ -6107,16 +6956,16 @@ var grammar = (function() {
             if (s4 !== peg$FAILED) {
               s5 = peg$parsesp();
               if (s5 !== peg$FAILED) {
-                if (peg$c101.test(input.charAt(peg$currPos))) {
+                if (peg$c143.test(input.charAt(peg$currPos))) {
                   s6 = input.charAt(peg$currPos);
                   peg$currPos++;
                 } else {
                   s6 = peg$FAILED;
-                  if (peg$silentFails === 0) { peg$fail(peg$c102); }
+                  if (peg$silentFails === 0) { peg$fail(peg$c144); }
                 }
                 if (s6 !== peg$FAILED) {
                   peg$reportedPos = s0;
-                  s1 = peg$c103(s4);
+                  s1 = peg$c145(s4);
                   s0 = s1;
                 } else {
                   peg$currPos = s0;
@@ -6227,7 +7076,7 @@ var grammar = (function() {
           }
           if (s3 !== peg$FAILED) {
             peg$reportedPos = s0;
-            s1 = peg$c103(s3);
+            s1 = peg$c145(s3);
             s0 = s1;
           } else {
             peg$currPos = s0;
@@ -6250,25 +7099,25 @@ var grammar = (function() {
 
       s0 = peg$currPos;
       if (input.charCodeAt(peg$currPos) === 30) {
-        s1 = peg$c104;
+        s1 = peg$c146;
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c105); }
+        if (peg$silentFails === 0) { peg$fail(peg$c147); }
       }
       if (s1 !== peg$FAILED) {
         s2 = peg$parseany_integer();
         if (s2 !== peg$FAILED) {
           if (input.charCodeAt(peg$currPos) === 30) {
-            s3 = peg$c104;
+            s3 = peg$c146;
             peg$currPos++;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c105); }
+            if (peg$silentFails === 0) { peg$fail(peg$c147); }
           }
           if (s3 !== peg$FAILED) {
             peg$reportedPos = s0;
-            s1 = peg$c106(s2);
+            s1 = peg$c148(s2);
             s0 = s1;
           } else {
             peg$currPos = s0;
@@ -6291,31 +7140,31 @@ var grammar = (function() {
 
       s0 = peg$currPos;
       s1 = peg$currPos;
-      if (peg$c58.test(input.charAt(peg$currPos))) {
+      if (peg$c60.test(input.charAt(peg$currPos))) {
         s2 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s2 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c59); }
+        if (peg$silentFails === 0) { peg$fail(peg$c61); }
       }
       if (s2 !== peg$FAILED) {
-        if (peg$c58.test(input.charAt(peg$currPos))) {
+        if (peg$c60.test(input.charAt(peg$currPos))) {
           s3 = input.charAt(peg$currPos);
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c59); }
+          if (peg$silentFails === 0) { peg$fail(peg$c61); }
         }
         if (s3 === peg$FAILED) {
           s3 = peg$c2;
         }
         if (s3 !== peg$FAILED) {
-          if (peg$c58.test(input.charAt(peg$currPos))) {
+          if (peg$c60.test(input.charAt(peg$currPos))) {
             s4 = input.charAt(peg$currPos);
             peg$currPos++;
           } else {
             s4 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c59); }
+            if (peg$silentFails === 0) { peg$fail(peg$c61); }
           }
           if (s4 === peg$FAILED) {
             s4 = peg$c2;
@@ -6338,20 +7187,20 @@ var grammar = (function() {
       if (s1 !== peg$FAILED) {
         s2 = peg$currPos;
         peg$silentFails++;
-        if (peg$c58.test(input.charAt(peg$currPos))) {
+        if (peg$c60.test(input.charAt(peg$currPos))) {
           s3 = input.charAt(peg$currPos);
           peg$currPos++;
         } else {
           s3 = peg$FAILED;
-          if (peg$silentFails === 0) { peg$fail(peg$c59); }
+          if (peg$silentFails === 0) { peg$fail(peg$c61); }
         }
         if (s3 === peg$FAILED) {
-          if (input.substr(peg$currPos, 4) === peg$c107) {
-            s3 = peg$c107;
+          if (input.substr(peg$currPos, 4) === peg$c149) {
+            s3 = peg$c149;
             peg$currPos += 4;
           } else {
             s3 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c108); }
+            if (peg$silentFails === 0) { peg$fail(peg$c150); }
           }
         }
         peg$silentFails--;
@@ -6363,7 +7212,7 @@ var grammar = (function() {
         }
         if (s2 !== peg$FAILED) {
           peg$reportedPos = s0;
-          s1 = peg$c109(s1);
+          s1 = peg$c151(s1);
           s0 = s1;
         } else {
           peg$currPos = s0;
@@ -6382,22 +7231,22 @@ var grammar = (function() {
 
       s0 = peg$currPos;
       s1 = [];
-      if (peg$c58.test(input.charAt(peg$currPos))) {
+      if (peg$c60.test(input.charAt(peg$currPos))) {
         s2 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s2 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c59); }
+        if (peg$silentFails === 0) { peg$fail(peg$c61); }
       }
       if (s2 !== peg$FAILED) {
         while (s2 !== peg$FAILED) {
           s1.push(s2);
-          if (peg$c58.test(input.charAt(peg$currPos))) {
+          if (peg$c60.test(input.charAt(peg$currPos))) {
             s2 = input.charAt(peg$currPos);
             peg$currPos++;
           } else {
             s2 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c59); }
+            if (peg$silentFails === 0) { peg$fail(peg$c61); }
           }
         }
       } else {
@@ -6405,7 +7254,7 @@ var grammar = (function() {
       }
       if (s1 !== peg$FAILED) {
         peg$reportedPos = s0;
-        s1 = peg$c109(s1);
+        s1 = peg$c151(s1);
       }
       s0 = s1;
 
@@ -6417,22 +7266,22 @@ var grammar = (function() {
 
       s0 = peg$currPos;
       s1 = [];
-      if (peg$c110.test(input.charAt(peg$currPos))) {
+      if (peg$c152.test(input.charAt(peg$currPos))) {
         s2 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s2 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c111); }
+        if (peg$silentFails === 0) { peg$fail(peg$c153); }
       }
       if (s2 !== peg$FAILED) {
         while (s2 !== peg$FAILED) {
           s1.push(s2);
-          if (peg$c110.test(input.charAt(peg$currPos))) {
+          if (peg$c152.test(input.charAt(peg$currPos))) {
             s2 = input.charAt(peg$currPos);
             peg$currPos++;
           } else {
             s2 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c111); }
+            if (peg$silentFails === 0) { peg$fail(peg$c153); }
           }
         }
       } else {
@@ -6440,7 +7289,7 @@ var grammar = (function() {
       }
       if (s1 !== peg$FAILED) {
         peg$reportedPos = s0;
-        s1 = peg$c112(s1);
+        s1 = peg$c154(s1);
       }
       s0 = s1;
 
@@ -6451,16 +7300,16 @@ var grammar = (function() {
       var s0, s1;
 
       s0 = peg$currPos;
-      if (peg$c99.test(input.charAt(peg$currPos))) {
+      if (peg$c141.test(input.charAt(peg$currPos))) {
         s1 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c100); }
+        if (peg$silentFails === 0) { peg$fail(peg$c142); }
       }
       if (s1 !== peg$FAILED) {
         peg$reportedPos = s0;
-        s1 = peg$c113(s1);
+        s1 = peg$c155(s1);
       }
       s0 = s1;
 
@@ -6482,22 +7331,22 @@ var grammar = (function() {
       var s0, s1;
 
       s0 = [];
-      if (peg$c114.test(input.charAt(peg$currPos))) {
+      if (peg$c156.test(input.charAt(peg$currPos))) {
         s1 = input.charAt(peg$currPos);
         peg$currPos++;
       } else {
         s1 = peg$FAILED;
-        if (peg$silentFails === 0) { peg$fail(peg$c115); }
+        if (peg$silentFails === 0) { peg$fail(peg$c157); }
       }
       if (s1 !== peg$FAILED) {
         while (s1 !== peg$FAILED) {
           s0.push(s1);
-          if (peg$c114.test(input.charAt(peg$currPos))) {
+          if (peg$c156.test(input.charAt(peg$currPos))) {
             s1 = input.charAt(peg$currPos);
             peg$currPos++;
           } else {
             s1 = peg$FAILED;
-            if (peg$silentFails === 0) { peg$fail(peg$c115); }
+            if (peg$silentFails === 0) { peg$fail(peg$c157); }
           }
         }
       } else {
