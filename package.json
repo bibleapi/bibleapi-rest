@@ -1,7 +1,8 @@
 {
     "name": "bibleapi",
+    "author": "Dev4Christ"
     "description": "Bible API",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "private": true,
     "dependencies": {
         "express": "4.10.x",
