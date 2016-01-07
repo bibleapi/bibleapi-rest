@@ -1,11 +1,11 @@
 {
-    "name": "bibleapi",
-    "author": "Dev4Christ"
+    "name": "BibleAPI",
+    "author": "Dev4Christ",
     "description": "Bible API",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "private": true,
     "dependencies": {
-        "express": "4.10.x",
-        "mongodb": "1.4.x"
+        "express": "^4.13.3",
+        "mongodb": "^1.4.39"
     }
 }
