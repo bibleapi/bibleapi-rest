@@ -1,18 +1,26 @@
 BibleAPI 0.04
-=========
 
-Node.js based Bible API RESTful web service
+----
+## Setup
+    npm install
 
-Demo: http://bibleapi-dev4christ.rhcloud.com
+## Run
+    node server.js
 
-Single verse: http://bibleapi-dev4christ.rhcloud.com/Gen1:1
+## Demo
 
-Range of verses: http://bibleapi-dev4christ.rhcloud.com/Gen1:1-3
+    Node.js based Bible API RESTful web service
 
-Sequence of verses: http://bibleapi-dev4christ.rhcloud.com/Gen1:1-3,5,6
+    Demo: http://bibleapi-dev4christ.rhcloud.com
+
+    Single verse: http://bibleapi-dev4christ.rhcloud.com/Gen1:1
+
+    Range of verses: http://bibleapi-dev4christ.rhcloud.com/Gen1:1-3
+
+    Sequence of verses: http://bibleapi-dev4christ.rhcloud.com/Gen1:1-3,5,6
 
 Translations:
 
-(Russian Synodal) http://bibleapi-dev4christ.rhcloud.com/Gen1:1-3 RST
+    (Russian Synodal) http://bibleapi-dev4christ.rhcloud.com/Gen1:1-3 RST
 
-(King James) http://bibleapi-dev4christ.rhcloud.com/Gen1:1-3 KJV
+    (King James) http://bibleapi-dev4christ.rhcloud.com/Gen1:1-3 KJV
