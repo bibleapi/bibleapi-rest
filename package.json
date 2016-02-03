@@ -1,20 +1,21 @@
 {
-    "name": "BibleAPI",
-    "author": "Dev4Christ",
-    "description": "Bible API",
-    "license": "MIT",
-    "version": "0.0.5",
-    "private": true,
-    "main": "server.js",
-    "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-      "type": "git",
-      "url": "git://github.com/dev4christ/bibleapi.git"
-    },
-    "dependencies": {
-        "express": "^4.13.3",
-        "mongodb": "^1.4.39"
-    }
+  "name": "BibleAPI",
+  "author": "Dev4Christ",
+  "description": "Bible API",
+  "license": "MIT",
+  "version": "0.0.6",
+  "private": true,
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dev4christ/bibleapi.git"
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "mongodb": "^1.4.39",
+    "restify": "^4.0.3"
+  }
 }
