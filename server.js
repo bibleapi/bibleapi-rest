@@ -114,7 +114,7 @@ var BibleApiApp = function() {
             res.set('Content-Type', 'text/html');
             res.send('<html>\n' +
             '  <head><title>BibleAPI</title></head>\n' +
-            '  <body>Bible API web service v0.0.3</body>\n</html>');
+            '  <body>Bible API web service v0.0.6</body>\n</html>');
         };
     };
 
