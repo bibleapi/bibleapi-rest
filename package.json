@@ -17,5 +17,10 @@
     "express": "^4.13.3",
     "mongodb": "^1.4.39",
     "restify": "^4.0.3"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.11.1",
+    "gulp": "^3.9.0",
+    "gulp-nodemon": "^2.0.6"
   }
 }
