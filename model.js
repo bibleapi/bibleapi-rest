@@ -219,6 +219,7 @@ exports.parsePassage = function(req, res) {
       collection.find({
         $or: mongoQuery
       }, { _id: 0 })
+      .sort({verse: 1})
       .toArray(function(err, items) {
         res.jsonp(items);
       });
