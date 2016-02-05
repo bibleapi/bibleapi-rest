@@ -1,8 +1,10 @@
-var bcv_parser = require("./full_bcv_parser.js").bcv_parser;
+//var bcv_parser = require("./full_bcv_parser.js").bcv_parser;
+
+var bcv_parser = require("bible-passage-reference-parser/js/ru_bcv_parser").bcv_parser;
 var bcv = new bcv_parser;
 
 //var db;
-var Server = require('mongodb').Server;
+//var Server = require('mongodb').Server;
 var MongoClient = require('mongodb').MongoClient;
 
 /*var mongoClient = new MongoClient(new Server('localhost', 27017));
@@ -46,8 +48,10 @@ var fetchBcv = function(passage, type) {
     }
   } // no translations set
   else {
-    translations.push('RST'); // default
+    translations.push('RUSV'); // default
   }
+
+  console.log(translations);
 
   if (type === 'b') {
     mongoQuery.push({
@@ -77,7 +81,7 @@ var fetchBcv = function(passage, type) {
 var fetchRange = function(passage) {
   var translationInfo = bcv.translation_info("");
 
-  var pTranslation = 'RST';
+  var pTranslation = 'RUSV';
   if (passage.translations != null) {
     pTranslation = passage.translations[0].osis;
   }
@@ -216,12 +220,14 @@ exports.parsePassage = function(req, res) {
 
   if (mongoQuery.length > 0) {
     //db.collection('bible', function(err, collection) {
+      //console.log(mongoQuery);
       collection.find({
         $or: mongoQuery
       }, { _id: 0 })
       .sort({verse: 1})
       .toArray(function(err, items) {
-        res.jsonp(items);
+        //res.charSet('utf-8');
+        res.send(items);
       });
     //});
   }
@@ -229,6 +235,6 @@ exports.parsePassage = function(req, res) {
     var error = {
       message: 'Bible passage is not found.'
     };
-    res.jsonp(error);
+    res.send(error);
   }
 };
