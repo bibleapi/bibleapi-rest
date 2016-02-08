@@ -195,8 +195,12 @@ exports.parsePassage = function(req, res) {
 
   for (var i=0; i<entities.length; i++) {
     var entity = entities[i];
-    // passage contains whole book, whole chapter or verse also
-    if (entity.type === 'b' || entity.type === 'bc' || entity.type === 'bcv') {
+    // passage contains whole book
+    if (entity.type === 'b') {
+      res.send({message: 'Please specify at least passage chapter.'});
+    }
+    // whole chapter or verse
+    else if (entity.type === 'bc' || entity.type === 'bcv') {
       // bcv has only one passage
       fetchBcv(entity.passages[0], entity.type);
     } // range of verses
