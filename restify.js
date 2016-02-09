@@ -38,7 +38,8 @@ server.get('/', respondIndex);
 //server.head('/', respondIndex);
 
 // metadata
-server.get('/api/v1.0/meta/:query', getMetaData);
+server.get('/api/v1.0/meta/:translation', getMetaData);
+server.get('/api/v1.0/meta/:translation/books', getMetaData);
 
 // passage
 server.get('/api/v1.0/:passage', parsePassage);
