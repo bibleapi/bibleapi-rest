@@ -12,7 +12,7 @@ gulp.task('nodemon', function(cb) {
     // nodemon our expressjs server
     script: 'restify.js',
     // watch core server file(s) that require server restart on change
-    watch: ['restify.js']
+    watch: ['*.js']
   })
   .on('start', function onStart() {
     // ensure start only got called once
@@ -47,5 +47,5 @@ gulp.task('bs-reload', function() {
 });
 
 gulp.task('default', ['browser-sync'], function() {
-  //gulp.watch('client/scripts/**/*.js', ['scripts-vendor', 'scripts-app', browserSync.reload]);
+  //gulp.watch('*.js', ['scripts-vendor', 'scripts-app', browserSync.reload]);
 });
