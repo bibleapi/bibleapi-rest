@@ -1,5 +1,5 @@
 var restify = require('restify');
-var model = require('./model');
+var parsePassage = require('./model').parsePassage;
 var meta = require('./meta');
 
 // function respond(req, res, next) {
@@ -21,7 +21,7 @@ function respondIndex(req, res, next) {
 };
 
 function parsePassage(req, res, next) {
-  model.parsePassage(req, res);
+  parsePassage(req, res);
   next();
 };
 

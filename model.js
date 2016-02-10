@@ -1,46 +1,11 @@
+var mongo = require('./mongo');
 //var bcv_parser = require("./full_bcv_parser.js").bcv_parser;
-
 var bcv_parser = require("bible-passage-reference-parser/js/ru_bcv_parser").bcv_parser;
 var bcv = new bcv_parser;
 
-//var db;
-//var Server = require('mongodb').Server;
-var MongoClient = require('mongodb').MongoClient;
-
-/*var mongoClient = new MongoClient(new Server('localhost', 27017));
-mongoClient.open(function(err, mongoClient) {
-    db = mongoClient.db("bible-api");
-    db.collection('bible', {strict:true}, function(err, collection) {
-        if (err) {
-            console.log("Error!");
-        }
-    });
-});*/
-
-var collection;
-var connection_string = '127.0.0.1:27017/bibleapi';
-// if OPENSHIFT env variables are present, use the available connection info:
-if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
-  connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
-  process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
-  process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
-  process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
-  process.env.OPENSHIFT_APP_NAME;
-}
-
-MongoClient.connect('mongodb://' + connection_string, function(err, db) {
-  if(err) throw err;
-  db.collection('bible', {strict:true}, function(err, collect) {
-    collection = collect;
-    if (err) {
-      console.log("Error!");
-    }
-  });
-});
-
 var mongoQuery = [];
 
-var fetchBcv = function(passage, type) {
+function fetchBcv(passage, type) {
   var translations = [];
   if (passage.translations != null) {
     for (var i=0; i<passage.translations.length; i++) {
@@ -51,7 +16,7 @@ var fetchBcv = function(passage, type) {
     translations.push('RUSV'); // default
   }
 
-  console.log(translations);
+  //console.log(translations);
 
   if (type === 'b') {
     mongoQuery.push({
@@ -78,7 +43,7 @@ var fetchBcv = function(passage, type) {
   }
 };
 
-var fetchRange = function(passage) {
+function fetchRange(passage) {
   var translationInfo = bcv.translation_info("");
 
   var pTranslation = 'RUSV';
@@ -189,9 +154,21 @@ var fetchRange = function(passage) {
   }
 };
 
+function reformatResults(items) {
+  var text = [];
+  items.forEach(function(item) {
+    text.push(item.text);
+  });
+  return {
+    verses: items,
+    text: text.join(' ')
+  };
+}
+
 exports.parsePassage = function(req, res) {
   mongoQuery = [];
-  var entities = bcv.parse(req.params.passage).entities;
+  var passage = req.params.passage;
+  var entities = bcv.parse(passage).entities;
 
   for (var i=0; i<entities.length; i++) {
     var entity = entities[i];
@@ -223,17 +200,14 @@ exports.parsePassage = function(req, res) {
   }
 
   if (mongoQuery.length > 0) {
-    //db.collection('bible', function(err, collection) {
-      //console.log(mongoQuery);
-      collection.find({
-        $or: mongoQuery
-      }, { _id: 0 })
-      .sort({verse: 1})
-      .toArray(function(err, items) {
-        res.charSet('utf-8');
-        res.send(items);
-      });
-    //});
+    mongo.connect(function(err, collection) {
+      collection.find({ $or: mongoQuery }, { _id: 0 })
+        .sort({chapter: 1, verse: 1})
+        .toArray(function(err, items) {
+          res.charSet('utf-8');
+          res.send(reformatResults(items));
+        });
+    });
   }
   else {
     var error = {
