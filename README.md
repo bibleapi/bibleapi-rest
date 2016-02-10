@@ -1,4 +1,4 @@
-# BibleAPI 0.06
+# BibleAPI 0.07
 Node.js based Bible API RESTful web service
 
 ----
