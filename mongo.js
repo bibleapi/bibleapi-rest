@@ -3,7 +3,6 @@ var mongoClient = require('mongodb').MongoClient;
 var DB_NAME = 'bibleapi';
 var COLLECTION_NAME = 'bible';
 
-var collection;
 var connection_string = '127.0.0.1:27017/' + DB_NAME;
 
 // if OPENSHIFT env variables are present, use the available connection info:
@@ -17,13 +16,16 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
 
 function connect(callback) {
   mongoClient.connect('mongodb://' + connection_string, function(err, db) {
-    if(err) throw err;
-    db.collection(COLLECTION_NAME, {strict:true}, function(err, collect) {
-      collection = collect;
-      return callback(null, collection);
+    if (err) {
+      console.log('Error connecting to the database: ' + err);
+      throw err;
+    }
+    db.collection(COLLECTION_NAME, {strict:true}, function(err, collection) {
       if (err) {
-        console.log("Error connecting to the database!");
+        console.log('Error retrieving collection: ' + err);
+        throw err;
       }
+      return callback(null, collection);
     });
   });
 }
