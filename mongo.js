@@ -1,21 +1,23 @@
-var mongoClient = require('mongodb').MongoClient;
+const mongoClient = require('mongodb').MongoClient;
 
-var DB_NAME = 'bibleapi';
-var COLLECTION_NAME = 'bible';
+const HOST = '127.0.0.1';
+const PORT = '27017';
+const DB_NAME = 'bibleapi';
+const COLLECTION_NAME = 'bible';
 
-var connection_string = '127.0.0.1:27017/' + DB_NAME;
+const connectionString = HOST + ':' + PORT +'/' + DB_NAME;
 
 // if OPENSHIFT env variables are present, use the available connection info:
 if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
-  connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
-  process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
-  process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
-  process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
-  process.env.OPENSHIFT_APP_NAME;
+  connectionString = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+    process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+    process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
+    process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
+    process.env.OPENSHIFT_APP_NAME;
 }
 
-function connect(callback) {
-  mongoClient.connect('mongodb://' + connection_string, function(err, db) {
+function open(callback) {
+  mongoClient.connect('mongodb://' + connectionString, function(err, db) {
     if (err) {
       console.log('Error connecting to the database: ' + err);
       throw err;
@@ -30,4 +32,4 @@ function connect(callback) {
   });
 }
 
-exports.connect = connect;
+exports.open = open;
