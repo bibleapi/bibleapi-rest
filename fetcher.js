@@ -1,8 +1,13 @@
+'use strict'
+
+const bcv_parser = require("bible-passage-reference-parser/js/ru_bcv_parser").bcv_parser;
+const bcv = new bcv_parser;
+
 exports.fetchBcv = function fetchBcv(passage, type, callback) {
-  var mongoQuery = [];
-  var translations = [];
+  let mongoQuery = [];
+  let translations = [];
   if (passage.translations != null) {
-    for (var i=0; i<passage.translations.length; i++) {
+    for (let i=0; i<passage.translations.length; i++) {
       translations.push(passage.translations[i].osis);
     }
   } // no translations set
@@ -23,7 +28,7 @@ exports.fetchBcv = function fetchBcv(passage, type, callback) {
     });
   }
   else if (type === 'bcv') {
-    for (var i=0; i<translations.length; i++) {
+    for (let i=0; i<translations.length; i++) {
       mongoQuery.push({
         'tran':translations[i],
         'bookRef':passage.start.b,
@@ -35,7 +40,7 @@ exports.fetchBcv = function fetchBcv(passage, type, callback) {
   return callback(null, mongoQuery);
 };
 
-exports.fetchRange = function fetchRange(bcv, passage, callback) {
+exports.fetchRange = function fetchRange(passage, callback) {
   var mongoQuery = [];
   var translationInfo = bcv.translation_info("");
 

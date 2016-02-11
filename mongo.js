@@ -1,3 +1,5 @@
+'use strict'
+
 const mongoClient = require('mongodb').MongoClient;
 
 const HOST = '127.0.0.1';
