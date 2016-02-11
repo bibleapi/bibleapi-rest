@@ -3,7 +3,7 @@
   "author": "Dev4Christ",
   "description": "Bible API",
   "license": "MIT",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "private": true,
   "main": "server.js",
   "scripts": {
@@ -21,7 +21,10 @@
   },
   "devDependencies": {
     "browser-sync": "^2.11.1",
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
     "gulp": "^3.9.0",
+    "gulp-mocha": "^2.2.0",
     "gulp-nodemon": "^2.0.6"
   }
 }
