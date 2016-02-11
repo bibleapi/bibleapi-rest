@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp'),
+    mocha = require('gulp-mocha'),
     browserSync = require('browser-sync'),
     nodemon = require('gulp-nodemon');
 
@@ -46,6 +47,22 @@ gulp.task('bs-reload', function() {
   browserSync.reload();
 });
 
+var watching = false;
+function onError(err) {
+  console.log(err.toString());
+  if (watching) {
+    this.emit('end');
+  } else {
+    // if you want to be really specific
+    process.exit(1);
+  }
+}
+
+gulp.task("test", function() {
+  return gulp.src('test/**/*.js')
+    .pipe(mocha({ reporter: "spec" }).on("error", onError));
+});
+
 gulp.task('default', ['browser-sync'], function() {
-  //gulp.watch('*.js', ['scripts-vendor', 'scripts-app', browserSync.reload]);
+  //gulp.watch(['test/**/*.js', '*.js'], ['test']);
 });
