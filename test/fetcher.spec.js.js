@@ -1,6 +1,6 @@
 process.env.NODE_ENV = 'test';
 
-var server = require('../restify');
+var server = require('../server');
 
 var chai = require('chai');
 var chaiHttp = require('chai-http');

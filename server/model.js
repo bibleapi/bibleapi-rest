@@ -34,9 +34,8 @@ function displayResults(res, mongoQuery) {
 }
 
 exports.parsePassage = function(req, res) {
-  let mongoQuery = [];
-  const passage = req.params.passage;
-  const entities = bcv.parse(passage).entities;
+  let passage = req.params.passage;
+  let entities = bcv.parse(passage).entities;
 
   for (let i=0; i<entities.length; i++) {
     let entity = entities[i];

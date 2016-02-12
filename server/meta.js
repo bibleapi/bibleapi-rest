@@ -3,14 +3,10 @@ const bcv = new bcv_parser;
 
 exports.getMeta = function(req, res) {
   var translation = bcv.translation_info(req.params.translation);
-
-  res.charSet('utf-8');
   res.send({translation: translation});
 };
 
 exports.getMetaBooks = function(req, res) {
   var translation = bcv.translation_info(req.params.translation);
-
-  res.charSet('utf-8');
   res.send({translation: translation.books});
 };
