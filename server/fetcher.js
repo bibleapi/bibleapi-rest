@@ -123,6 +123,7 @@ exports.fetchRange = function fetchRange(passage, callback) {
               'tran':pTranslation,
               'bookRef':bookRef,
               'chapter':startChapter,
+              // TODO: fix verse
               'verse':{$gte:startVerse, $lte:endVerse}
             });
           } // last chapter, last verse in range
@@ -132,6 +133,7 @@ exports.fetchRange = function fetchRange(passage, callback) {
               'tran':pTranslation,
               'bookRef':bookRef,
               'chapter':ch,
+              // TODO: fix verse
               'verse':{$gte:startVerse, $lte:endVerse}
             });
           }

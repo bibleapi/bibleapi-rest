@@ -25,6 +25,7 @@
     "chai-http": "^2.0.1",
     "gulp": "^3.9.0",
     "gulp-mocha": "^2.2.0",
-    "gulp-nodemon": "^2.0.6"
+    "gulp-nodemon": "^2.0.6",
+    "sinon": "^1.17.3"
   }
 }
