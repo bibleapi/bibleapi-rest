@@ -8,13 +8,12 @@ var chai = require('chai');
 var should = chai.should();
 
 describe('fetchBcv', function() {
-  it('should get a book object from fetchBcv', function(done) {
+  it('should get an empty object from fetchBcv', function(done) {
     var passage = 'Gen';
     var entity = bcv.parse(passage).entities[0];
     fetcher.fetchBcv(entity.passages[0], entity.type, function(err, result) {
       result.should.be.a('array');
-      result[0].should.have.property('bookRef');
-      result[0].bookRef.should.equal('Gen');
+      result.should.have.length(0);
       done();
     });
   });
