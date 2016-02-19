@@ -1,5 +1,6 @@
 'use strict'
 
+const _ = require('lodash');
 const bcv_parser = require("bible-passage-reference-parser/js/ru_bcv_parser").bcv_parser;
 const bcv = new bcv_parser;
 
@@ -17,9 +18,9 @@ exports.fetchBcv = function fetchBcv(passage, type, callback) {
   }
   else if (type === 'bcv') {
     if (passage.translations != null) {
-      for (let i=0; i<passage.translations.length; i++) {
-        mongoQuery.push({'tran': passage.translations[i].osis, 'bookRef': passage.start.b, 'chapter': passage.start.c, 'verse': passage.start.v});
-      }
+      _(passage.translations).forEach(function(translation) {
+        mongoQuery.push({'tran': translation.osis, 'bookRef': passage.start.b, 'chapter': passage.start.c, 'verse': passage.start.v});
+      });
     }
     else {
       mongoQuery.push({'tran': DEFAULT_TRANSLATION, 'bookRef': passage.start.b, 'chapter': passage.start.c, 'verse': passage.start.v});

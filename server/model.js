@@ -1,15 +1,16 @@
 'use strict'
 
-var mongo = require('./mongo');
-var fetcher = require('./fetcher');
+const _ = require('lodash');
+const mongo = require('./mongo');
+const fetcher = require('./fetcher');
 const error = require('./error');
 
 var bcv_parser = require("bible-passage-reference-parser/js/ru_bcv_parser").bcv_parser;
 var bcv = new bcv_parser;
 
 function reformatResults(items) {
-  var text = [];
-  items.forEach(function(item) {
+  let text = [];
+  _(items).forEach(function(item) {
     text.push(item.text);
   });
   return {
