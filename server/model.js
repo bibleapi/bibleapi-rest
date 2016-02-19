@@ -2,6 +2,7 @@
 
 var mongo = require('./mongo');
 var fetcher = require('./fetcher');
+const error = require('./error');
 
 var bcv_parser = require("bible-passage-reference-parser/js/ru_bcv_parser").bcv_parser;
 var bcv = new bcv_parser;
@@ -24,12 +25,17 @@ function displayResults(res, mongoQuery) {
         .sort({chapter: 1, verse: 1})
         .toArray(function(err, items) {
           res.charSet('utf-8');
-          res.send(reformatResults(items));
+          if(items.length > 0) {
+            res.send(reformatResults(items));
+          }
+          else {
+            res.send(error.onError('Bible passage is not found.'));
+          }
         });
     });
   }
   else {
-    res.send({ error: 'Bible passage is not found.' });
+    res.send(error.onError('Bible passage is not found.'));
   }
 }
 
@@ -41,7 +47,7 @@ exports.parsePassage = function(req, res) {
     let entity = entities[i];
     // passage contains whole book
     if (entity.type === 'b') {
-      res.send({message: 'Please specify at least passage chapter.'});
+      res.send(error.onError('Please specify at least passage chapter.'));
     }
     // whole chapter or verse
     else if (entity.type === 'bc' || entity.type === 'bcv') {

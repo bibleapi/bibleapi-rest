@@ -3,40 +3,29 @@
 const bcv_parser = require("bible-passage-reference-parser/js/ru_bcv_parser").bcv_parser;
 const bcv = new bcv_parser;
 
+const DEFAULT_TRANSLATION = 'RUSV';
+
+/*
+ * Fetches singular chapter or singular verse
+ */
 exports.fetchBcv = function fetchBcv(passage, type, callback) {
   let mongoQuery = [];
-  let translations = [];
-  if (passage.translations != null) {
-    for (let i=0; i<passage.translations.length; i++) {
-      translations.push(passage.translations[i].osis);
-    }
-  } // no translations set
-  else {
-    translations.push('RUSV'); // default
-  }
-  if (type === 'b') {
-    mongoQuery.push({
-      'tran':translations[0],
-      'bookRef':passage.start.b
-    });
-  }
-  else if (type === 'bc') {
-    mongoQuery.push({
-      'tran':translations[0],
-      'bookRef':passage.start.b,
-      'chapter':passage.start.c
-    });
+
+  if (type === 'bc') {
+    let translation = passage.translations != null ? passage.translations[0] : DEFAULT_TRANSLATION;
+    mongoQuery.push({'tran': translation, 'bookRef': passage.start.b, 'chapter': passage.start.c});
   }
   else if (type === 'bcv') {
-    for (let i=0; i<translations.length; i++) {
-      mongoQuery.push({
-        'tran':translations[i],
-        'bookRef':passage.start.b,
-        'chapter':passage.start.c,
-        'verse':passage.start.v
-      });
+    if (passage.translations != null) {
+      for (let i=0; i<passage.translations.length; i++) {
+        mongoQuery.push({'tran': passage.translations[i].osis, 'bookRef': passage.start.b, 'chapter': passage.start.c, 'verse': passage.start.v});
+      }
+    }
+    else {
+      mongoQuery.push({'tran': DEFAULT_TRANSLATION, 'bookRef': passage.start.b, 'chapter': passage.start.c, 'verse': passage.start.v});
     }
   }
+
   return callback(null, mongoQuery);
 };
 
