@@ -6,8 +6,7 @@ const HOST = '127.0.0.1';
 const PORT = '27017';
 const DB_NAME = 'bibleapi';
 const COLLECTION_NAME = 'bible';
-
-const connectionString = HOST + ':' + PORT +'/' + DB_NAME;
+const CONNECTION_STRING = HOST + ':' + PORT +'/' + DB_NAME;
 
 // if OPENSHIFT env variables are present, use the available connection info:
 if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
@@ -19,7 +18,7 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
 }
 
 function open(callback) {
-  mongoClient.connect('mongodb://' + connectionString, function(err, db) {
+  mongoClient.connect('mongodb://' + CONNECTION_STRING, function(err, db) {
     if (err) {
       console.log('Error connecting to the database: ' + err);
       throw err;

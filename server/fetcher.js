@@ -1,6 +1,7 @@
 'use strict'
 
 const _ = require('lodash');
+
 const bcv_parser = require("bible-passage-reference-parser/js/ru_bcv_parser").bcv_parser;
 const bcv = new bcv_parser;
 
@@ -11,14 +12,15 @@ const DEFAULT_TRANSLATION = 'RUSV';
  */
 exports.fetchBcv = function fetchBcv(passage, type, callback) {
   let mongoQuery = [];
+  const translations = passage.translations;
 
   if (type === 'bc') {
-    let translation = passage.translations != null ? passage.translations[0] : DEFAULT_TRANSLATION;
+    let translation = translations != null ? translations[0] : DEFAULT_TRANSLATION;
     mongoQuery.push({'tran': translation, 'bookRef': passage.start.b, 'chapter': passage.start.c});
   }
   else if (type === 'bcv') {
-    if (passage.translations != null) {
-      _(passage.translations).forEach(function(translation) {
+    if (translations != null) {
+      _(translations).each(function(translation) {
         mongoQuery.push({'tran': translation.osis, 'bookRef': passage.start.b, 'chapter': passage.start.c, 'verse': passage.start.v});
       });
     }
@@ -32,7 +34,7 @@ exports.fetchBcv = function fetchBcv(passage, type, callback) {
 
 exports.fetchRange = function fetchRange(passage, callback) {
   var mongoQuery = [];
-  var translationInfo = bcv.translation_info("");
+  var translationInfo = bcv.translation_info('');
 
   var pTranslation = 'RUSV';
   if (passage.translations != null) {
@@ -43,12 +45,7 @@ exports.fetchRange = function fetchRange(passage, callback) {
   if (passage.start.b === passage.end.b) {
     // passage of one chapter
     if (passage.start.c === passage.end.c) {
-      mongoQuery.push({
-        'tran':pTranslation,
-        'bookRef':passage.start.b,
-        'chapter':passage.start.c,
-        'verse':{$gte:passage.start.v, $lte:passage.end.v}
-      });
+      mongoQuery.push({'tran': pTranslation, 'bookRef': passage.start.b, 'chapter': passage.start.c, 'verse': {$gte:passage.start.v, $lte:passage.end.v}});
     }
     else { // passage of many chapters
       var chapters = [];
@@ -63,17 +60,10 @@ exports.fetchRange = function fetchRange(passage, callback) {
           endVerse = passage.end.v;
         }
 
-        chapters.push({
-          'tran':pTranslation,
-          'bookRef':passage.start.b,
-          'chapter':ch,
-          'verse':{$gte:startVerse, $lte:endVerse}
-        });
+        chapters.push({'tran':pTranslation, 'bookRef':passage.start.b, 'chapter':ch, 'verse':{$gte:startVerse, $lte:endVerse}});
       }
 
-      mongoQuery.push({
-        $or: chapters
-      });
+      mongoQuery.push({$or: chapters});
     }
   } // passage of many books
   else {
@@ -86,10 +76,7 @@ exports.fetchRange = function fetchRange(passage, callback) {
 
       // passage includes the whole book in the middle
       if (b != startBook && b != endBook) {
-        chapters.push({
-          'tran':pTranslation,
-          'bookRef':bookRef
-        });
+        chapters.push({'tran':pTranslation, 'bookRef':bookRef});
       }
       else { // other half-books parts
         var startChapter = 1;
@@ -109,38 +96,22 @@ exports.fetchRange = function fetchRange(passage, callback) {
           // first chapter, first verse in range
           if (b === startBook && ch === startChapter) {
             startVerse = passage.start.v;
-            chapters.push({
-              'tran':pTranslation,
-              'bookRef':bookRef,
-              'chapter':startChapter,
-              // TODO: fix verse
-              'verse':{$gte:startVerse, $lte:endVerse}
-            });
+            // TODO: fix verse
+            chapters.push({'tran':pTranslation, 'bookRef':bookRef, 'chapter':startChapter, 'verse':{$gte:startVerse, $lte:endVerse}});
           } // last chapter, last verse in range
           else if (b === endBook && ch === endChapter) {
             endVerse = passage.end.v;
-            chapters.push({
-              'tran':pTranslation,
-              'bookRef':bookRef,
-              'chapter':ch,
-              // TODO: fix verse
-              'verse':{$gte:startVerse, $lte:endVerse}
-            });
+            // TODO: fix verse
+            chapters.push({'tran':pTranslation, 'bookRef':bookRef, 'chapter':ch, 'verse':{$gte:startVerse, $lte:endVerse}});
           }
           else { // other whole chapters in range
-            chapters.push({
-              'tran':pTranslation,
-              'bookRef':bookRef,
-              'chapter':ch
-            });
+            chapters.push({'tran':pTranslation, 'bookRef':bookRef, 'chapter':ch});
           }
         }
       }
     }
 
-    mongoQuery.push({
-      $or: chapters
-    });
+    mongoQuery.push({$or: chapters});
   }
   return callback(null, mongoQuery);
 };
