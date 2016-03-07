@@ -5,7 +5,7 @@ const mongo = require('./mongo');
 const fetcher = require('./fetcher');
 const error = require('./error');
 
-var bcv_parser = require("bible-passage-reference-parser/js/ru_bcv_parser").bcv_parser;
+var bcv_parser = require("bible-passage-reference-parser/js/en_bcv_parser").bcv_parser;
 var bcv = new bcv_parser;
 
 function reformatResults(items, hasMultipleTranslations) {
@@ -66,6 +66,7 @@ exports.parsePassage = function(req, res) {
         if (entity.type === 'bcv' && translations > 1) {
           hasMultipleTranslations = true;
         }
+        console.log(translations);
         displayResults(res, result, hasMultipleTranslations);
       });
     } // range of verses

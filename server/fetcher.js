@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 
-const bcv_parser = require("bible-passage-reference-parser/js/ru_bcv_parser").bcv_parser;
+const bcv_parser = require("bible-passage-reference-parser/js/en_bcv_parser").bcv_parser;
 const bcv = new bcv_parser;
 
 const DEFAULT_TRANSLATION = 'KJV';
