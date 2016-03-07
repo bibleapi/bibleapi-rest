@@ -36,7 +36,7 @@ exports.fetchRange = function fetchRange(passage, callback) {
   var mongoQuery = [];
   var translationInfo = bcv.translation_info('');
 
-  var pTranslation = 'RUSV';
+  var pTranslation = DEFAULT_TRANSLATION;
   if (passage.translations != null) {
     pTranslation = passage.translations[0].osis;
   }

@@ -60,11 +60,13 @@ exports.parsePassage = function(req, res) {
     // whole chapter or verse
     else if (entity.type === 'bc' || entity.type === 'bcv') {
       // bcv has only one passage
+      const translations = entity.passages[0].translations ? entity.passages[0].translations : [];
       fetcher.fetchBcv(entity.passages[0], entity.type, function(err, result) {
         let hasMultipleTranslations = false;
-        if (entity.type === 'bcv' && entity.passages[0].translations.length > 1) {
+        if (entity.type === 'bcv' && translations > 1) {
           hasMultipleTranslations = true;
         }
+        console.log(result);
         displayResults(res, result, hasMultipleTranslations);
       });
     } // range of verses
