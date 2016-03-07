@@ -66,7 +66,6 @@ exports.parsePassage = function(req, res) {
         if (entity.type === 'bcv' && translations > 1) {
           hasMultipleTranslations = true;
         }
-        console.log(result);
         displayResults(res, result, hasMultipleTranslations);
       });
     } // range of verses
