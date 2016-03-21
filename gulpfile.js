@@ -37,9 +37,9 @@ gulp.task('browser-sync', ['nodemon'], function() {
     proxy: 'http://localhost:8000',
     // informs browser-sync to use the following port for the proxied app
     // notice that the default port is 3000, which would clash with our expressjs
-    port: 4000,
+    port: 4000
     // open the proxied app in chrome
-    browser: 'google chrome'
+    //browser: 'google chrome'
   });
 });
 

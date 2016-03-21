@@ -117,3 +117,56 @@ describe('fetchRange', function() {
     done();
   });
 });
+describe('fetchTranslation', function() {
+  it('should get a single translation', function(done) {
+    var passage = 'Gen1:1;ASV';
+    var entity = bcv.parse(passage).entities[0];
+    fetcher.fetchBcv(entity.passages[0], entity.type, function(err, result) {
+      result.should.be.a('array');
+      result[0].should.have.property('bookRef');
+      result[0].bookRef.should.equal('Gen');
+      result[0].should.have.property('chapter');
+      result[0].chapter.should.equal(1);
+      result[0].should.have.property('verse');
+      result[0].verse.should.equal(1);
+      result[0].should.have.property('tran');
+      result[0].tran.should.equal("ASV");
+    });
+
+    done();
+  });
+
+  it('should get a both translation', function(done) {
+    var passage = 'Gen1:1;ASV;KJV';
+    var entity = bcv.parse(passage).entities[0];
+
+
+    fetcher.fetchBcv(entity.passages[0], entity.type, function(err, result) {
+      result.should.be.a('array');
+
+      result[0].should.have.property('bookRef');
+      result[0].bookRef.should.equal('Gen');
+      result[0].should.have.property('chapter');
+      result[0].chapter.should.equal(1);
+      result[0].should.have.property('verse');
+      result[0].verse.should.equal(1);
+      result[0].should.have.property('tran');
+      result[0].tran.should.equal("ASV");
+    });
+
+    fetcher.fetchBcv(entity.passages[0], entity.type, function(err, result) {
+      result.should.be.a('array');
+
+      result[1].should.have.property('bookRef');
+      result[1].bookRef.should.equal('Gen');
+      result[1].should.have.property('chapter');
+      result[1].chapter.should.equal(1);
+      result[1].should.have.property('verse');
+      result[1].verse.should.equal(1);
+      result[1].should.have.property('tran');
+      result[1].tran.should.equal("KJV");
+    });
+    done();
+  });
+});
+
