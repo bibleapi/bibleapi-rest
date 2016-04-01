@@ -49,6 +49,10 @@ Bible API RESTful web service developed with Node.js
 
 ## Development
 
+### Prerequisites
+- [MongoDB](https://www.mongodb.org)
+- [Node.js](https://www.nodejs.org)
+
 ### Setup
 > npm install
 
