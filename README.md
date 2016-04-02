@@ -8,44 +8,96 @@ Bible API RESTful web service developed with Node.js
 ### Single passage
 
 ###### Single verse
-[http://localhost:4000/api/v1.0/Gen1:1](http://localhost:4000/api/v1.0/Gen1:1)
+[http://localhost:4000/api/v1/Gen1:1](http://localhost:4000/api/v1/Gen1:1)
 
 ```
 {
   verses: [
     {
-      tran: "RUSV",
       book: 1,
-      bookRef: "Gen",
-      bookName: "Бытие",
       chapter: 1,
       verse: 1,
-      text: "В начале сотворил Бог небо и землю."
+      text: "In the beginning God created the heaven and the earth.",
+      tran: "KJV",
+      bookRef: "Gen",
+      bookName: "Genesis"
     }
   ],
-  text: "В начале сотворил Бог небо и землю."
+  text: In the beginning God created the heaven and the earth."
 }
 ```
 
 ###### Single chapter
-[http://localhost:4000/api/v1.0/Gen1](http://localhost:4000/api/v1.0/Gen1)
+[http://localhost:4000/api/v1/Gen1](http://localhost:4000/api/v1/Gen1)
 
 ### Single passage range
 
 ###### Single verse range
-[http://localhost:4000/api/v1.0/Gen1:1-5](http://localhost:4000/api/v1.0/Gen1:1-5)
+[http://localhost:4000/api/v1/Gen1:1-5](http://localhost:4000/api/v1/Gen1:1-5)
 
 ###### Single chapter range
-[http://localhost:4000/api/v1.0/Gen1-3](http://localhost:4000/api/v1.0/Gen1-3)
+[http://localhost:4000/api/v1/Gen1-3](http://localhost:4000/api/v1/Gen1-3)
 
 ###### Single chapter and verses range
-[http://localhost:4000/api/v1.0/Gen1:1-2:5](http://localhost:4000/api/v1.0/Gen1:1-2:5)
+[http://localhost:4000/api/v1/Gen1:1-2:5](http://localhost:4000/api/v1/Gen1:1-2:5)
 
 ### Multiple passages
-[http://localhost:4000/api/v1.0/Gen1;Gen2:1-3:5](http://localhost:4000/api/v1.0/Gen1;Gen2:1-3:5)
+[http://localhost:4000/api/v1/Gen1;Gen2:1-3:5](http://localhost:4000/api/v1/Gen1;Gen2:1-3:5)
+
+### Supported translations
+- KJV
+- ASV
+
+#### Single translation
+[http://localhost:4000/api/v1/Gen1:1ASV](http://localhost:4000/api/v1/Gen1:1ASV)
+
+```
+{
+  verses: [
+    {
+      book: 1,
+      chapter: 1,
+      verse: 1,
+      text: "In the beginning God created the heaven and the earth.",
+      tran: "ASV",
+      bookRef: "Gen",
+      bookName: "Genesis"
+    }
+  ],
+  text: In the beginning God created the heaven and the earth."
+}
+```
+
+#### Multiple translations
+[http://localhost:4000/api/v1/Gen1:1KJV;ASV](http://localhost:4000/api/v1/Gen1:1KJV;ASV)
+
+```
+{
+  verses: [
+    {
+      book: 1,
+      chapter: 1,
+      verse: 1,
+      text: "In the beginning God created the heaven and the earth.",
+      tran: "KJV",
+      bookRef: "Gen",
+      bookName: "Genesis"
+    },
+    {
+      book: 1,
+      chapter: 1,
+      verse: 1,
+      text: "In the beginning God created the heavens and the earth.",
+      tran: "ASV",
+      bookRef: "Gen",
+      bookName: "Genesis"
+    }
+  ]
+}
+```
 
 ### Meta data
-[http://localhost:4000/api/v1.0/meta/KJV](http://localhost:4000/api/v1.0/meta/KJV)
+[http://localhost:4000/api/v1/meta/KJV](http://localhost:4000/api/v1/meta/KJV)
 
 ## Development
 
