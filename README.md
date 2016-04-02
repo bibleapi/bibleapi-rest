@@ -54,6 +54,19 @@ Bible API RESTful web service developed with Node.js
 - [Node.js](https://www.nodejs.org)
 
 ### Setup
+
+#### Database
+
+Import JSON files from this repo:
+https://github.com/dev4christ/usfm2json/tree/master/json
+
+##### KJV
+> mongoimport --db bibleapi --collection bible --type json --file kjv.json
+
+##### ASV
+> mongoimport --db bibleapi --collection bible --type json --file asv.json
+
+#### NPM Modules
 > npm install
 
 ### Run
