@@ -128,5 +128,6 @@ https://github.com/dev4christ/usfm2json/tree/master/json
 > mocha
 
 
-## Demo
-  > [http://bibleapi.ws](http://bibleapi.ws)
+## Demo (Older version deployed)
+> - [http://bibleapi.ws/Gen1](http://bibleapi.ws/Gen1)
+> - [http://bibleapi.ws/Gen1:1](http://bibleapi.ws/Gen1:1)
