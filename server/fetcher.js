@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 const _ = require('lodash');
 
@@ -54,10 +54,14 @@ exports.fetchRange = function fetchRange(passage, callback) {
         var endVerse = translationInfo.chapters[passage.start.b][ch-1];
 
         if (ch === passage.start.c) {
-          startVerse = passage.start.v;
+          if (passage.start.v) {
+            startVerse = passage.start.v;
+          }
         }
         if (ch === passage.end.c) {
-          endVerse = passage.end.v;
+          if (passage.end.v) {
+            endVerse = passage.end.v;
+          }
         }
 
         chapters.push({'tran':pTranslation, 'bookRef':passage.start.b, 'chapter':ch, 'verse':{$gte:startVerse, $lte:endVerse}});
