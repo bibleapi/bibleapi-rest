@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 describe('Passages', function() {
   it('should list 1 verse on calling fetchBcv', function(done) {
     chai.request(server)
-      .get('/api/v1.0/Gen1:1')
+      .get('/api/v1/Gen1:1')
       .end(function(err, res) {
         res.should.have.status(200);
         res.should.be.json;
@@ -27,7 +27,7 @@ describe('Passages', function() {
 
   it('should list 2 verses on calling fetchRange', function(done) {
     chai.request(server)
-      .get('/api/v1.0/Gen1:1-2')
+      .get('/api/v1/Gen1:1-2')
       .end(function(err, res) {
         res.should.have.status(200);
         res.should.be.json;
