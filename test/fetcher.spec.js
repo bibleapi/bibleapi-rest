@@ -103,7 +103,8 @@ describe('fetchRange', function() {
       result[0].should.have.property('bookRef');
       result[0].bookRef.should.equal('Gen');
       result[0].chapter.should.equal(1);
-      //result[0].verse.should.equal(2);
+      result[0].verse.$gte.should.equal(2);
+      result[0].verse.$lte.should.equal(2);
     });
 
     fetcher.fetchRange(entity.passages[1], function(err, result) {
@@ -111,12 +112,107 @@ describe('fetchRange', function() {
       result[0].should.have.property('bookRef');
       result[0].bookRef.should.equal('Ps');
       result[0].chapter.should.equal(1);
-      //result[0].verse.should.equal(3);
+      result[0].verse.$gte.should.equal(3);
+      result[0].verse.$lte.should.equal(3);
+    });
+
+    done();
+  });
+
+  it('should get a passage object from fetchRange', function (done) {
+    var passage = 'Gen1:2-7;Ps1:3-6';
+    var entity = bcv.parse(passage).entities[0];
+
+    entity.passages.should.have.length(2);
+
+    fetcher.fetchRange(entity.passages[0], function (err, result) {
+      result.should.be.a('array');
+      result[0].should.have.property('bookRef');
+      result[0].bookRef.should.equal('Gen');
+      result[0].chapter.should.equal(1);
+      result[0].verse.$gte.should.equal(2);
+      result[0].verse.$lte.should.equal(7);
+    });
+
+    fetcher.fetchRange(entity.passages[1], function (err, result) {
+      result.should.be.a('array');
+      result[0].should.have.property('bookRef');
+      result[0].bookRef.should.equal('Ps');
+      result[0].chapter.should.equal(1);
+      result[0].verse.$gte.should.equal(3);
+      result[0].verse.$lte.should.equal(6);
+    });
+
+    done();
+  });
+
+  it('should get a passage object from fetchRange, if the passage is "Gen1:2-33;Ps1:3-8"', function (done) {
+    var passage = 'Gen1:2-33;Ps1:3-8';
+    var entity = bcv.parse(passage).entities[0];
+
+    entity.passages.should.have.length(2);
+
+    fetcher.fetchRange(entity.passages[0], function (err, result) {
+      result.should.be.a('array');
+      result[0].should.have.property('bookRef');
+      result[0].bookRef.should.equal('Gen');
+      result[0].chapter.should.equal(1);
+      result[0].verse.$gte.should.equal(2);
+      result[0].verse.$lte.should.equal(31);
+    });
+
+    fetcher.fetchRange(entity.passages[1], function (err, result) {
+      result.should.be.a('array');
+      result[0].should.have.property('bookRef');
+      result[0].bookRef.should.equal('Ps');
+      result[0].chapter.should.equal(1);
+      result[0].verse.$gte.should.equal(3);
+      result[0].verse.$lte.should.equal(6);
+    });
+
+    done();
+  });
+
+  it('should get a passage object from fetchRange, if the passage contains few chapters', function (done) {
+    var passage = 'Gen1-2;Ps2-3';
+    var entity = bcv.parse(passage).entities[0];
+
+    entity.passages.should.have.length(2);
+
+    fetcher.fetchRange(entity.passages[0], function (err, result) {
+      result.should.be.a('array');
+      result[0].$or[0].should.have.property('bookRef');
+      result[0].$or[0].bookRef.should.equal('Gen');
+      result[0].$or[0].chapter.should.equal(1);
+      result[0].$or[0].verse.$gte.should.equal(1);
+      result[0].$or[0].verse.$lte.should.equal(31);
+
+      result[0].$or[1].should.have.property('bookRef');
+      result[0].$or[1].bookRef.should.equal('Gen');
+      result[0].$or[1].chapter.should.equal(2);
+      result[0].$or[1].verse.$gte.should.equal(1);
+      result[0].$or[1].verse.$lte.should.equal(25);
+    });
+
+    fetcher.fetchRange(entity.passages[1], function (err, result) {
+      result.should.be.a('array');
+      result[0].$or[0].should.have.property('bookRef');
+      result[0].$or[0].bookRef.should.equal('Ps');
+      result[0].$or[0].chapter.should.equal(2);
+      result[0].$or[0].verse.$gte.should.equal(1);
+      result[0].$or[0].verse.$lte.should.equal(12);
+
+      result[0].$or[1].should.have.property('bookRef');
+      result[0].$or[1].bookRef.should.equal('Ps');
+      result[0].$or[1].chapter.should.equal(3);
+      result[0].$or[1].verse.$gte.should.equal(1);
+      result[0].$or[1].verse.$lte.should.equal(8);
     });
 
     done();
   });
 });
+
 describe('fetchTranslation', function() {
   it('should get a single translation', function(done) {
     var passage = 'Gen1:1;ASV';
