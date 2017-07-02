@@ -23,7 +23,7 @@ Bible API RESTful web service developed with Node.js
       bookName: "Genesis"
     }
   ],
-  text: In the beginning God created the heaven and the earth."
+  text: "In the beginning God created the heaven and the earth."
 }
 ```
 
@@ -64,7 +64,7 @@ Bible API RESTful web service developed with Node.js
       bookName: "Genesis"
     }
   ],
-  text: In the beginning God created the heaven and the earth."
+  text: "In the beginning God created the heaven and the earth."
 }
 ```
 
