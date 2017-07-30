@@ -2,7 +2,7 @@
 
 const bcv_parser = require("bible-passage-reference-parser/js/en_bcv_parser").bcv_parser;
 const bcv = new bcv_parser;
-var fetcher = require('../server/fetcher');
+var fetcher = require('../server/v1/fetcher');
 
 var chai = require('chai');
 var should = chai.should();
