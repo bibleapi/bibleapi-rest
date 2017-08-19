@@ -1,5 +1,6 @@
 import { Router } from 'express';
 
+import MetaController from './controllers/meta.controller';
 import PassageController from './controllers/passage.controller';
 
 import errorHandler from './middleware/error-handler';
@@ -11,6 +12,8 @@ routes.get('/favicon.ico', function(req, res) {
 });
 
 routes.get('/:reference', PassageController.find);
+
+routes.get('/meta/:translation', MetaController.find);
 
 routes.use(errorHandler);
 

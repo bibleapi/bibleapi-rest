@@ -8,7 +8,7 @@ Bible API RESTful web service developed with Node.js
 ### Single passage
 
 ###### Single verse
-[http://localhost:3333/api/v1/Gen1:1](http://localhost:3333/api/v1/Gen1:1)
+[http://localhost:3333/api/Gen1:1](http://localhost:3333/api/v1/Gen1:1)
 
 ```
 {
@@ -28,28 +28,28 @@ Bible API RESTful web service developed with Node.js
 ```
 
 ###### Single chapter
-[http://localhost:3333/api/v1/Gen1](http://localhost:3333/api/v1/Gen1)
+[http://localhost:3333/api/Gen1](http://localhost:3333/api/Gen1)
 
 ### Single passage range
 
 ###### Single verse range
-[http://localhost:3333/api/v1/Gen1:1-5](http://localhost:3333/api/v1/Gen1:1-5)
+[http://localhost:3333/api/Gen1:1-5](http://localhost:3333/api/Gen1:1-5)
 
 ###### Single chapter range
-[http://localhost:3333/api/v1/Gen1-3](http://localhost:3333/api/v1/Gen1-3)
+[http://localhost:3333/api/Gen1-3](http://localhost:3333/api/Gen1-3)
 
 ###### Single chapter and verses range
-[http://localhost:3333/api/v1/Gen1:1-2:5](http://localhost:3333/api/v1/Gen1:1-2:5)
+[http://localhost:3333/api/Gen1:1-2:5](http://localhost:3333/api/Gen1:1-2:5)
 
 ### Multiple passages
-[http://localhost:3333/api/v1/Gen1;Gen2:1-3:5](http://localhost:3333/api/v1/Gen1;Gen2:1-3:5)
+[http://localhost:3333/api/Gen1;Gen2:1-3:5](http://localhost:3333/api/Gen1;Gen2:1-3:5)
 
 ### Supported translations
 - KJV
 - ASV
 
 #### Single translation
-[http://localhost:3333/api/v1/Gen1:1ASV](http://localhost:3333/api/v1/Gen1:1ASV)
+[http://localhost:3333/api/Gen1:1ASV](http://localhost:3333/api/Gen1:1ASV)
 
 ```
 {
@@ -69,7 +69,7 @@ Bible API RESTful web service developed with Node.js
 ```
 
 #### Multiple translations
-[http://localhost:3333/api/v1/Gen1:1KJV;ASV](http://localhost:3333/api/v1/Gen1:1KJV;ASV)
+[http://localhost:3333/api/Gen1:1KJV;ASV](http://localhost:3333/api/Gen1:1KJV;ASV)
 
 ```
 {
@@ -97,7 +97,7 @@ Bible API RESTful web service developed with Node.js
 ```
 
 ### Meta data
-[http://localhost:3333/api/v1/meta/KJV](http://localhost:3333/api/v1/meta/KJV)
+[http://localhost:3333/api/meta/KJV](http://localhost:3333/api/meta/KJV)
 
 ## Development
 
