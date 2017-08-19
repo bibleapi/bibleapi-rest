@@ -7,7 +7,7 @@ module.exports = mongoPool => {
         .then(rows =>
           rows.map((row) => ({
             id: row._id,
-            book: row.bookRef,
+            book: row.book_id,
             chapter: row.chapter,
             verse: row.verse,
             text: row.text

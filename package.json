@@ -19,9 +19,9 @@
     "rest"
   ],
   "bugs": {
-    "url": "https://github.com/rkazakov/bibleapi-rest/issues"
+    "url": "https://github.com/bibleapi/bibleapi-rest/issues"
   },
-  "homepage": "https://github.com/rkazakov/bibleapi-rest#readme",
+  "homepage": "https://github.com/bibleapi/bibleapi-rest#readme",
   "dependencies": {
     "bible-passage-reference-parser": "^2.0.1",
     "dotenv": "^4.0.0",
