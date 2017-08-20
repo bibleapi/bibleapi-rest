@@ -21,6 +21,25 @@ class PassageController extends BaseController {
     }
   };
 
+  findRandomProverb = async (req, res, next) => {
+    try {
+      const randomChapter = Math.floor(Math.random() * 30) + 1;
+      const randomVerse = Math.floor(Math.random() * 20) + 1;
+      const reference = ['Prov ', randomChapter, ':', randomVerse].join('');
+      console.log(reference);
+      const parsedReference = parser.parse(reference);
+      const passageQuery = queryMapper.mapQuery(parsedReference);
+      const result = await mongoDb(req.app.mongoPool).getVerses(passageQuery);
+      res.json(
+        {
+          verses: result
+        }
+      );
+    } catch(err) {
+      next(err);
+    }
+  };
+
 }
 
 export default new PassageController();

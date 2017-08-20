@@ -2,12 +2,12 @@
 
 const bcv_parser = require("bible-passage-reference-parser/js/en_bcv_parser").bcv_parser;
 const bcv = new bcv_parser;
-var fetcher = require('../server/v1/fetcher');
+var fetcher = require('../../server/v1/fetcher');
 
 var chai = require('chai');
 var should = chai.should();
 
-describe('fetchBcv', function() {
+describe.skip('fetchBcv', function() {
   it('should get an empty object from fetchBcv', function(done) {
     var passage = 'Gen';
     var entity = bcv.parse(passage).entities[0];
@@ -47,7 +47,7 @@ describe('fetchBcv', function() {
   });
 });
 
-describe('fetchRange', function() {
+describe.skip('fetchRange', function() {
   it('should get a book object from fetchRange', function(done) {
     var passage = 'Gen;Ps';
     var entity = bcv.parse(passage).entities[0];
@@ -213,7 +213,7 @@ describe('fetchRange', function() {
   });
 });
 
-describe('fetchTranslation', function() {
+describe.skip('fetchTranslation', function() {
   it('should get a single translation', function(done) {
     var passage = 'Gen1:1;ASV';
     var entity = bcv.parse(passage).entities[0];

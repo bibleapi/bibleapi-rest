@@ -66,14 +66,4 @@ MongoClient.connect(mongoDbUrl, (error, mongoPool) => {
 
 });
 
-/*
-// index
-server.get('/', router.respondIndex);
-server.head('/', router.respondIndex);
-// metadata
-server.get('/api/v1/meta/:translation', router.getMeta);
-server.get('/api/v1/meta/:translation/books', router.getMeta);
-// passage
-server.get('/api/v1/:passage', router.parsePassage);
-server.head('/api/v1/:passage', router.parsePassage);
-*/
+export default app;

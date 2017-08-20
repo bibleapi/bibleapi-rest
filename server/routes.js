@@ -11,6 +11,8 @@ routes.get('/favicon.ico', function(req, res) {
   res.sendStatus(204);
 });
 
+routes.get('/random', PassageController.findRandomProverb);
+
 routes.get('/:reference', PassageController.find);
 
 routes.get('/meta/:translation', MetaController.find);
