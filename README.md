@@ -1,4 +1,7 @@
-# Bible API 0.2.0
+# Bible API REST
+
+[![Known Vulnerabilities](https://snyk.io/test/github/bibleapi/bibleapi-rest/badge.svg)](https://snyk.io/test/github/bibleapi/bibleapi-rest)
+
 Bible API RESTful web service developed with Node.js
 
 ----
