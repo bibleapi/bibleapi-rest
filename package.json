@@ -27,9 +27,9 @@
     "bible-passage-reference-parser": "^2.0.1",
     "dotenv": "^4.0.0",
     "express": "^4.14.0",
-    "express-winston": "^2.4.0",
+    "express-winston": "^2.5.0",
     "helmet": "^3.8.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.16",
     "mongodb": "^2.2.30",
     "winston": "^2.3.1"
   },
