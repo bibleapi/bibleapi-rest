@@ -30,7 +30,7 @@
     "express-winston": "^2.4.0",
     "helmet": "^3.8.0",
     "lodash": "^4.17.4",
-    "mongodb": "^2.2.30",
+    "mongodb": "^3.1.13",
     "winston": "^2.3.1"
   },
   "devDependencies": {
